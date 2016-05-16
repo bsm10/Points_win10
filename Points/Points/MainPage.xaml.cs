@@ -27,7 +27,7 @@ namespace Points
     {
         Game game;
         private int player_move;//переменная хранит значение игрока который делает ход
-        private bool autoplay;
+        //private bool autoplay;
 
         public MainPage()
         {

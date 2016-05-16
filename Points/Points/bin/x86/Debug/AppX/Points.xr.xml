@@ -18,10 +18,7 @@
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl">
       <RootProperty Name="Margin" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Height" />
       <RootProperty Name="ClearColor" />
-      <RootProperty Name="Width" />
       <RootEvent Name="Draw" />
       <RootEvent Name="Tapped" />
       <RootEvent Name="PointerMoved" />

@@ -72,10 +72,10 @@ namespace Points
 
         public List<Dot> dots_in_region;//записывает сюда точки, которые окружают точку противника
         //=========== цвета, шрифты ===================================================
-        public Color colorGamer1 = Colors.Azure; //Properties.Settings.Default.Color_Gamer1,
-        public Color colorGamer2 = Colors.DarkGreen;//Properties.Settings.Default.Color_Gamer2,
+        public Color colorGamer1 = Colors.Red; //Properties.Settings.Default.Color_Gamer1,
+        public Color colorGamer2 = Colors.Blue;//Properties.Settings.Default.Color_Gamer2,
         public Color colorCursor = Color.FromArgb(50, 50, 200, 50);// Properties.Settings.Default.Color_Cursor;
-        private float PointWidth = 0.18f;
+        private float PointWidth = 0.20f;
         public Color colorBoard = Color.FromArgb(255, 150, 200, 200);//(Color.DarkSlateBlue, 0.08f);
         public Color colorDrawBrush = Colors.MediumPurple;
         //public ICanvasBrush SolidBrush;
@@ -1318,20 +1318,20 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
             Color c;
             if (p.Blocked)
             {
-                drawingSession.FillEllipse(p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2, Color.FromArgb(130, colorGamer.R, colorGamer.G, colorGamer.B));
+                drawingSession.FillEllipse(p.x, p.y, PointWidth , PointWidth , Color.FromArgb(130, colorGamer.R, colorGamer.G, colorGamer.B));
             }
-            else if (last_move != null && p.x == last_move.x & p.y == last_move.y)//точка последнего хода должна для удовства выделяться
+            else if (last_move != null && p.x == last_move.x & p.y == last_move.y)//точка последнего хода должна для удоиства выделяться
             {
-                drawingSession.FillEllipse(p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2, Color.FromArgb(140, colorGamer.R, colorGamer.G, colorGamer.B));
-                drawingSession.DrawEllipse(p.x - PointWidth / 2, p.y - PointWidth / 2, PointWidth, PointWidth, Colors.WhiteSmoke, 0.08f);
-                drawingSession.DrawEllipse(p.x - PointWidth, p.y - PointWidth, PointWidth + PointWidth, PointWidth + PointWidth, colorGamer, 0.08f);
+                drawingSession.FillEllipse(p.x , p.y , PointWidth , PointWidth , Color.FromArgb(140, colorGamer.R, colorGamer.G, colorGamer.B));
+                drawingSession.DrawEllipse(p.x , p.y, PointWidth/2, PointWidth/2, Colors.WhiteSmoke, 0.05f);
+                drawingSession.DrawEllipse(p.x , p.y , PointWidth , PointWidth , colorGamer, 0.08f);
             }
             else
             {
                 int G = colorGamer.G > 50 ? colorGamer.G - 50 : 120;
                 c = p.BlokingDots.Count > 0 ? Color.FromArgb(255, colorGamer.R, colorGamer.G, colorGamer.B) : colorGamer;
-                drawingSession.FillEllipse(p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2, colorGamer);
-                drawingSession.DrawEllipse(p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2, c, 0.08f);
+                drawingSession.FillEllipse(p.x , p.y , PointWidth , PointWidth , colorGamer);
+                drawingSession.DrawEllipse(p.x , p.y , PointWidth , PointWidth , c, 0.08f);
             }
             #region Editor patterns
             //if (p.PatternsEmptyDot)
