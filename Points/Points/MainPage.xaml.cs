@@ -26,13 +26,15 @@ namespace Points
     public sealed partial class MainPage : Page
     {
         Game game;
+        int boardWidth = 7;
+        int boardHeight = 10;
         private int player_move;//переменная хранит значение игрока который делает ход
         //private bool autoplay;
 
         public MainPage()
         {
             InitializeComponent();
-            game = new Game(canvas);
+            game = new Game(canvas, boardWidth, boardHeight);
         }
 
         private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
@@ -92,7 +94,7 @@ namespace Points
             if (pl_move == null)
             {
                 //MessageBox.Show("You win!!! \r\n" + game.Statistic());
-                game.NewGame();
+                game.NewGame(boardWidth, boardHeight);
                 return 1;
             }
             pl_move.Own = Player;

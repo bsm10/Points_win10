@@ -28,10 +28,12 @@ namespace Points
 
         //-------------------------------------------------
         public int iScaleCoef = 1;//- коэффициент масштаба
-        public int iBoardSize = 10;//- количество клеток квадрата в длинну
+        //public int iBoardSize  ;//- количество клеток квадрата в длинну
+        public int iBoardWidth ;//- количество клеток квадрата в длинну
+        public int iBoardHeight ;//- количество клеток квадрата в длинну
         //public int iMapSize;//- количество клеток квадрата в длинну - размер всей карты
-        public const int iBoardSizeMin = 5;
-        public const int iBoardSizeMax = 20;
+        //public const int iBoardSizeMin = 5;
+        //public const int iBoardSizeMax = 20;
 
         public float startX = -0.5f, startY = -0.5f;
         public ArrayDots aDots;//Основной массив, где хранятся все поставленные точки. С єтого массива рисуются все точки
@@ -59,8 +61,8 @@ namespace Points
                 {
                     var random = new Random(DateTime.Now.Millisecond);
                     var q = from Dot d in aDots
-                            where d.x <= iBoardSize / 2 & d.x > iBoardSize / 3
-                                & d.y <= iBoardSize / 2 & d.y > iBoardSize / 3
+                            where d.x <= iBoardWidth / 2 & d.x > iBoardWidth / 3
+                                & d.y <= iBoardHeight / 2 & d.y > iBoardHeight / 3
                             orderby (random.Next())
                             select d;
 
@@ -108,10 +110,10 @@ namespace Points
         Stopwatch sW2 = new Stopwatch();
 #endif
 
-        public Game(CanvasControl CanvasGame)
+        public Game(CanvasControl CanvasGame, int boardWidth, int boardHeight)
         {
             pbxBoard = CanvasGame;
-            NewGame();
+            NewGame(boardWidth, boardHeight);
         }
         public void SetLevel(int iLevel = 1)
         {
@@ -892,12 +894,16 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
             pbxBoard.Invalidate();
             //System.Threading.Thread.Sleep(ms);
         }
-        public void NewGame()
+        public void NewGame(int boardWidth, int boardHeight)
         {
             //iMapSize = iBoardSize * iScaleCoef;
             //aDots = new ArrayDots(iMapSize);
-            iBoardSize = 15;
-            aDots = new ArrayDots(iBoardSize);
+
+            //iBoardSize = 15;
+            aDots = new ArrayDots(boardWidth, boardHeight);
+            iBoardWidth = boardWidth;
+            iBoardHeight = boardHeight;
+            //aDots = new ArrayDots(iBoardSize);
             lnks = new List<Links>();
             dots_in_region = new List<Dot>();
             list_moves = new List<Dot>();
@@ -927,7 +933,7 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
             dot.Marked = true;
 
             //if (dot.x == 0 | dot.y == 0 | dot.x == iMapSize - 1 | dot.y == iMapSize - 1)
-            if (dot.x == 0 | dot.y == 0 | dot.x == iBoardSize - 1 | dot.y == iBoardSize - 1)
+            if (dot.x == 0 | dot.y == 0 | dot.x == iBoardWidth - 1 | dot.y == iBoardHeight - 1)
             {
                 return true;
             }
@@ -1109,7 +1115,7 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
             foreach (Dot dot in qd)
             {
                 //if (dot.x > 0 & dot.y > 0 & dot.x < iMapSize - 1 & dot.y < iMapSize - 1)
-                if (dot.x > 0 & dot.y > 0 & dot.x < iBoardSize - 1 & dot.y < iBoardSize - 1)
+                if (dot.x > 0 & dot.y > 0 & dot.x < iBoardWidth - 1 & dot.y < iBoardHeight - 1)
                 {
                     Dot[] dts = new Dot[4] { aDots[dot.x + 1, dot.y], aDots[dot.x - 1, dot.y], aDots[dot.x, dot.y + 1], aDots[dot.x, dot.y - 1] };
                     res = 0;
@@ -1147,11 +1153,9 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
             }
 
         }
-        public void ResizeBoard(int newSize)//изменение размера доски
+        public void ResizeBoard(int boardWidth, int boardHeight)//изменение размера доски
         {
-            iBoardSize = newSize;
-            //Properties.Settings.Default.BoardSize=newSize;
-            NewGame();
+            NewGame(boardWidth, boardHeight);
             pbxBoard.Invalidate();
         }
         public void UndoMove(int x, int y)//поле отмена хода
@@ -1234,12 +1238,12 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
         {
             //if (антиалToolStripMenuItem.Checked)
             //{
-            //gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            drawingSession.Antialiasing = CanvasAntialiasing.Antialiased;
             //}
             //Устанавливаем масштаб
             
             SetScale(drawingSession, (int)canvasCtrl.ActualWidth, (int)canvasCtrl.ActualHeight,
-                startX, startX + iBoardSize, startY, iBoardSize + startY);
+                startX, startX + iBoardWidth, startY, iBoardHeight + startY);
 
             //Рисуем доску
             DrawBoard(drawingSession);
@@ -1256,17 +1260,17 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
         }
         public void DrawBoard(CanvasDrawingSession drawingSession)//рисуем доску из клеток
         {
-            for (float i = 0; i < iBoardSize; i++)
+            for (float i = 0; i < iBoardWidth; i++)
             {
                 Color drB = i == 0 ? Colors.MediumSeaGreen : colorDrawBrush;
-#if DEBUG
-                    gr.DrawString("y" + (i + startY + 0.5f).ToString(), drawFont, drB, startX, i + startY + 0.5f - 0.2f);
-                    gr.DrawString("x" + (i + startX + 0.5f).ToString(), drawFont, drB, i + startX + 0.5f - 0.2f, startY);
-#endif
-                drawingSession.DrawLine(i + startX + 0.5f, startY + 0.5f, i + startX + 0.5f, iBoardSize + startY - 0.5f, colorBoard, 0.08f);
-                drawingSession.DrawLine(startX + 0.5f, i + startY + 0.5f, iBoardSize + startX - 0.5f, i + startY + 0.5f, colorBoard, 0.08f);
-
+                drawingSession.DrawLine(i + startX + 0.5f, startY + 0.5f, i + startX + 0.5f, iBoardHeight + startY - 0.5f, colorBoard, 0.08f);
             }
+            for (float i = 0; i < iBoardHeight; i++)
+            {
+                Color drB = i == 0 ? Colors.MediumSeaGreen : colorDrawBrush;
+                drawingSession.DrawLine(startX + 0.5f, i + startY + 0.5f, iBoardWidth + startX - 0.5f, i + startY + 0.5f, colorBoard, 0.08f);
+            }
+
         }
         public void DrawLinks(CanvasDrawingSession drawingSession)//отрисовка связей
         {

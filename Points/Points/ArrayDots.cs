@@ -46,24 +46,48 @@ namespace Points
     {
         private Dot[,] Dots;//основной массив, где хранятся точки
         int position = -1;
-        private int nSize;//размер поля
-        public ArrayDots(int size)
+        //private int nSize;//размер поля
+        private int nWidth;
+        private int nHeight;
+
+        //public ArrayDots(int size)
+
+        //{
+        //    int counter=0;
+        //    Dots = new Dot[size, size];
+        //    nSize = size;
+        //    nWidth = size;
+        //    nHeight = size;
+        //    for (int i = 0; i < size; i++)
+        //    {
+        //        for (int j = 0; j < size; j++)
+        //        {
+        //            Dots[i,j]=new Dot(i, j);
+        //            Dots[i,j].IndexDot = counter;
+        //            if(i==0 | i == (size-1) | j == 0 | j==(size-1)) Dots[i,j].Fixed=true;
+        //            counter += 1;
+        //        }
+        //    }
+        //}
+        public ArrayDots(int width, int height)
 
         {
-            int counter=0;
-            Dots = new Dot[size, size];
-            nSize = size; 
-            for (int i = 0; i < size; i++)
+            int counter = 0;
+            Dots = new Dot[width, height];
+            nWidth = width;
+            nHeight = height;
+            for (int i = 0; i < width; i++)
             {
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < height; j++)
                 {
-                    Dots[i,j]=new Dot(i, j);
-                    Dots[i,j].IndexDot = counter;
-                    if(i==0 | i == (size-1) | j == 0 | j==(size-1)) Dots[i,j].Fixed=true;
+                    Dots[i, j] = new Dot(i, j);
+                    Dots[i, j].IndexDot = counter;
+                    if (i == 0 | i == (width - 1) | j == 0 | j == (height - 1)) Dots[i, j].Fixed = true;
                     counter += 1;
                 }
             }
         }
+
         public class DotEq : EqualityComparer<Dot>
         {
             public override int GetHashCode(Dot dot)
@@ -91,8 +115,8 @@ namespace Points
             {
                 if (i < 0) i = 0;
                 if (j < 0) j = 0;
-                if (i >= nSize) i = nSize - 1;
-                if (j >= nSize) j = nSize - 1;
+                if (i >= nWidth) i = nWidth - 1;
+                if (j >= nHeight) j = nHeight - 1;
                 return Dots[i,j];
             }
             set
@@ -228,7 +252,7 @@ namespace Points
         public bool Contains(Dot dot)//проверяет, есть ли точка с такими координатами в массиве
         {
             if (dot == null) return false;
-                if (dot.x >=0 & dot.x<nSize & dot.y >= 0 & dot.y<nSize )
+                if (dot.x >=0 & dot.x<nWidth & dot.y >= 0 & dot.y< nHeight)
                 {
                     return true;
                 } 
@@ -237,7 +261,7 @@ namespace Points
 
         public bool Contains(int x, int y)//проверяет, есть ли точка с такими координатами в массиве
         {
-            if (x >= 0 & x < nSize & y >= 0 & y < nSize)
+            if (x >= 0 & x < nWidth & y >= 0 & y < nHeight)
             {
                 return true;
             }
@@ -257,7 +281,7 @@ namespace Points
         public int MinX()
         {
         var q = from Dot d in Dots where d.Own!=0 & d.Blocked==false select d;
-            int minX=nSize;
+            int minX=nWidth;
             foreach (Dot d in q)
             {
                 if(minX>d.x)minX=d.x; 
@@ -287,7 +311,7 @@ namespace Points
         public int MinY()
         {
             var q = from Dot d in Dots where d.Own != 0 & d.Blocked == false select d;
-            int minY = nSize;
+            int minY = nHeight;
             foreach (Dot d in q)
             {
                 if (minY > d.y) minY = d.y;
@@ -378,7 +402,12 @@ namespace Points
         //IEnumerable
         public object Current
         {
-            get {return Dots[position/nSize,position%nSize];}
+            get
+            {
+                int i = position % nWidth; 
+                int j = position / nWidth;
+                return Dots[i,j];
+            }
         }
     }
 }
