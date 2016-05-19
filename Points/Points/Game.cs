@@ -436,12 +436,21 @@ namespace Points
         // функция проверяет не делается ли ход в точку, которая на следующем ходу будет окружена
         private bool CheckDot(Dot dot, int Player)
         {
-            MakeMove(dot, Player);
+            int res = MakeMove(dot, Player);
             int pl = Player == PLAYER_COMPUTER ? 1 : 2;
-            if (win_player == pl || CheckMove(pl) != null)
+            //if (win_player==pl || CheckMove(pl) != null) // первое условие - ход в уже оеруженный регион, второе окружен на следующем ходу
+            if (win_player == pl)
             {
                 UndoMove(dot);
                 return true; // да будет окружена
+            }
+            Dot dotEnemy = CheckMove(pl);
+            if (dotEnemy != null)
+            {
+                res = MakeMove(dotEnemy, pl);
+                bool flag = dot.Blocked;
+                UndoMove(dotEnemy);
+                return flag; // да будет окружена
             }
             //нет не будет
             UndoMove(dot);

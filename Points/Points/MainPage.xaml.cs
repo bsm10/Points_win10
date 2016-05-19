@@ -34,7 +34,15 @@ namespace Points
         public MainPage()
         {
             InitializeComponent();
+
+            double Xres = canvas.ActualWidth;
+            double Yres = canvas.ActualHeight;
+            double scl_coef = Xres / Yres;
+            Height = 4 * Yres / 5;
+            Width = Height - 50;
+
             game = new Game(canvas, boardWidth, boardHeight);
+
         }
 
         private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
