@@ -22,13 +22,13 @@
     <AppXManifest Include="E:\Programming\MyProject\Points_win10\Points\Points\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-05-17T18:21:46.315</Modified>
+      <Modified>2016-05-21T04:13:48.540</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="E:\Programming\MyProject\Points_win10\Points\Points\bin\x86\Debug\Points.exe">
       <PackagePath>entrypoint\Points.exe</PackagePath>
-      <Modified>2016-05-17T18:21:46.101</Modified>
+      <Modified>2016-05-21T04:13:48.070</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\.nuget\packages\Microsoft.ApplicationInsights\1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -506,7 +506,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Programming\MyProject\Points_win10\Points\Points\bin\x86\Debug\Points.xr.xml">
       <PackagePath>Points.xr.xml</PackagePath>
-      <Modified>2016-05-16T18:16:53.671</Modified>
+      <Modified>2016-05-21T04:13:47.260</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -514,11 +514,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Programming\MyProject\Points_win10\Points\Points\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-05-17T04:42:29.521</Modified>
+      <Modified>2016-05-21T04:13:48.400</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Programming\MyProject\Points_win10\Points\Points\bin\x86\Debug\Core\Points.exe">
       <PackagePath>Points.exe</PackagePath>
-      <Modified>2016-05-17T18:21:46.310</Modified>
+      <Modified>2016-05-21T04:13:48.534</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
