@@ -30,7 +30,7 @@ namespace Points
         int boardWidth = 20;
         int boardHeight = 30;
         private int player_move;//переменная хранит значение игрока который делает ход
-
+        int game_result;
         DispatcherTimer timer = new DispatcherTimer();
 
         private DateTimeOffset startTime;
@@ -69,6 +69,8 @@ namespace Points
 
         private void Timer_Tick(object sender, object e)
         {
+            //game_result = player_move == 2 ? MoveGamer(2) : MoveGamer(1); //- autoplay
+
             //============Ход компьютера=================
             if (player_move == 2)
             {
@@ -107,21 +109,12 @@ namespace Points
 
                         #region Ходы игроков
                         if (game.aDots[(int)game.MousePos.X, (int)game.MousePos.Y].Own > 0) return;//предовращение хода если клик был по занятой точке
+
                         if (player_move == 1 | player_move == 0)
                         {
-                            //player_move = 1;
+                            player_move = 1;
                             if (MoveGamer(1, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) > 0) return;
-                            //canvas.Invalidate();
-                            
-                            
                         }
-                        ////============Ход компьютера=================
-                        //if (player_move == 1)
-                        //{
-                        //    if (MoveGamer(2) > 0) return;
-                        //    canvas.Invalidate();
-                        //    player_move = 2;
-                        //}
                         #endregion
 
 
