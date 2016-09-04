@@ -16,26 +16,16 @@ namespace Points
         #region RENDER
         public void DrawGame(CanvasControl canvasCtrl, CanvasDrawingSession drawingSession)//отрисовка хода игры
         {
-            //if (антиалToolStripMenuItem.Checked)
-            //{
             drawingSession.Antialiasing = CanvasAntialiasing.Antialiased;
-            //}
             //Устанавливаем масштаб
-
             SetScale(drawingSession, (int)canvasCtrl.ActualWidth, (int)canvasCtrl.ActualHeight,
                 startX, startX + iBoardWidth, startY, iBoardHeight + startY);
-
             //Рисуем доску
             DrawBoard(drawingSession);
             //Рисуем точки
             DrawPoints(drawingSession);
-            //Отрисовка курсора
-            //drawingSession.FillEllipse(MousePos.X - PointWidth, MousePos.Y - PointWidth, PointWidth * 2, PointWidth * 2, Color.FromArgb(30, colorCursor.R, colorCursor.G, colorCursor.B));
-            //drawingSession.FillEllipse(MousePos.X - PointWidth/2, MousePos.Y - PointWidth/2, PointWidth , PointWidth, Colors.DarkSalmon);
-            //drawingSession.DrawEllipse(new Pen(Color.FromArgb(50, colorCursor), 0.05f), MousePos.X - PointWidth, MousePos.Y - PointWidth, PointWidth * 2, PointWidth * 2);
             //Отрисовка замкнутого региона игрока1
             DrawLinks(drawingSession);
-
             drawingSession.DrawLine(0, 100, 100, 0, colorBoard, 5.0f);
         }
         public void DrawBoard(CanvasDrawingSession drawingSession)//рисуем доску из клеток
@@ -117,32 +107,7 @@ namespace Points
                 drawingSession.FillEllipse(p.x, p.y, PointWidth, PointWidth, colorGamer);
                 drawingSession.DrawEllipse(p.x, p.y, PointWidth, PointWidth, c, 0.08f);
             }
-            #region Editor patterns
-            //if (p.PatternsEmptyDot)
-            //{
-            //    drawingSession.FillEllipse(new SolidBrush(Color.FromArgb(100, Color.WhiteSmoke)), p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2);
-            //    drawingSession.DrawEllipse(new Pen(Color.Transparent, 0.08f), p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2);
-            //}
-            //if (p.PatternsMoveDot)
-            //{
-            //    //gr.FillEllipse(new SolidBrush(Color.FromArgb(50, Color.Plum)), p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2);
-            //    drawingSession.DrawEllipse(new Pen(Color.LimeGreen, 0.08f), p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2);
-            //}
-            //if (p.PatternsFirstDot)
-            //{
-            //    //gr.FillEllipse(new SolidBrush(Color.FromArgb(50, Color.ForestGreen)), p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2);
-            //    drawingSession.DrawEllipse(new Pen(Color.DarkSeaGreen, 0.08f), p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2);
-            //}
-            //if (p.PatternsAnyDot)
-            //{
-            //    drawingSession.FillEllipse(new SolidBrush(Color.Yellow), p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2);
-            //    drawingSession.DrawEllipse(new Pen(Color.Orange, 0.08f), p.x - PointWidth, p.y - PointWidth, PointWidth * 2, PointWidth * 2);
-            //}
-            #endregion
-
         }
-        //Matrix _transform = new Matrix();//матрица для преобразования координат точек в заданном масштабе
-        //Matrix _transform = new Matrix();//матрица для преобразования координат точек в заданном масштабе
         Matrix3x2 _transform;
         /// <summary>
         /// функция масштабирования, устанавливает массштаб

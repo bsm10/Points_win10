@@ -14,16 +14,16 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar Height="48">
-            <CommandBar.SecondaryCommands>
-                <AppBarToggleButton x:ConnectionId='3' x:Uid="AllTasks" x:Name="AllTasks" Label="Отображать все задачи" />
-                <AppBarToggleButton x:ConnectionId='4' x:Uid="RepeatBox" x:Name="RepeatBox" Label="Повторять напоминание"/>
-                <AppBarButton x:ConnectionId='5' x:Uid="CalendarButton" x:Name="CalendarButton" Label="Календарь"  />
+            <!--<CommandBar.SecondaryCommands>
+                <AppBarToggleButton x:Uid="AllTasks" x:Name="AllTasks" Label="Отображать все задачи" />
+                <AppBarToggleButton x:Uid="RepeatBox" x:Name="RepeatBox" Label="Повторять напоминание"/>
+                <AppBarButton x:Uid="CalendarButton" x:Name="CalendarButton" Label="Календарь"  />
 
-            </CommandBar.SecondaryCommands>
-            <AppBarButton x:ConnectionId='6' x:Uid="AddAppBarButton" x:Name="AddEventButton" Label="добавить" Icon="Add" />
-            <AppBarButton x:ConnectionId='7' x:Uid="AddAppBarButton" x:Name="MessageButton" Label="уведомления" Icon="Message"  />
-            <AppBarButton x:ConnectionId='8' x:Uid="AddAppBarButton" x:Name="ProfileButton"  Label="профиль" Icon="ContactPresence" />
-            <AppBarButton x:ConnectionId='9' x:Uid="AddAppBarButton" x:Name="SettingsButton" Label="настройки" Icon="Setting" />
+            </CommandBar.SecondaryCommands>-->
+            <AppBarButton x:ConnectionId='3' x:Uid="AddAppBarButton" x:Name="NewGame" Label="New game" Icon="Document"                         />
+            <AppBarButton x:ConnectionId='4' x:Uid="AddAppBarButton" x:Name="SaveGame" Label="Save game" Icon="Save"                           />
+            <AppBarButton x:ConnectionId='5' x:Uid="AddAppBarButton" x:Name="LoadGame"  Label="Load game" Icon="OpenFile" />
+            <AppBarButton x:ConnectionId='6' x:Uid="AddAppBarButton" x:Name="SettingsButton" Label="Settings" Icon="Setting" />
         </CommandBar>
 
     </Page.BottomAppBar>

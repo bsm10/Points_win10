@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,10 +27,18 @@ namespace Points
     public sealed partial class MainPage : Page
     {
         Game game;
-        int boardWidth = 7;
-        int boardHeight = 10;
+        int boardWidth = 20;
+        int boardHeight = 30;
         private int player_move;//переменная хранит значение игрока который делает ход
+
+        DispatcherTimer timer = new DispatcherTimer();
+
+        private DateTimeOffset startTime;
+        private DateTimeOffset lastTime;
+
         //private bool autoplay;
+
+
 
         public MainPage()
         {
@@ -42,14 +51,38 @@ namespace Points
             //Width = Height - 50;
 
             game = new Game(canvas, boardWidth, boardHeight);
+            player_move = 2;
+            DispatcherTimerSetup();
+        }
+        public void DispatcherTimerSetup()
+        {
+            timer = new DispatcherTimer();
+            timer.Tick += Timer_Tick;
+            timer.Interval = new TimeSpan(0, 0, 1);
+            ////IsEnabled defaults to false
+            startTime = DateTimeOffset.Now;
+            lastTime = startTime;
+            timer.Start();
+            ////IsEnabled should now be true after calling start
+            //TimerLog.Text += "dispatcherTimer.IsEnabled = " + dispatcherTimer.IsEnabled + "\n";
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            //============Ход компьютера=================
+            if (player_move == 2)
+            {
+                if (MoveGamer(2) > 0) return;
+            }
 
         }
 
         private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
             var session = args.DrawingSession;
-            session.Clear(Colors.Azure);
+            session.Clear(Colors.White);
             game.DrawGame(sender,session);
+            
         }
 
         private void canvas_Tapped(object sender, TappedRoutedEventArgs e)
@@ -74,20 +107,21 @@ namespace Points
 
                         #region Ходы игроков
                         if (game.aDots[(int)game.MousePos.X, (int)game.MousePos.Y].Own > 0) return;//предовращение хода если клик был по занятой точке
-                        if (player_move == 2 | player_move == 0)
+                        if (player_move == 1 | player_move == 0)
                         {
+                            //player_move = 1;
                             if (MoveGamer(1, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) > 0) return;
-                            player_move = 1;
-                            //Application.DoEvents();
+                            //canvas.Invalidate();
+                            
+                            
                         }
-                        //============Ход компьютера=================
-                        if (player_move == 1)
-                        {
-                            game.Redraw = false;
-                            if (MoveGamer(2) > 0) return;
-                            game.Redraw = true;
-                            player_move = 2;
-                        }
+                        ////============Ход компьютера=================
+                        //if (player_move == 1)
+                        //{
+                        //    if (MoveGamer(2) > 0) return;
+                        //    canvas.Invalidate();
+                        //    player_move = 2;
+                        //}
                         #endregion
 
 
@@ -95,9 +129,6 @@ namespace Points
         }
         private int MoveGamer(int Player, Dot pl_move = null)
         {
-            //toolStripStatusLabel2.ForeColor = Player == 1 ? game.colorGamer1 : game.colorGamer2;
-            //toolStripStatusLabel2.Text = "Ход игрока" + Player + "...";
-            //Application.DoEvents();
             if (pl_move == null) pl_move = game.PickComputerMove(game.LastMove);
             if (pl_move == null)
             {
@@ -108,12 +139,12 @@ namespace Points
             pl_move.Own = Player;
             game.MakeMove(pl_move, Player);
             game.ListMoves.Add(pl_move);
+            
             canvas.Invalidate();
-            int pl = Player == 1 ? 2 : 1;
-            //toolStripStatusLabel2.ForeColor = pl == 1 ? game.colorGamer1 : game.colorGamer2;
-            //toolStripStatusLabel2.Text = "Ход игрока" + pl + "...";
+            player_move = Player == 1 ? 2 : 1;
             if (game.GameOver())
             {
+                game = new Game(canvas, boardWidth, boardHeight);
                 //MessageBox.Show("Game over! \r\n" + game.Statistic());
                 return 1;
             }
@@ -127,5 +158,20 @@ namespace Points
             txtCoordinate.Text = game.TranslateCoordinates(ptrPt.Position).ToString();
         }
 
+        private void NewGame_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            game = new Game(canvas, boardWidth, boardHeight);
+        }
+
+        private void SaveGame_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            canvas.RemoveFromVisualTree();
+            canvas = null;
+        }
     }
 }

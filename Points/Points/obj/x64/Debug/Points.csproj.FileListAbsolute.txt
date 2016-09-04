@@ -217,3 +217,4 @@ C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x64\Debug\FxResources.System.Security.Cryptography.Encoding.SR.resw
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x64\Debug\FxResources.System.Security.Cryptography.Primitives.SR.resw
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x64\Debug\FxResources.System.Security.Cryptography.X509Certificates.SR.resw
+C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x64\Debug\Points.csprojResolveAssemblyReference.cache

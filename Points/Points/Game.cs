@@ -74,8 +74,8 @@ namespace Points
 
         public List<Dot> dots_in_region;//записывает сюда точки, которые окружают точку противника
         //=========== цвета, шрифты ===================================================
-        public Color colorGamer1 = Colors.Red; //Properties.Settings.Default.Color_Gamer1,
-        public Color colorGamer2 = Colors.Blue;//Properties.Settings.Default.Color_Gamer2,
+        public Color colorGamer1 = Colors.Tomato; //Properties.Settings.Default.Color_Gamer1,
+        public Color colorGamer2 = Colors.MediumSlateBlue;//Properties.Settings.Default.Color_Gamer2,
         public Color colorCursor = Color.FromArgb(50, 50, 200, 50);// Properties.Settings.Default.Color_Cursor;
         private float PointWidth = 0.20f;
         public Color colorBoard = Color.FromArgb(255, 150, 200, 200);//(Color.DarkSlateBlue, 0.08f);

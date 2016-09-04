@@ -10,23 +10,16 @@
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Content" />
       <RootProperty Name="BottomAppBar" />
-      <RootEvent Name="SizeChanged" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
       <RootProperty Name="Background" />
-      <RootProperty Name="RowDefinitions" />
+      <RootProperty Name="Height" />
       <RootProperty Name="Children" />
-      <RootMethod Name="GetRow" />
-      <RootMethod Name="SetRow" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
-    <RootType FullName="Windows.UI.Xaml.Controls.RowDefinition">
-      <RootProperty Name="Height" />
-    </RootType>
     <RootType FullName="Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl">
       <RootProperty Name="Margin" />
       <RootProperty Name="ClearColor" />
-      <RootProperty Name="Padding" />
       <RootEvent Name="Draw" />
       <RootEvent Name="Tapped" />
       <RootEvent Name="PointerMoved" />
@@ -46,15 +39,12 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CommandBar">
       <RootProperty Name="Height" />
-      <RootProperty Name="SecondaryCommands" />
       <RootProperty Name="PrimaryCommands" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.AppBarToggleButton">
-      <RootProperty Name="Label" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
       <RootProperty Name="Label" />
       <RootProperty Name="Icon" />
+      <RootEvent Name="Tapped" />
     </RootType>
     <RootType FullName="Points.MainPage" />
   </Roots.RootTypes>

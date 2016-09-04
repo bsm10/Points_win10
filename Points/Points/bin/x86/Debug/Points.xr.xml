@@ -39,15 +39,12 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CommandBar">
       <RootProperty Name="Height" />
-      <RootProperty Name="SecondaryCommands" />
       <RootProperty Name="PrimaryCommands" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.AppBarToggleButton">
-      <RootProperty Name="Label" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
       <RootProperty Name="Label" />
       <RootProperty Name="Icon" />
+      <RootEvent Name="Tapped" />
     </RootType>
     <RootType FullName="Points.MainPage" />
   </Roots.RootTypes>

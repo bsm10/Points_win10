@@ -16,7 +16,7 @@
     <PackageRegistrationPath>
     </PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
-    <RegisteredManifestChecksum>D5BB7F536AA281B43762B0F1C74F417801CD8A13B4F8AEAE4A69BE10E2F5C96B</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>4280A491284229A176AA7FA6E8361DC8E098CF8D4378D6416B49480F98646161</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>2974cb97-88e1-4884-a9ed-4002e5be5b87_1.0.0.0_x86__kn4twcenmftk6</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>2974cb97-88e1-4884-a9ed-4002e5be5b87_kn4twcenmftk6!App</RegisteredUserModeAppID>
     <RegisteredPackageID>2974cb97-88e1-4884-a9ed-4002e5be5b87</RegisteredPackageID>
@@ -28,13 +28,13 @@
     <AppXManifest Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-08-27T18:25:59.445</Modified>
+      <Modified>2016-09-04T06:18:26.781</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Points.exe">
       <PackagePath>entrypoint\Points.exe</PackagePath>
-      <Modified>2016-08-27T18:25:57.200</Modified>
+      <Modified>2016-09-04T06:18:25.970</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\.nuget\packages\Microsoft.ApplicationInsights\2.1.0\lib\uap10.0\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -516,9 +516,35 @@
       <PackagePath>ApplicationInsights.config</PackagePath>
       <Modified>2016-05-13T17:58:41.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Properties\Default.rd.xml">
-      <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2016-05-13T17:58:31.000</Modified>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Square150x150Logo.scale-100.png">
+      <PackagePath>Assets\Square150x150Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2016-09-03T07:34:40.217</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Square150x150Logo.scale-125.png">
+      <PackagePath>Assets\Square150x150Logo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2016-09-03T07:34:13.802</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Square150x150Logo.scale-150.png">
+      <PackagePath>Assets\Square150x150Logo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2016-09-03T07:33:47.184</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Square150x150Logo.scale-400.png">
+      <PackagePath>Assets\Square150x150Logo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2016-09-03T07:38:32.213</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Square310x310Logo.scale-100.png">
+      <PackagePath>Assets\Square310x310Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2016-09-03T08:15:59.669</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Square310x310Logo.scale-200.png">
+      <PackagePath>Assets\Square310x310Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2016-09-03T08:16:38.340</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
@@ -527,17 +553,17 @@
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-20T14:20:50.000</Modified>
+      <Modified>2016-09-03T08:08:09.714</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-20T14:20:50.000</Modified>
+      <Modified>2016-09-03T07:28:40.373</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-20T14:20:50.000</Modified>
+      <Modified>2016-09-03T08:10:43.311</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
@@ -547,16 +573,20 @@
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-20T14:20:50.000</Modified>
+      <Modified>2016-09-03T08:10:06.977</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-20T14:20:50.000</Modified>
+      <Modified>2016-09-03T08:11:43.115</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
+      <Modified>2016-05-13T17:58:31.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Points.xr.xml">
       <PackagePath>Points.xr.xml</PackagePath>
-      <Modified>2016-08-27T18:25:56.355</Modified>
+      <Modified>2016-09-03T05:47:46.737</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -564,11 +594,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-08-27T18:25:57.926</Modified>
+      <Modified>2016-09-04T06:18:26.504</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\Points.exe">
       <PackagePath>Points.exe</PackagePath>
-      <Modified>2016-08-27T18:25:59.439</Modified>
+      <Modified>2016-09-04T06:18:26.775</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
