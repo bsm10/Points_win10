@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Controls;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Graphics.Canvas.Brushes;
 using Windows.UI.Xaml.Media;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.UI.Popups;
 
 namespace Points
 {
@@ -96,7 +99,7 @@ namespace Points
         public int count_blocked1, count_blocked2;
         public int count_dot1, count_dot2;//количество поставленных точек
 
-        private CanvasControl pbxBoard;
+        private CanvasControl canvasCtrl;
         private int _pause = 10;
 
 #if DEBUG
@@ -112,8 +115,9 @@ namespace Points
 
         public Game(CanvasControl CanvasGame, int boardWidth, int boardHeight)
         {
-            pbxBoard = CanvasGame;
+            canvasCtrl = CanvasGame;
             NewGame(boardWidth, boardHeight);
+            
         }
         public void SetLevel(int iLevel = 1)
         {
@@ -232,17 +236,18 @@ namespace Points
         {
             String strDebug = String.Empty;
             Dot bm;
+            StatusMsg = "CheckMove(pl2,pl1)...";
 #if DEBUG
         sW2.Start();
-        //f.lblBestMove.Text="CheckMove(pl2,pl1)...";
+        /f.lblBestMove.Text="CheckMove(pl2,pl1)...";
         
 #endif
-
             #region CheckMove - проверка на окружение
             bm = CheckMove(pl2);
             if (bm != null)
             {
                 #region DEBUG
+                
 #if DEBUG
                 {
                     //f.lstDbg2.Items.Add(bm.x +":"+ bm.y  + " player" + pl2 + " - CheckMove!");
@@ -275,6 +280,8 @@ namespace Points
             
 #endif
             #endregion
+            StatusMsg = "CheckPattern2Move проверяем ходы на два вперед...";
+
             #region CheckPattern2Move проверяем ходы на два вперед
             List<Dot> empty_dots = aDots.EmptyNeibourDots(pl2);
             List<Dot> lst_dots2;
@@ -313,6 +320,7 @@ namespace Points
 #endif
 
             #endregion
+            StatusMsg = "CheckPattern_vilochka...";
             #region CheckPattern_vilochka
             bm = CheckPattern_vilochka(pl2);
             if (bm != null & aDots.Contains(bm))
@@ -350,6 +358,7 @@ namespace Points
             
 #endif
             #endregion
+            StatusMsg = "CheckPattern...";
             #region CheckPattern
             bm = CheckPattern(pl2);
             if (bm != null & aDots.Contains(bm))
@@ -897,17 +906,15 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
             //}
 #endif
         }
-        public void Pause(int ms)
+        public async Task Pause(double sec)
         {
-
-            pbxBoard.Invalidate();
-            //System.Threading.Thread.Sleep(ms);
+            canvasCtrl.Invalidate();
+            await Task.Delay(TimeSpan.FromSeconds(sec));
         }
         public void NewGame(int boardWidth, int boardHeight)
         {
             //iMapSize = iBoardSize * iScaleCoef;
             //aDots = new ArrayDots(iMapSize);
-
             //iBoardSize = 15;
             aDots = new ArrayDots(boardWidth, boardHeight);
             iBoardWidth = boardWidth;
@@ -928,7 +935,7 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
         //f.Show();
 
 #endif
-            pbxBoard.Invalidate();
+            canvasCtrl.Invalidate();
         }
         public bool GameOver()
         {
@@ -1165,7 +1172,7 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
         public void ResizeBoard(int boardWidth, int boardHeight)//изменение размера доски
         {
             NewGame(boardWidth, boardHeight);
-            pbxBoard.Invalidate();
+            canvasCtrl.Invalidate();
         }
         public void UndoMove(int x, int y)//поле отмена хода
         {
@@ -1453,58 +1460,76 @@ aDots[d.x + 1, d.y - 1].Blocked == false & aDots[d.x + 1, d.y + 1].Blocked == fa
 #endif
         //==========================================================================
         #region SAVE_LOAD Game
-        //public string path_savegame = Application.CommonAppDataPath + @"\dots.dts";
-        //public void SaveGame()
+        //public string path_savegame = ApplicationData.Current.LocalFolder + @"\dots.dts";
+        public async void SaveGame()
+        {
+            byte[] saveData = new byte[list_moves.Count*3];
+            int i = 0;
+            foreach(Dot d in list_moves)
+            {
+                saveData[i++] = (byte)d.x;
+                saveData[i++] = (byte)d.y;
+                saveData[i++] = (byte)d.Own;
+                //i++;
+            }
+            try
+            {
+                var folder = ApplicationData.Current.LocalFolder;
+                var file = await folder.CreateFileAsync(@"\dots.dts", CreationCollisionOption.ReplaceExisting);
+                await FileIO.WriteBytesAsync(file, saveData);
+            }
+            catch (Exception ex)
+            {
+                MessageDialog d = new MessageDialog(ex.Message + " saveStringToLocalFile");
+                await d.ShowAsync();
+            }
+        }
+        //private static async Task<string> readStringFromLocalFile(string filename)
         //{
-        //    try
+        //    StorageFolder local = ApplicationData.Current.LocalFolder;
+        //    Stream stream = await local.OpenStreamForReadAsync(filename);
+        //    string text;
+        //    using (StreamReader reader = new StreamReader(stream))
         //    {
-        //        // создаем объект BinaryWriter
-        //        using (BinaryWriter writer = new BinaryWriter(File.Open(path_savegame, FileMode.Create)))
-        //        {
-
-        //		for (int i = 0; i < list_moves.Count; i++)
-        //   			{
-        //                writer.Write((byte)list_moves[i].x);
-        //                writer.Write((byte)list_moves[i].y);
-        //                writer.Write((byte)list_moves[i].Own);
-        //        	}
-        //    	}
+        //        text = reader.ReadToEnd();
         //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show(e.Message);
-        //    }
+        //    return text;
         //}
-        //public void LoadGame()
-        //{
-        //    aDots.Clear();
-        //    lnks.Clear();
-        //    list_moves.Clear();
-        //    Dot d=null;
-        //    try
-        //    {
-        //        // создаем объект BinaryReader
-        //        BinaryReader reader = new BinaryReader(File.Open(path_savegame, FileMode.Open));
-        //        // пока не достигнут конец файла считываем каждое значение из файла
-        //        while (reader.PeekChar() > -1)
-        //        {
-        //            d = new Dot((int)reader.ReadByte(), (int)reader.ReadByte(), (int)reader.ReadByte());
-        //            MakeMove(d,d.Own);
-        //            list_moves.Add(aDots[d.x,d.y]);
-        //        }
-        //        last_move = d;
-        //        //CheckBlocked();//проверяем блокировку
-        //        LinkDots();//восстанавливаем связи между точками
-        //        RescanBlocked();
-        //        //ScanBlockedFreeDots();
-        //        reader.Close();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show(e.Message);
-        //    }
 
-        //}
+        public async void LoadGame()
+        {
+            aDots.Clear();
+            lnks.Clear();
+            list_moves.Clear();
+            Dot d = null;
+            try
+            {
+                var folder = ApplicationData.Current.LocalFolder;
+                var file = await folder.CreateFileAsync(@"\dots.dts", CreationCollisionOption.OpenIfExists);
+
+                // создаем объект BinaryReader
+                BinaryReader reader = new BinaryReader(File.Open(file.Path, FileMode.Open));
+                // пока не достигнут конец файла считываем каждое значение из файла
+                while (reader.PeekChar() > -1)
+                {
+                    d = new Dot((int)reader.ReadByte(), (int)reader.ReadByte(), (int)reader.ReadByte());
+                    MakeMove(d, d.Own);
+                    list_moves.Add(aDots[d.x, d.y]);
+                }
+                last_move = d;
+                //CheckBlocked();//проверяем блокировку
+                LinkDots();//восстанавливаем связи между точками
+                RescanBlocked();
+                //ScanBlockedFreeDots();
+                reader.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageDialog dlg = new MessageDialog(ex.Message + " LoadGame");
+                await dlg.ShowAsync();
+            }
+
+        }
         #endregion
 
 

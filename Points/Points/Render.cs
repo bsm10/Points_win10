@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
@@ -13,20 +14,51 @@ namespace Points
 {
     public partial class Game
     {
+        private string msg = string.Empty;
+        public string StatusMsg
+        {
+          get
+            {
+                return msg;
+            }
+          set
+            {
+                msg = value;
+            }
+        }
+
         #region RENDER
+
+        private void DrawStatusMsg(string msg, CanvasDrawingSession drSession)
+        {
+            CanvasTextFormat format = new CanvasTextFormat()
+            {
+                FontFamily = "Arial",
+                FontSize = 0.3f
+            };
+            if (canvasCtrl != null )
+            {
+                drSession.DrawText(msg, 0, iBoardHeight + startY, Colors.DarkGreen, format);
+                canvasCtrl.Invalidate();
+            }
+        }
+        
+
         public void DrawGame(CanvasControl canvasCtrl, CanvasDrawingSession drawingSession)//отрисовка хода игры
         {
             drawingSession.Antialiasing = CanvasAntialiasing.Antialiased;
             //Устанавливаем масштаб
             SetScale(drawingSession, (int)canvasCtrl.ActualWidth, (int)canvasCtrl.ActualHeight,
-                startX, startX + iBoardWidth, startY, iBoardHeight + startY);
+                startX, startX + iBoardWidth, startY, iBoardHeight + startY +1 );
             //Рисуем доску
             DrawBoard(drawingSession);
             //Рисуем точки
             DrawPoints(drawingSession);
             //Отрисовка замкнутого региона игрока1
             DrawLinks(drawingSession);
-            drawingSession.DrawLine(0, 100, 100, 0, colorBoard, 5.0f);
+            //drawingSession.DrawLine(0, 100, 100, 0, colorBoard, 5.0f);
+            //drawingSession.DrawText(StatusMsg, 0, iBoardHeight + startY , Colors.DarkGreen, format);
+            DrawStatusMsg(StatusMsg, drawingSession);
         }
         public void DrawBoard(CanvasDrawingSession drawingSession)//рисуем доску из клеток
         {
@@ -40,7 +72,7 @@ namespace Points
                 Color drB = i == 0 ? Colors.MediumSeaGreen : colorDrawBrush;
                 drawingSession.DrawLine(startX + 0.5f, i + startY + 0.5f, iBoardWidth + startX - 0.5f, i + startY + 0.5f, colorBoard, 0.08f);
             }
-
+            //drawingSession.DrawText("Points!", 1, iBoardHeight-2, Colors.DarkGreen); 
         }
         public void DrawLinks(CanvasDrawingSession drawingSession)//отрисовка связей
         {
