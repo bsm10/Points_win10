@@ -27,9 +27,9 @@ namespace Points
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        Game game;
-        int boardWidth = 5;
-        int boardHeight = 7;
+        GameEngine game;
+        int boardWidth = 12;
+        int boardHeight = 15;
         private int player_move;//переменная хранит значение игрока который делает ход
         //int game_result;
         DispatcherTimer timer = new DispatcherTimer();
@@ -49,7 +49,7 @@ namespace Points
             //Height = 4 * Yres / 5;
             //Width = Height - 50;
 
-            game = new Game(canvas, boardWidth, boardHeight);
+            game = new GameEngine(canvas, boardWidth, boardHeight);
             game.StatusMsg = "Game started!";
             player_move = 2;
             DispatcherTimerSetup();
@@ -107,7 +107,7 @@ namespace Points
                 }
 
                 #region Ходы игроков
-                if (game.aDots[(int)game.MousePos.X, (int)game.MousePos.Y].Own > 0) return;//предовращение хода если клик был по занятой точке
+                //if (game.gameDots.Dots[(int)game.MousePos.X, (int)game.MousePos.Y].Own > 0) return;//предовращение хода если клик был по занятой точке
 
                 if (player_move == 1 | player_move == 0)
                 {
@@ -131,8 +131,8 @@ namespace Points
             }
             pl_move.Own = Player;
 
-            game.MakeMove(pl_move, Player);
-            game.ListMoves.Add(pl_move);
+            game.MakeMove(pl_move);
+            //game.ListMoves.Add(pl_move);
 
             canvas.Invalidate();
             player_move = Player == 1 ? 2 : 1;
@@ -142,7 +142,7 @@ namespace Points
             {
                 game.StatusMsg = "Game over! \r\n" + game.Statistic();
                 await game.Pause(5);
-                game = new Game(canvas, boardWidth, boardHeight);
+                game = new GameEngine(canvas, boardWidth, boardHeight);
                 game.StatusMsg = "New game started!";
                 await game.Pause(1);
 
@@ -162,7 +162,7 @@ namespace Points
 
         private void NewGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            game = new Game(canvas, boardWidth, boardHeight);
+            game = new GameEngine(canvas, boardWidth, boardHeight);
         }
 
         private void SaveGame_Tapped(object sender, TappedRoutedEventArgs e)

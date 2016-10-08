@@ -12,7 +12,7 @@ using Windows.UI;
 
 namespace Points
 {
-    public partial class Game
+    public partial class GameEngine
     {
         private string msg = string.Empty;
         public string StatusMsg
@@ -36,10 +36,10 @@ namespace Points
                 FontFamily = "Arial",
                 FontSize = 0.3f
             };
-            if (canvasCtrl != null )
+            if (pbxBoard != null )
             {
-                drSession.DrawText(msg, 0, iBoardHeight + startY, Colors.DarkGreen, format);
-                canvasCtrl.Invalidate();
+                drSession.DrawText(msg, 0, gameDots.BoardHeight + startY, Colors.DarkGreen, format);
+                pbxBoard.Invalidate();
             }
         }
         
@@ -49,7 +49,7 @@ namespace Points
             drawingSession.Antialiasing = CanvasAntialiasing.Antialiased;
             //Устанавливаем масштаб
             SetScale(drawingSession, (int)canvasCtrl.ActualWidth, (int)canvasCtrl.ActualHeight,
-                startX, startX + iBoardWidth, startY, iBoardHeight + startY +1 );
+                startX, startX + gameDots.BoardWidth, startY, gameDots.BoardHeight + startY +1 );
             //Рисуем доску
             DrawBoard(drawingSession);
             //Рисуем точки
@@ -60,22 +60,22 @@ namespace Points
             //drawingSession.DrawText(StatusMsg, 0, iBoardHeight + startY , Colors.DarkGreen, format);
             DrawStatusMsg(StatusMsg, drawingSession);
         }
+
         public void DrawBoard(CanvasDrawingSession drawingSession)//рисуем доску из клеток
         {
-            for (float i = 0; i < iBoardWidth; i++)
+            for (float i = 0; i < gameDots.BoardWidth; i++)
             {
-                Color drB = i == 0 ? Colors.MediumSeaGreen : colorDrawBrush;
-                drawingSession.DrawLine(i + startX + 0.5f, startY + 0.5f, i + startX + 0.5f, iBoardHeight + startY - 0.5f, colorBoard, 0.08f);
+                drawingSession.DrawLine(i + startX + 0.5f, startY + 0.5f, i + startX + 0.5f, gameDots.BoardHeight + startY - 0.5f, colorBoard, 0.08f);
             }
-            for (float i = 0; i < iBoardHeight; i++)
+            for (float i = 0; i < gameDots.BoardHeight; i++)
             {
-                Color drB = i == 0 ? Colors.MediumSeaGreen : colorDrawBrush;
-                drawingSession.DrawLine(startX + 0.5f, i + startY + 0.5f, iBoardWidth + startX - 0.5f, i + startY + 0.5f, colorBoard, 0.08f);
+                drawingSession.DrawLine(startX + 0.5f, i + startY + 0.5f, gameDots.BoardWidth + startX - 0.5f, i + startY + 0.5f, colorBoard, 0.08f);
             }
             //drawingSession.DrawText("Points!", 1, iBoardHeight-2, Colors.DarkGreen); 
         }
         public void DrawLinks(CanvasDrawingSession drawingSession)//отрисовка связей
         {
+            List<Links> lnks = gameDots.ListLinks;
             if (lnks != null)
             {
                 Color colorGamer;
@@ -94,13 +94,14 @@ namespace Points
                     }
                 }
             }
+
         }
         public void DrawPoints(CanvasDrawingSession drawingSession)//рисуем поставленные точки
         {
             //отрисовываем поставленные точки
-            if (aDots.Count > 0)
+            if (gameDots.Count > 0)
             {
-                foreach (Dot p in aDots)
+                foreach (Dot p in gameDots)
                 {
                     switch (p.Own)
                     {
@@ -120,7 +121,7 @@ namespace Points
         }
         private void SetColorAndDrawDots(CanvasDrawingSession drawingSession, Color colorGamer, Dot p) //Вспомогательная функция для DrawPoints. Выбор цвета точки в зависимости от ее состояния и рисование элипса
         {
-
+            Dot last_move = gameDots.LastMove;
             Color c;
             if (p.Blocked)
             {

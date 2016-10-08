@@ -1,79 +1,137 @@
 ﻿using System;
 using System.Collections.Generic;
+
 namespace Points
 {
-    public class Links
+    public class Links //: IEqualityComparer<Links>
     {
         public Dot Dot1;
         public Dot Dot2;
-        private float cost;
+        //private float cost;
+        public float Distance
+        { 
+            get
+            {
+                return (float)Math.Sqrt(Math.Pow(Math.Abs(Dot1.x - Dot2.x), 2) +
+                                    Math.Pow(Math.Abs(Dot1.y - Dot2.y), 2));
+            }
+        }
         public override string ToString()
         {
-            string s;
-            if (Dot1.Own == 1) s = " Player";
-            else s = " Computer";
-            return Dot1.x + ":" + Dot1.y + "-" + Dot2.x + ":" + Dot2.y + s;
-        }
-        public bool Blocked{get;set;}
+            string s = string.Empty;
+            if (Dot1.Own == 1 & Dot2.Own == 1) s = " Player";
+            if (Dot1.Own == 2 & Dot2.Own == 2) s = " Computer";
+            if (Dot1.Own == 0 | Dot2.Own == 0) s = " None";
 
-        public float CostLink
+            return Dot1.x + ":" + Dot1.y + "-" + Dot2.x + ":" + Dot2.y + s + " Cost - " + Distance.ToString() + " Fixed " + Fixed.ToString();
+        }
+        public override int GetHashCode()
+        {
+            //Check whether the object is null
+            if (object.ReferenceEquals(this, null)) return 0;
+
+            //Get hash code for the Dot1
+            int hashLinkDot1 = Dot1.GetHashCode();
+
+            //Get hash code for the Dot2
+            int hashLinkDot2 = Dot2.GetHashCode();
+
+            //Calculate the hash code for the Links
+            return hashLinkDot1 * hashLinkDot2;
+        }
+
+        public bool Blocked
         {
             get
             {
-                return cost;
-            }
-            set
-            {
-                cost = value;
+                return (Dot1.Blocked & Dot2.Blocked);
             }
         }
+
+        public bool Fixed
+        {
+            get
+            {
+                return (Dot1.Fixed | Dot2.Fixed);
+            }
+        }
+
+
         public Links(Dot Dot1, Dot Dot2)
         {
             this.Dot1 = Dot1;
             this.Dot2 = Dot2;
-            if (Math.Abs(Dot1.x - Dot2.x) + Math.Abs(Dot1.y - Dot2.y) < 2)
-            {
-                cost = 1;
-            }
-            else
-            {
-                cost = 2;
-            }
         }
+
         public Links(int x1, int y1, int x2, int y2)
         {
             Dot1 = new Dot(x1, y1);
             Dot2 = new Dot(x2, y2);
-            if (Math.Abs(Dot1.x - Dot2.x) + Math.Abs(Dot1.y - Dot2.y) < 2)
+        }
+
+        public bool Equals(Links otherLink)//Проверяет равенство связей по точкам
+        {
+            return GetHashCode().Equals(otherLink.GetHashCode());
+        }
+
+    }
+    class LinksComparer : IEqualityComparer<Links>
+    {
+        public bool Equals(Links link1, Links link2)
+        {
+            
+            return link1.Equals(link2);
+        }
+        public int GetHashCode(Links links)
+        {
+            //Check whether the object is null
+            if (object.ReferenceEquals(links, null)) return 0;
+
+            //Get hash code for the Name field if it is not null.
+            int hashLinkDot1 = links.Dot1.GetHashCode();
+
+            //Get hash code for the Code field.
+            int hashLinkDot2 = links.Dot2.GetHashCode();
+
+            //Calculate the hash code for the product.
+            return hashLinkDot1 * hashLinkDot2;
+        }
+
+    }
+    public class ComparerDots : IComparer<Dot>
+    {
+        public int Compare(Dot d1, Dot d2)
+        {
+            if (d1.x.CompareTo(d2.x) != 0)
             {
-                cost = 1;
+                return d1.x.CompareTo(d2.x);
+            }
+            else if (d1.y.CompareTo(d2.y) != 0)
+            {
+                return d1.y.CompareTo(d2.y);
             }
             else
             {
-                cost = 0.5f;
+                return 0;
             }
         }
-        public int LinkExist(Links[] arr_lnks)
+    }
+    public class ComparerDotsByOwn : IComparer<Dot>
+    {
+        public int Compare(Dot d1, Dot d2)
         {
-            if (arr_lnks != null)
+            if (d1.x.CompareTo(d2.Own) != 0)
             {
-                for (int i = 0; i < arr_lnks.Length; i++)
-                {
-                    if(arr_lnks[i]!=null)
-                    {
-                        if ((Dot1.x == arr_lnks[i].Dot1.x) & (Dot1.y == arr_lnks[i].Dot1.y) &
-                           ((Dot2.x == arr_lnks[i].Dot2.x) & (Dot2.y == arr_lnks[i].Dot2.y)) |
-                            ((Dot2.x == arr_lnks[i].Dot1.x) & (Dot2.y == arr_lnks[i].Dot1.y) &
-                           ((Dot1.x == arr_lnks[i].Dot2.x) & (Dot1.y == arr_lnks[i].Dot2.y))))
-                        {
-                            return i;
-                        }
-
-                    }
-                }
-
+                return d1.Own.CompareTo(d2.Own);
             }
-            return -1;
+            else if (d1.Own.CompareTo(d2.Own) != 0)
+            {
+                return d1.Own.CompareTo(d2.Own);
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
     public class Dot: IEquatable<Dot>
@@ -95,7 +153,7 @@ namespace Points
                     {
                         foreach (Dot d in NeiborDots)
                         {
-                            if (d.Blocked==false) d.IndexRelation = d.IndexDot;
+                            if (d.Blocked == false) d.IndexRelation = d.IndexDot;
                         }
                     }
                 }
@@ -118,6 +176,7 @@ namespace Points
             }
         }
         public bool Fixed { get; set; }
+        public int CountBlockedDots { get; set; }
         public bool Selected { get; set; }
         public int Own
         {
@@ -125,10 +184,10 @@ namespace Points
             set
             {
                 _Own = value;
-                if (_Own==0)
-                {
-                    Blocked = false;
-                }
+                //if (_Own==0)
+                //{
+                //    Blocked = false;
+                //}
             }
 
         }
@@ -142,18 +201,10 @@ namespace Points
             set
             {
                 rating = value;
-                //foreach(Dot d in NeiborDots)
-                //{
-                //    //if(Math.Sqrt(Math.Pow(Math.Abs(d.x - x),2) + Math.Pow(Math.Abs(d.y - y),2))==1)
-                //    //{
-                //        if (rating < d.rating) d.Rating = rating;
-                //        else rating = d.Rating;
-                //    //}
-                    
-                //}
             }
         }
         public bool Marked { get; set; }
+
         public int _IndexDot;
         public int IndexDot
         {
@@ -167,6 +218,15 @@ namespace Points
                 _IndexRel = _IndexDot;
             }
         }
+        public bool BonusDot { get; set; }
+        public Dot DotCopy
+        {
+            get
+            {
+                return (Dot)MemberwiseClone();
+            }
+        }
+        public int iNumberPattern { get; set; }
 
         public Dot(int x, int y, int Owner = 0)
         {
@@ -176,17 +236,49 @@ namespace Points
             Own = Owner;
             //IndexRelation = IndexDot;
         }
+        public void UnmarkDot()
+        {
+            Marked = false;
+            PatternsFirstDot = false;
+            PatternsMoveDot = false;
+            PatternsAnyDot = false;
+            PatternsEmptyDot = false;
+        }
+        /// <summary>
+        /// Удаляем метки паттернов
+        /// </summary>
+        public void PatternsRemove()
+        {
+            PatternsFirstDot = false;
+            PatternsMoveDot  = false;
+            PatternsAnyDot   = false;
+            PatternsEmptyDot = false;
+        }
         public bool PatternsFirstDot {get; set;}
         public bool PatternsMoveDot { get; set; }
         public bool PatternsAnyDot { get; set; }
         public bool PatternsEmptyDot { get; set; }
+
+        //public PE_XYminmax PE_XY = new PE_XYminmax();
+
+
+        //public class PE_XYminmax
+        //{
+        //    public int minX { get; set; }
+        //    public int maxX { get; set; }
+        //    public int minY { get; set; }
+        //    public int maxY { get; set; }
+        //}
+
         public override string ToString()
             {
             string s;
             if (Own == 1) s = " Player";
             else if (Own == 2) s = " Computer";
             else s = " None";
-                return x + ":" + y + s;
+            
+            s = Blocked ? x + ":" + y + s + " Blocked" : x + ":" + y + s;
+                return s;
             }
         public bool Equals(Dot dot)//Проверяет равенство точек по координатам
         {
@@ -198,10 +290,11 @@ namespace Points
             {
                 return false;
             }
-            return Math.Abs(x - dot.x) <= 1 & Math.Abs(y - dot.y) <= 1;
+            return Math.Abs(x -dot.x) <= 1 & Math.Abs(y -dot.y) <= 1;
 
         }
         private int _IndexRel;
+
         public int IndexRelation
         {
             get { return _IndexRel; }
@@ -225,6 +318,10 @@ namespace Points
             }
 
         }
-
+        
+        public bool ValidMove
+        {
+            get { return Blocked == false && Own == 0; }
+        }
     }
 }

@@ -16,7 +16,7 @@
     <PackageRegistrationPath>
     </PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
-    <RegisteredManifestChecksum>0B571C11367042AC390D7A5143C7FA47ABCAE3F44D8DA0AE53E41361FF1188A4</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>33C4F351BF31579E08B2403FA544BBE8E985927D3A481F0B3D40936F0320BB8C</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>2974cb97-88e1-4884-a9ed-4002e5be5b87_1.0.0.0_x64__kn4twcenmftk6</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>2974cb97-88e1-4884-a9ed-4002e5be5b87_kn4twcenmftk6!App</RegisteredUserModeAppID>
     <RegisteredPackageID>2974cb97-88e1-4884-a9ed-4002e5be5b87</RegisteredPackageID>
@@ -28,13 +28,13 @@
     <AppXManifest Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-07T04:38:25.928</Modified>
+      <Modified>2016-10-08T06:56:31.948</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x64\Debug\Points.exe">
-      <PackagePath>entrypoint\Points.exe</PackagePath>
-      <Modified>2016-10-07T04:38:24.683</Modified>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x64\Debug\Dots.exe">
+      <PackagePath>entrypoint\Dots.exe</PackagePath>
+      <Modified>2016-10-08T06:56:31.530</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\.nuget\packages\Microsoft.ApplicationInsights\2.1.0\lib\uap10.0\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -584,9 +584,9 @@
       <PackagePath>Properties\Default.rd.xml</PackagePath>
       <Modified>2016-05-13T17:58:31.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x64\Debug\Points.xr.xml">
-      <PackagePath>Points.xr.xml</PackagePath>
-      <Modified>2016-10-07T04:38:23.736</Modified>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x64\Debug\Dots.xr.xml">
+      <PackagePath>Dots.xr.xml</PackagePath>
+      <Modified>2016-10-08T05:45:51.349</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -595,11 +595,11 @@
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-07T04:38:25.633</Modified>
+      <Modified>2016-10-08T06:25:51.903</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x64\Debug\Core\Points.exe">
-      <PackagePath>Points.exe</PackagePath>
-      <Modified>2016-10-07T04:38:25.920</Modified>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x64\Debug\Core\Dots.exe">
+      <PackagePath>Dots.exe</PackagePath>
+      <Modified>2016-10-08T06:56:31.941</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

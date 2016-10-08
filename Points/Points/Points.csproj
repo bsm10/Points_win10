@@ -8,7 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Points</RootNamespace>
-    <AssemblyName>Points</AssemblyName>
+    <AssemblyName>Dots</AssemblyName>
     <DefaultLanguage>ru-RU</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -98,15 +98,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ArrayDots.cs" />
     <Compile Include="Dot.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="GameDots.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Patterns.cs" />
-    <Compile Include="PatternsMove.cs" />
-    <Compile Include="Pattern_vilka.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relaitions.cs" />
     <Compile Include="Render.cs" />
