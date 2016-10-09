@@ -20,25 +20,25 @@ using Windows.UI.Popups;
 
 namespace Points
 {
-    public static class GameMessages
-    {
-        public static string Message {get;set;}
-
-    }
     public partial class GameEngine
     {
 
         //-------------------------------------------------
         //==========================================================================================================
-        private GameDots _gameDots;//Основной массив, где хранятся все поставленные точки. С єтого массива рисуются все точки
+        private static GameDots _gameDots;//Основной массив, где хранятся все поставленные точки. С єтого массива рисуются все точки
         //===========================================================================================================
-        public GameDots gameDots 
+        public static GameDots gameDots 
         {
             get 
               {
                 return _gameDots;
               }
         }
+
+        public static float startX = -0.5f;
+        public static float startY = -0.5f;
+        //public static float BoardWidth;
+        //public static float BoardHeight;
 
         public Dot DOT(int x, int y)
         {
@@ -55,37 +55,9 @@ namespace Points
             get{return status;}
             set{status=value;}
         }
-        //private Form2 f;
-        //public DebugForm DebugWindow = new DebugForm();
-
-        //public bool Autoplay
-        //{
-        //    get { return DebugWindow.rbtnHand.Checked; }
-        //}
-
-
-        //=========== цвета, шрифты ===================================================
-        public Color colorGamer1 = Colors.Tomato; //Properties.Settings.Default.Color_Gamer1,
-        public Color colorGamer2 = Colors.MediumSlateBlue;//Properties.Settings.Default.Color_Gamer2,
-        public Color colorCursor = Color.FromArgb(50, 50, 200, 50);// Properties.Settings.Default.Color_Cursor;
-        private float PointWidth = 0.20f;
-        public Color colorBoard = Color.FromArgb(255, 150, 200, 200);//(Color.DarkSlateBlue, 0.08f);
-        public Color colorDrawBrush = Colors.MediumPurple;
-        //public Color drB = Colors.MediumSeaGreen;
-
-
-        //public ICanvasBrush SolidBrush;
-        ////private SolidBrush drawBrush = new SolidBrush(Colors.MediumPurple);
-        //public Font drawFont = new Font("Arial", 0.22f);
-        public bool Redraw { get; set; }
-        public int iScaleCoef = 1;//-коэффициент масштаба
-        public float startX = -0.5f, startY = -0.5f;
-
-        public Point MousePos;
 
         private int _pause = 10;
 
-        private CanvasControl pbxBoard;
 
         public Dot LastMove
         {
@@ -96,9 +68,8 @@ namespace Points
         }
 
 
-        public GameEngine(CanvasControl CanvasGame, int boardWidth, int boardHeight)
+        public GameEngine(int boardWidth, int boardHeight)
         {
-            pbxBoard = CanvasGame;
             NewGame(boardWidth, boardHeight);
         }
 
@@ -118,7 +89,7 @@ namespace Points
         }
         public async Task Pause(double sec)
         {
-            pbxBoard.Invalidate();
+            DrawSession.CanvasCtrl.Invalidate();
             await Task.Delay(TimeSpan.FromSeconds(sec));
         }
 
@@ -164,7 +135,7 @@ namespace Points
             //startX = -0.5f;
             //startY = -0.5f;
             Redraw=true;
-            pbxBoard.Invalidate();
+            DrawSession.CanvasCtrl.Invalidate();
         }
         //------------------------------------------------------------------------------------
 
@@ -178,7 +149,7 @@ namespace Points
             gameDots.BoardHeight = newSizeHeight;
             gameDots.BoardWidth = newSizeWidth;
             NewGame(newSizeWidth,newSizeHeight);
-            pbxBoard.Invalidate();
+            DrawSession.CanvasCtrl.Invalidate();
         }
 
 

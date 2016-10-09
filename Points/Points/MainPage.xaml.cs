@@ -48,11 +48,13 @@ namespace Points
             //pixels = dips * dpi / 96
             //Height = 4 * Yres / 5;
             //Width = Height - 50;
-
-            game = new GameEngine(canvas, boardWidth, boardHeight);
-            game.StatusMsg = "Game started!";
+            DrawSession.CanvasCtrl = canvas;
+            game = new GameEngine(boardWidth, boardHeight);
+            //StatusMsg.DrawMsg("New game started!" + game.Statistic(), 0, boardHeight + game.startY, Colors.DarkOliveGreen);
             player_move = 2;
+
             DispatcherTimerSetup();
+
         }
         public void DispatcherTimerSetup()
         {
@@ -71,6 +73,7 @@ namespace Points
             //============Ход компьютера=================
             if (player_move == 2)
             {
+
                 if (await MoveGamer(2) > 0) return;
             }
 
@@ -81,9 +84,11 @@ namespace Points
             //var session = args.DrawingSession;
             args.DrawingSession.Clear(Colors.White);
             //session.Clear(Colors.White);
+            DrawSession.CanvasCtrl = sender;
+            DrawSession.CanvasDrawingSession = args.DrawingSession;
             game.DrawGame(sender, args.DrawingSession);
-            //game.cnvs = sender;
-            //game.drSession = args.DrawingSession;
+
+
         }
 
         private async void canvas_Tapped(object sender, TappedRoutedEventArgs e)
@@ -92,7 +97,7 @@ namespace Points
             var mpos = e.GetPosition(q);
             game.MousePos = game.TranslateCoordinates(mpos);
             Dot dot = new Dot((int)game.MousePos.X, (int)game.MousePos.Y);
-            if (game.MousePos.X > game.startX - 0.5f & game.MousePos.Y > game.startY - 0.5f)
+            if (game.MousePos.X > GameEngine.startX - 0.5f & game.MousePos.Y > GameEngine.startY - 0.5f)
             {
                 switch (e.PointerDeviceType)
                 {
@@ -140,16 +145,16 @@ namespace Points
 
             if (game.GameOver())
             {
-                game.StatusMsg = "Game over! \r\n" + game.Statistic();
+                //StatusMsg.DrawMsg("Game over! \r\n" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen);
                 await game.Pause(5);
-                game = new GameEngine(canvas, boardWidth, boardHeight);
-                game.StatusMsg = "New game started!";
+                game = new GameEngine(boardWidth, boardHeight);
+                //StatusMsg.DrawMsg("New game started!" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen); 
                 await game.Pause(1);
 
                 return 1;
             }
-
-            game.StatusMsg = "Move player" + player_move + "...";
+            StatusMsg.ColorMsg = player_move == 1 ? game.colorGamer1 : game.colorGamer2;
+            StatusMsg.textMsg = "Move player" + player_move + "...";
 
             return 0;
         }
@@ -162,7 +167,7 @@ namespace Points
 
         private void NewGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            game = new GameEngine(canvas, boardWidth, boardHeight);
+            game = new GameEngine(boardWidth, boardHeight);
         }
 
         private void SaveGame_Tapped(object sender, TappedRoutedEventArgs e)
@@ -186,5 +191,6 @@ namespace Points
         {
 
         }
+
     }
 }

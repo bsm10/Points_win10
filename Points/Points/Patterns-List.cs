@@ -6,7 +6,7 @@ namespace Points
 {
     public partial class GameDots : IEnumerator, IEnumerable
     {
-        private Dot CheckPattern(int Owner)
+        private List<Dot> CheckPattern(int Owner)
         {
 
             int enemy_own = Owner == 1 ? 2 : 1;
@@ -36,7 +36,7 @@ namespace Points
             {
                 result_dot = new Dot(pat3.First().x + 1, pat3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             // паттерн на конструкцию    *     *      точка окружена через две точки
@@ -58,7 +58,7 @@ namespace Points
             {
                 result_dot = new Dot(pat3_1_1.First().x - 1, pat3_1_1.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             // паттерн на конструкцию    +     *      точка окружена через две точки
@@ -82,7 +82,7 @@ namespace Points
             {
                 result_dot = new Dot(pat3_2.First().x - 1, pat3_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             // паттерн на конструкцию    *     +      точка окружена через две точки
             //                             d+    
@@ -105,7 +105,7 @@ namespace Points
             {
                 result_dot = new Dot(pat3_3.First().x + 1, pat3_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             //паттерн на конструкцию    *     +      точка окружена через две точки
@@ -128,7 +128,7 @@ namespace Points
             {
                 result_dot = new Dot(pat3_4.First().x + 1, pat3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 279;
@@ -149,7 +149,7 @@ namespace Points
             {
                 result_dot = new Dot(pat279.First().x - 1, pat279.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat279_2 = from Dot d in get_non_blocked
@@ -169,7 +169,7 @@ namespace Points
             {
                 result_dot = new Dot(pat279_2.First().x + 1, pat279_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat279_2_3 = from Dot d in get_non_blocked
@@ -189,7 +189,7 @@ namespace Points
             {
                 result_dot = new Dot(pat279_2_3.First().x - 1, pat279_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat279_2_3_4 = from Dot d in get_non_blocked
@@ -209,7 +209,7 @@ namespace Points
             {
                 result_dot = new Dot(pat279_2_3_4.First().x + 1, pat279_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 883;
@@ -225,7 +225,7 @@ namespace Points
             {
                 result_dot = new Dot(pat883.First().x - 1, pat883.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat883_2 = from Dot d in this
@@ -240,7 +240,7 @@ namespace Points
             {
                 result_dot = new Dot(pat883_2.First().x + 1, pat883_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat883_2_3 = from Dot d in this
@@ -255,7 +255,7 @@ namespace Points
             {
                 result_dot = new Dot(pat883_2_3.First().x, pat883_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat883_2_3_4 = from Dot d in this
@@ -270,7 +270,7 @@ namespace Points
             {
                 result_dot = new Dot(pat883_2_3_4.First().x, pat883_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 973;
@@ -287,7 +287,7 @@ namespace Points
             {
                 result_dot = new Dot(pat973.First().x - 1, pat973.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat973_2 = from Dot d in this
@@ -303,7 +303,7 @@ namespace Points
             {
                 result_dot = new Dot(pat973_2.First().x + 1, pat973_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat973_2_3 = from Dot d in this
@@ -319,7 +319,7 @@ namespace Points
             {
                 result_dot = new Dot(pat973_2_3.First().x, pat973_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat973_2_3_4 = from Dot d in this
@@ -335,7 +335,7 @@ namespace Points
             {
                 result_dot = new Dot(pat973_2_3_4.First().x, pat973_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -355,7 +355,7 @@ namespace Points
             {
                 result_dot = new Dot(pat563.First().x, pat563.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat563_2 = from Dot d in this
@@ -372,7 +372,7 @@ namespace Points
             {
                 result_dot = new Dot(pat563_2.First().x, pat563_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat563_2_3 = from Dot d in this
@@ -389,7 +389,7 @@ namespace Points
             {
                 result_dot = new Dot(pat563_2_3.First().x - 1, pat563_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat563_2_3_4 = from Dot d in this
@@ -406,7 +406,7 @@ namespace Points
             {
                 result_dot = new Dot(pat563_2_3_4.First().x + 1, pat563_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -429,7 +429,7 @@ namespace Points
 
                 result_dot = new Dot(pat5_1.First().x, pat5_1.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 225;
             var pat225 = from Dot d in this
@@ -445,7 +445,7 @@ namespace Points
             {
                 result_dot = new Dot(pat225.First().x + 1, pat225.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat225_2 = from Dot d in this
@@ -461,7 +461,7 @@ namespace Points
             {
                 result_dot = new Dot(pat225_2.First().x - 1, pat225_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat225_2_3 = from Dot d in this
@@ -477,7 +477,7 @@ namespace Points
             {
                 result_dot = new Dot(pat225_2_3.First().x, pat225_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat225_2_3_4 = from Dot d in this
@@ -493,7 +493,7 @@ namespace Points
             {
                 result_dot = new Dot(pat225_2_3_4.First().x, pat225_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 79;
@@ -515,7 +515,7 @@ namespace Points
             {
                 result_dot = new Dot(pat79.First().x + 1, pat79.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat79_2 = from Dot d in this
@@ -536,7 +536,7 @@ namespace Points
             {
                 result_dot = new Dot(pat79_2.First().x - 1, pat79_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat79_2_3 = from Dot d in this
@@ -557,7 +557,7 @@ namespace Points
             {
                 result_dot = new Dot(pat79_2_3.First().x - 1, pat79_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat79_2_3_4 = from Dot d in this
@@ -578,7 +578,7 @@ namespace Points
             {
                 result_dot = new Dot(pat79_2_3_4.First().x + 1, pat79_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 19;
             var pat19 = from Dot d in this
@@ -595,7 +595,7 @@ namespace Points
             {
                 result_dot = new Dot(pat19.First().x - 1, pat19.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat19_2 = from Dot d in this
@@ -612,7 +612,7 @@ namespace Points
             {
                 result_dot = new Dot(pat19_2.First().x + 1, pat19_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat19_2_3 = from Dot d in this
@@ -629,7 +629,7 @@ namespace Points
             {
                 result_dot = new Dot(pat19_2_3.First().x + 1, pat19_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat19_2_3_4 = from Dot d in this
@@ -646,7 +646,7 @@ namespace Points
             {
                 result_dot = new Dot(pat19_2_3_4.First().x - 1, pat19_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 20;
@@ -663,7 +663,7 @@ namespace Points
             {
                 result_dot = new Dot(pat20.First().x - 1, pat20.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat20_2 = from Dot d in this
@@ -679,7 +679,7 @@ namespace Points
             {
                 result_dot = new Dot(pat20_2.First().x + 1, pat20_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat20_2_3 = from Dot d in this
@@ -695,7 +695,7 @@ namespace Points
             {
                 result_dot = new Dot(pat20_2_3.First().x + 1, pat20_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat20_2_3_4 = from Dot d in this
@@ -711,7 +711,7 @@ namespace Points
             {
                 result_dot = new Dot(pat20_2_3_4.First().x - 1, pat20_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 667;
@@ -729,7 +729,7 @@ namespace Points
             {
                 result_dot = new Dot(pat667.First().x + 1, pat667.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat667_2 = from Dot d in this
@@ -746,7 +746,7 @@ namespace Points
             {
                 result_dot = new Dot(pat667_2.First().x - 1, pat667_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat667_2_3 = from Dot d in this
@@ -763,7 +763,7 @@ namespace Points
             {
                 result_dot = new Dot(pat667_2_3.First().x - 1, pat667_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat667_2_3_4 = from Dot d in this
@@ -780,7 +780,7 @@ namespace Points
             {
                 result_dot = new Dot(pat667_2_3_4.First().x + 1, pat667_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -799,7 +799,7 @@ namespace Points
             {
                 result_dot = new Dot(pat636.First().x + 1, pat636.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat636_2 = from Dot d in get_non_blocked
@@ -816,7 +816,7 @@ namespace Points
             {
                 result_dot = new Dot(pat636_2.First().x - 1, pat636_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat636_2_3 = from Dot d in get_non_blocked
@@ -833,7 +833,7 @@ namespace Points
             {
                 result_dot = new Dot(pat636_2_3.First().x + 1, pat636_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat636_2_3_4 = from Dot d in get_non_blocked
@@ -850,7 +850,7 @@ namespace Points
             {
                 result_dot = new Dot(pat636_2_3_4.First().x - 1, pat636_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 918;
             var pat918 = from Dot d in get_non_blocked
@@ -869,7 +869,7 @@ namespace Points
             {
                 result_dot = new Dot(pat918.First().x, pat918.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat918_2 = from Dot d in get_non_blocked
@@ -888,7 +888,7 @@ namespace Points
             {
                 result_dot = new Dot(pat918_2.First().x, pat918_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat918_2_3 = from Dot d in get_non_blocked
@@ -907,7 +907,7 @@ namespace Points
             {
                 result_dot = new Dot(pat918_2_3.First().x + 1, pat918_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat918_2_3_4 = from Dot d in get_non_blocked
@@ -926,7 +926,7 @@ namespace Points
             {
                 result_dot = new Dot(pat918_2_3_4.First().x - 1, pat918_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 242;
             var pat242 = from Dot d in get_non_blocked
@@ -989,7 +989,7 @@ namespace Points
             {
                 result_dot = new Dot(pat901.First().x + 1, pat901.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 180----------------------------------- 
             var pat901_2 = from Dot d in get_non_blocked
@@ -1006,7 +1006,7 @@ namespace Points
             {
                 result_dot = new Dot(pat901_2.First().x - 1, pat901_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             // d+ m+  
@@ -1023,7 +1023,7 @@ namespace Points
             {
                 result_dot = new Dot(pat604.First().x + 1, pat604.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 180----------------------------------- 
             var pat604_2 = from Dot d in get_non_blocked
@@ -1037,7 +1037,7 @@ namespace Points
             {
                 result_dot = new Dot(pat604_2.First().x - 1, pat604_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             // d*  +    
@@ -1055,7 +1055,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1117.First().x + 1, pat1117.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat1117_2 = from Dot d in get_non_blocked
@@ -1070,7 +1070,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1117_2.First().x - 1, pat1117_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat1117_2_3 = from Dot d in get_non_blocked
@@ -1085,7 +1085,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1117_2_3.First().x - 1, pat1117_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat1117_2_3_4 = from Dot d in get_non_blocked
@@ -1100,7 +1100,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1117_2_3_4.First().x + 1, pat1117_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -1122,7 +1122,7 @@ namespace Points
             {
                 result_dot = new Dot(pat549.First().x - 1, pat549.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 180----------------------------------- 
             var pat549_2 = from Dot d in get_non_blocked
@@ -1142,7 +1142,7 @@ namespace Points
 
                 result_dot = new Dot(pat549_2.First().x + 1, pat549_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 2883;
@@ -1160,7 +1160,7 @@ namespace Points
             {
                 result_dot = new Dot(pat2883.First().x + 1, pat2883.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat2883_2 = from Dot d in get_non_blocked
@@ -1177,7 +1177,7 @@ namespace Points
             {
                 result_dot = new Dot(pat2883_2.First().x - 1, pat2883_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat2883_2_3 = from Dot d in get_non_blocked
@@ -1194,7 +1194,7 @@ namespace Points
             {
                 result_dot = new Dot(pat2883_2_3.First().x + 1, pat2883_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat2883_2_3_4 = from Dot d in get_non_blocked
@@ -1211,7 +1211,7 @@ namespace Points
             {
                 result_dot = new Dot(pat2883_2_3_4.First().x - 1, pat2883_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -1232,7 +1232,7 @@ namespace Points
             {
                 result_dot = new Dot(pat663.First().x + 1, pat663.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat663_2 = from Dot d in this
@@ -1251,7 +1251,7 @@ namespace Points
             {
                 result_dot = new Dot(pat663_2.First().x - 1, pat663_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat663_2_3 = from Dot d in this
@@ -1270,7 +1270,7 @@ namespace Points
             {
                 result_dot = new Dot(pat663_2_3.First().x + 1, pat663_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat663_2_3_4 = from Dot d in this
@@ -1289,7 +1289,7 @@ namespace Points
             {
                 result_dot = new Dot(pat663_2_3_4.First().x - 1, pat663_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 364;
@@ -1306,7 +1306,7 @@ namespace Points
             {
                 result_dot = new Dot(pat364.First().x + 1, pat364.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat364_2 = from Dot d in this
@@ -1322,7 +1322,7 @@ namespace Points
             {
                 result_dot = new Dot(pat364_2.First().x - 1, pat364_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat364_2_3 = from Dot d in this
@@ -1338,7 +1338,7 @@ namespace Points
             {
                 result_dot = new Dot(pat364_2_3.First().x + 1, pat364_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat364_2_3_4 = from Dot d in this
@@ -1354,7 +1354,7 @@ namespace Points
             {
                 result_dot = new Dot(pat364_2_3_4.First().x - 1, pat364_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 222;
@@ -1375,7 +1375,7 @@ namespace Points
             {
                 result_dot = new Dot(pat222.First().x - 1, pat222.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat222_2 = from Dot d in this
@@ -1395,7 +1395,7 @@ namespace Points
             {
                 result_dot = new Dot(pat222_2.First().x + 1, pat222_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat222_2_3 = from Dot d in this
@@ -1415,7 +1415,7 @@ namespace Points
             {
                 result_dot = new Dot(pat222_2_3.First().x + 1, pat222_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat222_2_3_4 = from Dot d in this
@@ -1435,7 +1435,7 @@ namespace Points
             {
                 result_dot = new Dot(pat222_2_3_4.First().x - 1, pat222_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 564;
@@ -1453,7 +1453,7 @@ namespace Points
             {
                 result_dot = new Dot(pat564.First().x + 2, pat564.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat564_2 = from Dot d in this
@@ -1470,7 +1470,7 @@ namespace Points
             {
                 result_dot = new Dot(pat564_2.First().x - 2, pat564_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat564_2_3 = from Dot d in this
@@ -1487,7 +1487,7 @@ namespace Points
             {
                 result_dot = new Dot(pat564_2_3.First().x + 1, pat564_2_3.First().y - 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat564_2_3_4 = from Dot d in this
@@ -1504,7 +1504,7 @@ namespace Points
             {
                 result_dot = new Dot(pat564_2_3_4.First().x - 1, pat564_2_3_4.First().y + 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 935;
@@ -1526,7 +1526,7 @@ namespace Points
             {
                 result_dot = new Dot(pat935.First().x - 2, pat935.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat935_2 = from Dot d in this
@@ -1547,7 +1547,7 @@ namespace Points
             {
                 result_dot = new Dot(pat935_2.First().x + 2, pat935_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat935_2_3 = from Dot d in this
@@ -1568,7 +1568,7 @@ namespace Points
             {
                 result_dot = new Dot(pat935_2_3.First().x + 1, pat935_2_3.First().y + 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat935_2_3_4 = from Dot d in this
@@ -1589,7 +1589,7 @@ namespace Points
             {
                 result_dot = new Dot(pat935_2_3_4.First().x - 1, pat935_2_3_4.First().y - 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 936;
             var pat936 = from Dot d in this
@@ -1610,7 +1610,7 @@ namespace Points
             {
                 result_dot = new Dot(pat936.First().x + 2, pat936.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat936_2 = from Dot d in this
@@ -1631,7 +1631,7 @@ namespace Points
             {
                 result_dot = new Dot(pat936_2.First().x - 2, pat936_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat936_2_3 = from Dot d in this
@@ -1652,7 +1652,7 @@ namespace Points
             {
                 result_dot = new Dot(pat936_2_3.First().x + 1, pat936_2_3.First().y - 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat936_2_3_4 = from Dot d in this
@@ -1673,7 +1673,7 @@ namespace Points
             {
                 result_dot = new Dot(pat936_2_3_4.First().x - 1, pat936_2_3_4.First().y + 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 598;
@@ -1698,7 +1698,7 @@ namespace Points
             {
                 result_dot = new Dot(pat598.First().x + 3, pat598.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat598_2 = from Dot d in this
@@ -1722,7 +1722,7 @@ namespace Points
             {
                 result_dot = new Dot(pat598_2.First().x - 3, pat598_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat598_2_3 = from Dot d in this
@@ -1746,7 +1746,7 @@ namespace Points
             {
                 result_dot = new Dot(pat598_2_3.First().x + 1, pat598_2_3.First().y - 3);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat598_2_3_4 = from Dot d in this
@@ -1770,7 +1770,7 @@ namespace Points
             {
                 result_dot = new Dot(pat598_2_3_4.First().x - 1, pat598_2_3_4.First().y + 3);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 420;
             var pat420 = from Dot d in this
@@ -1797,7 +1797,7 @@ namespace Points
             {
                 result_dot = new Dot(pat420.First().x + 1, pat420.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat420_2 = from Dot d in this
@@ -1824,7 +1824,7 @@ namespace Points
             {
                 result_dot = new Dot(pat420_2.First().x - 1, pat420_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat420_2_3 = from Dot d in this
@@ -1851,7 +1851,7 @@ namespace Points
             {
                 result_dot = new Dot(pat420_2_3.First().x + 1, pat420_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat420_2_3_4 = from Dot d in this
@@ -1878,7 +1878,7 @@ namespace Points
             {
                 result_dot = new Dot(pat420_2_3_4.First().x - 1, pat420_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -1904,7 +1904,7 @@ namespace Points
             {
                 result_dot = new Dot(pat670.First().x - 1, pat670.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat670_2 = from Dot d in get_non_blocked
@@ -1927,7 +1927,7 @@ namespace Points
             {
                 result_dot = new Dot(pat670_2.First().x + 1, pat670_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat670_2_3 = from Dot d in get_non_blocked
@@ -1950,7 +1950,7 @@ namespace Points
             {
                 result_dot = new Dot(pat670_2_3.First().x + 1, pat670_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat670_2_3_4 = from Dot d in get_non_blocked
@@ -1973,7 +1973,7 @@ namespace Points
             {
                 result_dot = new Dot(pat670_2_3_4.First().x - 1, pat670_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             //============================================================================================================== 
@@ -1991,7 +1991,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1883.First().x + 1, pat1883.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat1883_2 = from Dot d in get_non_blocked
@@ -2007,7 +2007,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1883_2.First().x - 1, pat1883_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat1883_2_3 = from Dot d in get_non_blocked
@@ -2023,7 +2023,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1883_2_3.First().x + 1, pat1883_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat1883_2_3_4 = from Dot d in get_non_blocked
@@ -2039,7 +2039,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1883_2_3_4.First().x - 1, pat1883_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -2062,7 +2062,7 @@ namespace Points
             {
                 result_dot = new Dot(pat528.First().x + 1, pat528.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat528_2 = from Dot d in get_non_blocked
@@ -2081,7 +2081,7 @@ namespace Points
             {
                 result_dot = new Dot(pat528_2.First().x - 1, pat528_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat528_2_3 = from Dot d in get_non_blocked
@@ -2100,7 +2100,7 @@ namespace Points
             {
                 result_dot = new Dot(pat528_2_3.First().x - 1, pat528_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat528_2_3_4 = from Dot d in get_non_blocked
@@ -2119,7 +2119,7 @@ namespace Points
             {
                 result_dot = new Dot(pat528_2_3_4.First().x + 1, pat528_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 490;
@@ -2138,7 +2138,7 @@ namespace Points
             {
                 result_dot = new Dot(pat490.First().x + 1, pat490.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat490_2 = from Dot d in get_non_blocked
@@ -2156,7 +2156,7 @@ namespace Points
             {
                 result_dot = new Dot(pat490_2.First().x - 1, pat490_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat490_2_3 = from Dot d in get_non_blocked
@@ -2174,7 +2174,7 @@ namespace Points
             {
                 result_dot = new Dot(pat490_2_3.First().x + 1, pat490_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat490_2_3_4 = from Dot d in get_non_blocked
@@ -2192,7 +2192,7 @@ namespace Points
             {
                 result_dot = new Dot(pat490_2_3_4.First().x - 1, pat490_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 378;
@@ -2212,7 +2212,7 @@ namespace Points
             {
                 result_dot = new Dot(pat378.First().x + 1, pat378.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat378_2 = from Dot d in get_non_blocked
@@ -2231,7 +2231,7 @@ namespace Points
             {
                 result_dot = new Dot(pat378_2.First().x - 1, pat378_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat378_2_3 = from Dot d in get_non_blocked
@@ -2250,7 +2250,7 @@ namespace Points
             {
                 result_dot = new Dot(pat378_2_3.First().x + 1, pat378_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat378_2_3_4 = from Dot d in get_non_blocked
@@ -2269,7 +2269,7 @@ namespace Points
             {
                 result_dot = new Dot(pat378_2_3_4.First().x - 1, pat378_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -2291,7 +2291,7 @@ namespace Points
             {
                 result_dot = new Dot(pat472.First().x + 1, pat472.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat472_2 = from Dot d in get_non_blocked
@@ -2311,7 +2311,7 @@ namespace Points
             {
                 result_dot = new Dot(pat472_2.First().x - 1, pat472_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat472_2_3 = from Dot d in get_non_blocked
@@ -2331,7 +2331,7 @@ namespace Points
             {
                 result_dot = new Dot(pat472_2_3.First().x - 1, pat472_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat472_2_3_4 = from Dot d in get_non_blocked
@@ -2351,7 +2351,7 @@ namespace Points
             {
                 result_dot = new Dot(pat472_2_3_4.First().x + 1, pat472_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 758;
             var pat758 = from Dot d in get_non_blocked
@@ -2370,7 +2370,7 @@ namespace Points
             {
                 result_dot = new Dot(pat758.First().x - 1, pat758.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat758_2 = from Dot d in get_non_blocked
@@ -2389,7 +2389,7 @@ namespace Points
             {
                 result_dot = new Dot(pat758_2.First().x + 1, pat758_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat758_2_3 = from Dot d in get_non_blocked
@@ -2408,7 +2408,7 @@ namespace Points
             {
                 result_dot = new Dot(pat758_2_3.First().x + 1, pat758_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat758_2_3_4 = from Dot d in get_non_blocked
@@ -2427,7 +2427,7 @@ namespace Points
             {
                 result_dot = new Dot(pat758_2_3_4.First().x - 1, pat758_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 917;
@@ -2446,7 +2446,7 @@ namespace Points
             {
                 result_dot = new Dot(pat917.First().x, pat917.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat917_2 = from Dot d in this
@@ -2464,7 +2464,7 @@ namespace Points
             {
                 result_dot = new Dot(pat917_2.First().x, pat917_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -2480,7 +2480,7 @@ namespace Points
             {
                 result_dot = new Dot(pat276.First().x + 1, pat276.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat276_2 = from Dot d in get_non_blocked
@@ -2495,7 +2495,7 @@ namespace Points
             {
                 result_dot = new Dot(pat276_2.First().x - 1, pat276_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat276_2_3 = from Dot d in get_non_blocked
@@ -2509,7 +2509,7 @@ namespace Points
             {
                 result_dot = new Dot(pat276_2_3.First().x, pat276_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat276_2_3_4 = from Dot d in get_non_blocked
@@ -2523,7 +2523,7 @@ namespace Points
             {
                 result_dot = new Dot(pat276_2_3_4.First().x, pat276_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 475;
@@ -2542,7 +2542,7 @@ namespace Points
             {
                 result_dot = new Dot(pat475.First().x - 1, pat475.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat475_2 = from Dot d in get_non_blocked
@@ -2560,7 +2560,7 @@ namespace Points
             {
                 result_dot = new Dot(pat475_2.First().x + 1, pat475_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat475_2_3 = from Dot d in get_non_blocked
@@ -2578,7 +2578,7 @@ namespace Points
             {
                 result_dot = new Dot(pat475_2_3.First().x + 1, pat475_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat475_2_3_4 = from Dot d in get_non_blocked
@@ -2596,7 +2596,7 @@ namespace Points
             {
                 result_dot = new Dot(pat475_2_3_4.First().x - 1, pat475_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 385;
             var pat385 = from Dot d in get_non_blocked
@@ -2618,7 +2618,7 @@ namespace Points
             {
                 result_dot = new Dot(pat385.First().x - 1, pat385.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat385_2 = from Dot d in get_non_blocked
@@ -2640,7 +2640,7 @@ namespace Points
             {
                 result_dot = new Dot(pat385_2.First().x + 1, pat385_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat385_2_3 = from Dot d in get_non_blocked
@@ -2662,7 +2662,7 @@ namespace Points
             {
                 result_dot = new Dot(pat385_2_3.First().x - 1, pat385_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat385_2_3_4 = from Dot d in get_non_blocked
@@ -2684,7 +2684,7 @@ namespace Points
             {
                 result_dot = new Dot(pat385_2_3_4.First().x + 1, pat385_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 386;
@@ -2703,7 +2703,7 @@ namespace Points
             {
                 result_dot = new Dot(pat386.First().x + 1, pat386.First().y - 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat386_2 = from Dot d in get_non_blocked
@@ -2721,7 +2721,7 @@ namespace Points
             {
                 result_dot = new Dot(pat386_2.First().x - 1, pat386_2.First().y + 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat386_2_3 = from Dot d in get_non_blocked
@@ -2739,7 +2739,7 @@ namespace Points
             {
                 result_dot = new Dot(pat386_2_3.First().x + 2, pat386_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat386_2_3_4 = from Dot d in get_non_blocked
@@ -2757,7 +2757,7 @@ namespace Points
             {
                 result_dot = new Dot(pat386_2_3_4.First().x - 2, pat386_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 879;
@@ -2778,7 +2778,7 @@ namespace Points
             {
                 result_dot = new Dot(pat879.First().x, pat879.First().y - 3);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat879_2 = from Dot d in get_non_blocked
@@ -2798,7 +2798,7 @@ namespace Points
             {
                 result_dot = new Dot(pat879_2.First().x, pat879_2.First().y + 3);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat879_2_3 = from Dot d in get_non_blocked
@@ -2818,7 +2818,7 @@ namespace Points
             {
                 result_dot = new Dot(pat879_2_3.First().x + 3, pat879_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat879_2_3_4 = from Dot d in get_non_blocked
@@ -2838,7 +2838,7 @@ namespace Points
             {
                 result_dot = new Dot(pat879_2_3_4.First().x - 3, pat879_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 823;
@@ -2854,7 +2854,7 @@ namespace Points
             {
                 result_dot = new Dot(pat823.First().x - 1, pat823.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat823_2 = from Dot d in get_non_blocked
@@ -2869,7 +2869,7 @@ namespace Points
             {
                 result_dot = new Dot(pat823_2.First().x + 1, pat823_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat823_2_3 = from Dot d in get_non_blocked
@@ -2884,7 +2884,7 @@ namespace Points
             {
                 result_dot = new Dot(pat823_2_3.First().x, pat823_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat823_2_3_4 = from Dot d in get_non_blocked
@@ -2899,7 +2899,7 @@ namespace Points
             {
                 result_dot = new Dot(pat823_2_3_4.First().x, pat823_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 555;
             var pat555 = from Dot d in this
@@ -2914,7 +2914,7 @@ namespace Points
             {
                 result_dot = new Dot(pat555.First().x + 1, pat555.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat555_2 = from Dot d in this
@@ -2929,7 +2929,7 @@ namespace Points
             {
                 result_dot = new Dot(pat555_2.First().x - 1, pat555_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat555_2_3 = from Dot d in this
@@ -2944,7 +2944,7 @@ namespace Points
             {
                 result_dot = new Dot(pat555_2_3.First().x + 1, pat555_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat555_2_3_4 = from Dot d in this
@@ -2959,7 +2959,7 @@ namespace Points
             {
                 result_dot = new Dot(pat555_2_3_4.First().x - 1, pat555_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -2982,7 +2982,7 @@ namespace Points
             {
                 result_dot = new Dot(pat753.First().x, pat753.First().y + 3);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat753_2 = from Dot d in get_non_blocked
@@ -3003,7 +3003,7 @@ namespace Points
             {
                 result_dot = new Dot(pat753_2.First().x, pat753_2.First().y - 3);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat753_2_3 = from Dot d in get_non_blocked
@@ -3024,7 +3024,7 @@ namespace Points
             {
                 result_dot = new Dot(pat753_2_3.First().x - 3, pat753_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat753_2_3_4 = from Dot d in get_non_blocked
@@ -3045,7 +3045,7 @@ namespace Points
             {
                 result_dot = new Dot(pat753_2_3_4.First().x + 3, pat753_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 673;
@@ -3063,7 +3063,7 @@ namespace Points
             {
                 result_dot = new Dot(pat673.First().x - 1, pat673.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat673_2 = from Dot d in get_non_blocked
@@ -3080,7 +3080,7 @@ namespace Points
             {
                 result_dot = new Dot(pat673_2.First().x + 1, pat673_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat673_2_3 = from Dot d in get_non_blocked
@@ -3097,7 +3097,7 @@ namespace Points
             {
                 result_dot = new Dot(pat673_2_3.First().x + 1, pat673_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat673_2_3_4 = from Dot d in get_non_blocked
@@ -3114,7 +3114,7 @@ namespace Points
             {
                 result_dot = new Dot(pat673_2_3_4.First().x - 1, pat673_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 389;
@@ -3135,7 +3135,7 @@ namespace Points
             {
                 result_dot = new Dot(pat389.First().x - 1, pat389.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat389_2 = from Dot d in get_non_blocked
@@ -3155,7 +3155,7 @@ namespace Points
             {
                 result_dot = new Dot(pat389_2.First().x + 1, pat389_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat389_2_3 = from Dot d in get_non_blocked
@@ -3175,7 +3175,7 @@ namespace Points
             {
                 result_dot = new Dot(pat389_2_3.First().x - 1, pat389_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat389_2_3_4 = from Dot d in get_non_blocked
@@ -3195,7 +3195,7 @@ namespace Points
             {
                 result_dot = new Dot(pat389_2_3_4.First().x + 1, pat389_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             //iNumberPattern = 822;
@@ -3209,7 +3209,7 @@ namespace Points
             //{
             //    result_dot = new Dot(pat822.First().x + 1, pat822.First().y);
             //    result_dot.iNumberPattern = iNumberPattern;
-            //    return result_dot;
+            //    ld.Add(result_dot);
             //}
             ////180 Rotate=========================================================================================================== 
             //var pat822_2 = from Dot d in this
@@ -3222,7 +3222,7 @@ namespace Points
             //{
             //    result_dot = new Dot(pat822_2.First().x - 1, pat822_2.First().y);
             //    result_dot.iNumberPattern = iNumberPattern;
-            //    return result_dot;
+            //    ld.Add(result_dot);
             //}
             ////--------------Rotate on 90----------------------------------- 
             //var pat822_2_3 = from Dot d in this
@@ -3235,7 +3235,7 @@ namespace Points
             //{
             //    result_dot = new Dot(pat822_2_3.First().x, pat822_2_3.First().y - 1);
             //    result_dot.iNumberPattern = iNumberPattern;
-            //    return result_dot;
+            //    ld.Add(result_dot);
             //}
             ////--------------Rotate on 90 - 2----------------------------------- 
             //var pat822_2_3_4 = from Dot d in this
@@ -3248,7 +3248,7 @@ namespace Points
             //{
             //    result_dot = new Dot(pat822_2_3_4.First().x, pat822_2_3_4.First().y + 1);
             //    result_dot.iNumberPattern = iNumberPattern;
-            //    return result_dot;
+            //    ld.Add(result_dot);
             //}
             //============================================================================================================== 
             iNumberPattern = 822;
@@ -3265,7 +3265,7 @@ namespace Points
             {
                 result_dot = new Dot(pat822.First().x + 1, pat822.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat822_2 = from Dot d in this
@@ -3281,7 +3281,7 @@ namespace Points
             {
                 result_dot = new Dot(pat822_2.First().x - 1, pat822_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat822_2_3 = from Dot d in this
@@ -3297,7 +3297,7 @@ namespace Points
             {
                 result_dot = new Dot(pat822_2_3.First().x, pat822_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat822_2_3_4 = from Dot d in this
@@ -3313,7 +3313,7 @@ namespace Points
             {
                 result_dot = new Dot(pat822_2_3_4.First().x, pat822_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 933;
@@ -3332,7 +3332,7 @@ namespace Points
             {
                 result_dot = new Dot(pat933.First().x, pat933.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat933_2 = from Dot d in get_non_blocked
@@ -3350,7 +3350,7 @@ namespace Points
             {
                 result_dot = new Dot(pat933_2.First().x, pat933_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat933_2_3 = from Dot d in get_non_blocked
@@ -3368,7 +3368,7 @@ namespace Points
             {
                 result_dot = new Dot(pat933_2_3.First().x - 1, pat933_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat933_2_3_4 = from Dot d in get_non_blocked
@@ -3386,7 +3386,7 @@ namespace Points
             {
                 result_dot = new Dot(pat933_2_3_4.First().x + 1, pat933_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 517;
@@ -3406,7 +3406,7 @@ namespace Points
             {
                 result_dot = new Dot(pat517.First().x + 1, pat517.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat517_2 = from Dot d in get_non_blocked
@@ -3425,7 +3425,7 @@ namespace Points
             {
                 result_dot = new Dot(pat517_2.First().x - 1, pat517_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat517_2_3 = from Dot d in get_non_blocked
@@ -3444,7 +3444,7 @@ namespace Points
             {
                 result_dot = new Dot(pat517_2_3.First().x - 1, pat517_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat517_2_3_4 = from Dot d in get_non_blocked
@@ -3463,7 +3463,7 @@ namespace Points
             {
                 result_dot = new Dot(pat517_2_3_4.First().x + 1, pat517_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 735;
@@ -3488,7 +3488,7 @@ namespace Points
             {
                 result_dot = new Dot(pat735.First().x + 1, pat735.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat735_2 = from Dot d in get_non_blocked
@@ -3512,7 +3512,7 @@ namespace Points
             {
                 result_dot = new Dot(pat735_2.First().x - 1, pat735_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat735_2_3 = from Dot d in get_non_blocked
@@ -3536,7 +3536,7 @@ namespace Points
             {
                 result_dot = new Dot(pat735_2_3.First().x + 1, pat735_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat735_2_3_4 = from Dot d in get_non_blocked
@@ -3560,7 +3560,7 @@ namespace Points
             {
                 result_dot = new Dot(pat735_2_3_4.First().x - 1, pat735_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 699;
@@ -3575,7 +3575,7 @@ namespace Points
             {
                 result_dot = new Dot(pat699.First().x, pat699.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat699_2 = from Dot d in get_non_blocked
@@ -3589,7 +3589,7 @@ namespace Points
             {
                 result_dot = new Dot(pat699_2.First().x, pat699_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat699_2_3 = from Dot d in get_non_blocked
@@ -3603,7 +3603,7 @@ namespace Points
             {
                 result_dot = new Dot(pat699_2_3.First().x - 1, pat699_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat699_2_3_4 = from Dot d in get_non_blocked
@@ -3617,7 +3617,7 @@ namespace Points
             {
                 result_dot = new Dot(pat699_2_3_4.First().x + 1, pat699_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 296;
@@ -3638,7 +3638,7 @@ namespace Points
             {
                 result_dot = new Dot(pat296.First().x - 1, pat296.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat296_2 = from Dot d in get_non_blocked
@@ -3658,7 +3658,7 @@ namespace Points
             {
                 result_dot = new Dot(pat296_2.First().x + 1, pat296_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat296_2_3 = from Dot d in get_non_blocked
@@ -3678,7 +3678,7 @@ namespace Points
             {
                 result_dot = new Dot(pat296_2_3.First().x, pat296_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat296_2_3_4 = from Dot d in get_non_blocked
@@ -3698,7 +3698,7 @@ namespace Points
             {
                 result_dot = new Dot(pat296_2_3_4.First().x, pat296_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 22;
             var pat22 = from Dot d in this
@@ -3714,7 +3714,7 @@ namespace Points
             {
                 result_dot = new Dot(pat22.First().x + 1, pat22.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat22_2 = from Dot d in this
@@ -3730,7 +3730,7 @@ namespace Points
             {
                 result_dot = new Dot(pat22_2.First().x - 1, pat22_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat22_2_3 = from Dot d in this
@@ -3746,7 +3746,7 @@ namespace Points
             {
                 result_dot = new Dot(pat22_2_3.First().x - 1, pat22_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat22_2_3_4 = from Dot d in this
@@ -3762,7 +3762,7 @@ namespace Points
             {
                 result_dot = new Dot(pat22_2_3_4.First().x + 1, pat22_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 25;
@@ -3779,7 +3779,7 @@ namespace Points
             {
                 result_dot = new Dot(pat25.First().x, pat25.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat25_2 = from Dot d in this
@@ -3795,7 +3795,7 @@ namespace Points
             {
                 result_dot = new Dot(pat25_2.First().x, pat25_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat25_2_3 = from Dot d in this
@@ -3811,7 +3811,7 @@ namespace Points
             {
                 result_dot = new Dot(pat25_2_3.First().x - 1, pat25_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat25_2_3_4 = from Dot d in this
@@ -3827,7 +3827,7 @@ namespace Points
             {
                 result_dot = new Dot(pat25_2_3_4.First().x + 1, pat25_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -3847,7 +3847,7 @@ namespace Points
             {
                 result_dot = new Dot(pat23.First().x + 1, pat23.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat23_2 = from Dot d in this
@@ -3865,7 +3865,7 @@ namespace Points
             {
                 result_dot = new Dot(pat23_2.First().x - 1, pat23_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat23_2_3 = from Dot d in this
@@ -3883,7 +3883,7 @@ namespace Points
             {
                 result_dot = new Dot(pat23_2_3.First().x - 1, pat23_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat23_2_3_4 = from Dot d in this
@@ -3901,7 +3901,7 @@ namespace Points
             {
                 result_dot = new Dot(pat23_2_3_4.First().x + 1, pat23_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             iNumberPattern = 597;
@@ -3921,7 +3921,7 @@ namespace Points
             {
                 result_dot = new Dot(pat597.First().x + 1, pat597.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat597_2 = from Dot d in get_non_blocked
@@ -3940,7 +3940,7 @@ namespace Points
             {
                 result_dot = new Dot(pat597_2.First().x - 1, pat597_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat597_2_3 = from Dot d in get_non_blocked
@@ -3959,7 +3959,7 @@ namespace Points
             {
                 result_dot = new Dot(pat597_2_3.First().x - 1, pat597_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat597_2_3_4 = from Dot d in get_non_blocked
@@ -3978,7 +3978,7 @@ namespace Points
             {
                 result_dot = new Dot(pat597_2_3_4.First().x + 1, pat597_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 938;
@@ -3996,7 +3996,7 @@ namespace Points
             {
                 result_dot = new Dot(pat938.First().x + 1, pat938.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat938_2 = from Dot d in get_non_blocked
@@ -4013,7 +4013,7 @@ namespace Points
             {
                 result_dot = new Dot(pat938_2.First().x - 1, pat938_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat938_2_3 = from Dot d in get_non_blocked
@@ -4031,7 +4031,7 @@ namespace Points
             {
                 result_dot = new Dot(pat938_2_3.First().x - 1, pat938_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat938_2_3_4 = from Dot d in get_non_blocked
@@ -4048,7 +4048,7 @@ namespace Points
             {
                 result_dot = new Dot(pat938_2_3_4.First().x + 1, pat938_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 44;
@@ -4069,7 +4069,7 @@ namespace Points
             {
                 result_dot = new Dot(pat44.First().x + 1, pat44.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat44_2 = from Dot d in get_non_blocked
@@ -4089,7 +4089,7 @@ namespace Points
             {
                 result_dot = new Dot(pat44_2.First().x - 1, pat44_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat44_2_3 = from Dot d in get_non_blocked
@@ -4109,7 +4109,7 @@ namespace Points
             {
                 result_dot = new Dot(pat44_2_3.First().x, pat44_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat44_2_3_4 = from Dot d in get_non_blocked
@@ -4129,7 +4129,7 @@ namespace Points
             {
                 result_dot = new Dot(pat44_2_3_4.First().x, pat44_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 134;
@@ -4149,7 +4149,7 @@ namespace Points
             {
                 result_dot = new Dot(pat134.First().x, pat134.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat134_2 = from Dot d in get_non_blocked
@@ -4168,7 +4168,7 @@ namespace Points
             {
                 result_dot = new Dot(pat134_2.First().x, pat134_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat134_2_3 = from Dot d in get_non_blocked
@@ -4187,7 +4187,7 @@ namespace Points
             {
                 result_dot = new Dot(pat134_2_3.First().x + 1, pat134_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat134_2_3_4 = from Dot d in get_non_blocked
@@ -4206,7 +4206,7 @@ namespace Points
             {
                 result_dot = new Dot(pat134_2_3_4.First().x - 1, pat134_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -4227,7 +4227,7 @@ namespace Points
             {
                 result_dot = new Dot(pat671.First().x - 1, pat671.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat671_2 = from Dot d in get_non_blocked
@@ -4246,7 +4246,7 @@ namespace Points
             {
                 result_dot = new Dot(pat671_2.First().x + 1, pat671_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat671_2_3 = from Dot d in get_non_blocked
@@ -4265,7 +4265,7 @@ namespace Points
             {
                 result_dot = new Dot(pat671_2_3.First().x - 1, pat671_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat671_2_3_4 = from Dot d in get_non_blocked
@@ -4284,7 +4284,7 @@ namespace Points
             {
                 result_dot = new Dot(pat671_2_3_4.First().x + 1, pat671_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 726;
@@ -4304,7 +4304,7 @@ namespace Points
             {
                 result_dot = new Dot(pat726.First().x + 1, pat726.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat726_2 = from Dot d in get_non_blocked
@@ -4323,7 +4323,7 @@ namespace Points
             {
                 result_dot = new Dot(pat726_2.First().x - 1, pat726_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat726_2_3 = from Dot d in get_non_blocked
@@ -4342,7 +4342,7 @@ namespace Points
             {
                 result_dot = new Dot(pat726_2_3.First().x + 1, pat726_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat726_2_3_4 = from Dot d in get_non_blocked
@@ -4361,7 +4361,7 @@ namespace Points
             {
                 result_dot = new Dot(pat726_2_3_4.First().x - 1, pat726_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             ////============================================================================================================== 
             iNumberPattern = 689;
@@ -4377,7 +4377,7 @@ namespace Points
             {
                 result_dot = new Dot(pat689.First().x + 1, pat689.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat689_2 = from Dot d in get_non_blocked
@@ -4392,7 +4392,7 @@ namespace Points
             {
                 result_dot = new Dot(pat689_2.First().x - 1, pat689_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat689_2_3 = from Dot d in get_non_blocked
@@ -4407,7 +4407,7 @@ namespace Points
             {
                 result_dot = new Dot(pat689_2_3.First().x, pat689_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat689_2_3_4 = from Dot d in get_non_blocked
@@ -4422,7 +4422,7 @@ namespace Points
             {
                 result_dot = new Dot(pat689_2_3_4.First().x, pat689_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -4438,7 +4438,7 @@ namespace Points
             {
                 result_dot = new Dot(pat827.First().x, pat827.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat827_2 = from Dot d in get_non_blocked
@@ -4452,7 +4452,7 @@ namespace Points
             {
                 result_dot = new Dot(pat827_2.First().x, pat827_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat827_2_3 = from Dot d in get_non_blocked
@@ -4466,7 +4466,7 @@ namespace Points
             {
                 result_dot = new Dot(pat827_2_3.First().x + 1, pat827_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat827_2_3_4 = from Dot d in get_non_blocked
@@ -4480,7 +4480,7 @@ namespace Points
             {
                 result_dot = new Dot(pat827_2_3_4.First().x - 1, pat827_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 974;
@@ -4498,7 +4498,7 @@ namespace Points
             {
                 result_dot = new Dot(pat974.First().x + 1, pat974.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat974_2 = from Dot d in get_non_blocked
@@ -4515,7 +4515,7 @@ namespace Points
             {
                 result_dot = new Dot(pat974_2.First().x - 1, pat974_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat974_2_3 = from Dot d in get_non_blocked
@@ -4532,7 +4532,7 @@ namespace Points
             {
                 result_dot = new Dot(pat974_2_3.First().x + 1, pat974_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat974_2_3_4 = from Dot d in get_non_blocked
@@ -4549,7 +4549,7 @@ namespace Points
             {
                 result_dot = new Dot(pat974_2_3_4.First().x - 1, pat974_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 476;
@@ -4565,7 +4565,7 @@ namespace Points
             {
                 result_dot = new Dot(pat476.First().x + 1, pat476.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat476_2 = from Dot d in get_non_blocked
@@ -4580,7 +4580,7 @@ namespace Points
             {
                 result_dot = new Dot(pat476_2.First().x - 1, pat476_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat476_2_3 = from Dot d in get_non_blocked
@@ -4595,7 +4595,7 @@ namespace Points
             {
                 result_dot = new Dot(pat476_2_3.First().x, pat476_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat476_2_3_4 = from Dot d in get_non_blocked
@@ -4610,7 +4610,7 @@ namespace Points
             {
                 result_dot = new Dot(pat476_2_3_4.First().x, pat476_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 479;
@@ -4635,7 +4635,7 @@ namespace Points
             {
                 result_dot = new Dot(pat479.First().x + 1, pat479.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat479_2 = from Dot d in get_non_blocked
@@ -4659,7 +4659,7 @@ namespace Points
             {
                 result_dot = new Dot(pat479_2.First().x - 1, pat479_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat479_2_3 = from Dot d in get_non_blocked
@@ -4683,7 +4683,7 @@ namespace Points
             {
                 result_dot = new Dot(pat479_2_3.First().x + 1, pat479_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat479_2_3_4 = from Dot d in get_non_blocked
@@ -4707,7 +4707,7 @@ namespace Points
             {
                 result_dot = new Dot(pat479_2_3_4.First().x - 1, pat479_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 384;
@@ -4726,7 +4726,7 @@ namespace Points
             {
                 result_dot = new Dot(pat384.First().x - 1, pat384.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat384_2 = from Dot d in this
@@ -4743,7 +4743,7 @@ namespace Points
             {
                 result_dot = new Dot(pat384_2.First().x + 1, pat384_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat384_2_3 = from Dot d in this
@@ -4760,7 +4760,7 @@ namespace Points
             {
                 result_dot = new Dot(pat384_2_3.First().x + 1, pat384_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat384_2_3_4 = from Dot d in this
@@ -4777,7 +4777,7 @@ namespace Points
             {
                 result_dot = new Dot(pat384_2_3_4.First().x - 1, pat384_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 15;
@@ -4791,7 +4791,7 @@ namespace Points
             {
                 result_dot = new Dot(pat15.First().x + 1, pat15.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat15_2 = from Dot d in get_non_blocked
@@ -4804,7 +4804,7 @@ namespace Points
             {
                 result_dot = new Dot(pat15_2.First().x - 1, pat15_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat15_2_3 = from Dot d in get_non_blocked
@@ -4817,7 +4817,7 @@ namespace Points
             {
                 result_dot = new Dot(pat15_2_3.First().x, pat15_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat15_2_3_4 = from Dot d in get_non_blocked
@@ -4830,7 +4830,7 @@ namespace Points
             {
                 result_dot = new Dot(pat15_2_3_4.First().x, pat15_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             iNumberPattern = 437;
             var pat437 = from Dot d in get_non_blocked
@@ -4845,7 +4845,7 @@ namespace Points
             {
                 result_dot = new Dot(pat437.First().x - 1, pat437.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat437_2 = from Dot d in get_non_blocked
@@ -4860,7 +4860,7 @@ namespace Points
             {
                 result_dot = new Dot(pat437_2.First().x + 1, pat437_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat437_2_3 = from Dot d in get_non_blocked
@@ -4875,7 +4875,7 @@ namespace Points
             {
                 result_dot = new Dot(pat437_2_3.First().x, pat437_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat437_2_3_4 = from Dot d in get_non_blocked
@@ -4890,7 +4890,7 @@ namespace Points
             {
                 result_dot = new Dot(pat437_2_3_4.First().x, pat437_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 669;
@@ -4908,7 +4908,7 @@ namespace Points
             {
                 result_dot = new Dot(pat669.First().x + 1, pat669.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat669_2 = from Dot d in get_non_blocked
@@ -4925,7 +4925,7 @@ namespace Points
             {
                 result_dot = new Dot(pat669_2.First().x - 1, pat669_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat669_2_3 = from Dot d in get_non_blocked
@@ -4942,7 +4942,7 @@ namespace Points
             {
                 result_dot = new Dot(pat669_2_3.First().x - 1, pat669_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat669_2_3_4 = from Dot d in get_non_blocked
@@ -4959,7 +4959,7 @@ namespace Points
             {
                 result_dot = new Dot(pat669_2_3_4.First().x + 1, pat669_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 434;
@@ -4985,7 +4985,7 @@ namespace Points
             {
                 result_dot = new Dot(pat434.First().x + 1, pat434.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat434_2 = from Dot d in get_non_blocked
@@ -5010,7 +5010,7 @@ namespace Points
             {
                 result_dot = new Dot(pat434_2.First().x - 1, pat434_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat434_2_3 = from Dot d in get_non_blocked
@@ -5035,7 +5035,7 @@ namespace Points
             {
                 result_dot = new Dot(pat434_2_3.First().x - 1, pat434_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat434_2_3_4 = from Dot d in get_non_blocked
@@ -5060,7 +5060,7 @@ namespace Points
             {
                 result_dot = new Dot(pat434_2_3_4.First().x + 1, pat434_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 63;
@@ -5079,7 +5079,7 @@ namespace Points
             {
                 result_dot = new Dot(pat63.First().x - 1, pat63.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat63_2 = from Dot d in get_non_blocked
@@ -5097,7 +5097,7 @@ namespace Points
             {
                 result_dot = new Dot(pat63_2.First().x + 1, pat63_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat63_2_3 = from Dot d in get_non_blocked
@@ -5115,7 +5115,7 @@ namespace Points
             {
                 result_dot = new Dot(pat63_2_3.First().x - 1, pat63_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat63_2_3_4 = from Dot d in get_non_blocked
@@ -5133,7 +5133,7 @@ namespace Points
             {
                 result_dot = new Dot(pat63_2_3_4.First().x + 1, pat63_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 1918;
@@ -5149,7 +5149,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1918.First().x + 1, pat1918.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat1918_2 = from Dot d in get_non_blocked
@@ -5164,7 +5164,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1918_2.First().x - 1, pat1918_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat1918_2_3 = from Dot d in get_non_blocked
@@ -5179,7 +5179,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1918_2_3.First().x, pat1918_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat1918_2_3_4 = from Dot d in get_non_blocked
@@ -5194,7 +5194,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1918_2_3_4.First().x, pat1918_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 239;
@@ -5213,7 +5213,7 @@ namespace Points
             {
                 result_dot = new Dot(pat239.First().x - 1, pat239.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat239_2_3 = from Dot d in get_non_blocked
@@ -5231,7 +5231,7 @@ namespace Points
             {
                 result_dot = new Dot(pat239_2_3.First().x - 1, pat239_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //------------------------------------------------------------------
             iNumberPattern = 144;
@@ -5249,7 +5249,7 @@ namespace Points
             {
                 result_dot = new Dot(pat144.First().x - 1, pat144.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat144_2 = from Dot d in this
@@ -5266,7 +5266,7 @@ namespace Points
             {
                 result_dot = new Dot(pat144_2.First().x + 1, pat144_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat144_2_3 = from Dot d in this
@@ -5283,7 +5283,7 @@ namespace Points
             {
                 result_dot = new Dot(pat144_2_3.First().x - 1, pat144_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat144_2_3_4 = from Dot d in this
@@ -5300,7 +5300,7 @@ namespace Points
             {
                 result_dot = new Dot(pat144_2_3_4.First().x + 1, pat144_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 723;
@@ -5318,7 +5318,7 @@ namespace Points
             {
                 result_dot = new Dot(pat723.First().x - 1, pat723.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat723_2 = from Dot d in get_non_blocked
@@ -5335,7 +5335,7 @@ namespace Points
             {
                 result_dot = new Dot(pat723_2.First().x + 1, pat723_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat723_2_3 = from Dot d in get_non_blocked
@@ -5352,7 +5352,7 @@ namespace Points
             {
                 result_dot = new Dot(pat723_2_3.First().x + 1, pat723_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat723_2_3_4 = from Dot d in get_non_blocked
@@ -5369,7 +5369,7 @@ namespace Points
             {
                 result_dot = new Dot(pat723_2_3_4.First().x - 1, pat723_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 652;
@@ -5391,7 +5391,7 @@ namespace Points
             {
                 result_dot = new Dot(pat652.First().x - 1, pat652.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat652_2 = from Dot d in get_non_blocked
@@ -5412,7 +5412,7 @@ namespace Points
             {
                 result_dot = new Dot(pat652_2.First().x + 1, pat652_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat652_2_3 = from Dot d in get_non_blocked
@@ -5433,7 +5433,7 @@ namespace Points
             {
                 result_dot = new Dot(pat652_2_3.First().x + 1, pat652_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat652_2_3_4 = from Dot d in get_non_blocked
@@ -5454,7 +5454,7 @@ namespace Points
             {
                 result_dot = new Dot(pat652_2_3_4.First().x - 1, pat652_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 367;
@@ -5473,7 +5473,7 @@ namespace Points
             {
                 result_dot = new Dot(pat367.First().x, pat367.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat367_2 = from Dot d in get_non_blocked
@@ -5491,7 +5491,7 @@ namespace Points
             {
                 result_dot = new Dot(pat367_2.First().x, pat367_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat367_2_3 = from Dot d in get_non_blocked
@@ -5509,7 +5509,7 @@ namespace Points
             {
                 result_dot = new Dot(pat367_2_3.First().x + 1, pat367_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat367_2_3_4 = from Dot d in get_non_blocked
@@ -5527,7 +5527,7 @@ namespace Points
             {
                 result_dot = new Dot(pat367_2_3_4.First().x - 1, pat367_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 117;
@@ -5547,7 +5547,7 @@ namespace Points
             {
                 result_dot = new Dot(pat117.First().x - 1, pat117.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat117_2 = from Dot d in get_non_blocked
@@ -5566,7 +5566,7 @@ namespace Points
             {
                 result_dot = new Dot(pat117_2.First().x + 1, pat117_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat117_2_3 = from Dot d in get_non_blocked
@@ -5585,7 +5585,7 @@ namespace Points
             {
                 result_dot = new Dot(pat117_2_3.First().x - 1, pat117_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat117_2_3_4 = from Dot d in get_non_blocked
@@ -5604,7 +5604,7 @@ namespace Points
             {
                 result_dot = new Dot(pat117_2_3_4.First().x + 1, pat117_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 1723;
@@ -5622,7 +5622,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1723.First().x, pat1723.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat1723_2 = from Dot d in get_non_blocked
@@ -5639,7 +5639,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1723_2.First().x, pat1723_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat1723_2_3 = from Dot d in get_non_blocked
@@ -5656,7 +5656,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1723_2_3.First().x - 1, pat1723_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat1723_2_3_4 = from Dot d in get_non_blocked
@@ -5673,7 +5673,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1723_2_3_4.First().x + 1, pat1723_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 991;
@@ -5694,7 +5694,7 @@ namespace Points
             {
                 result_dot = new Dot(pat991.First().x + 1, pat991.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat991_2 = from Dot d in get_non_blocked
@@ -5714,7 +5714,7 @@ namespace Points
             {
                 result_dot = new Dot(pat991_2.First().x - 1, pat991_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat991_2_3 = from Dot d in get_non_blocked
@@ -5734,7 +5734,7 @@ namespace Points
             {
                 result_dot = new Dot(pat991_2_3.First().x - 1, pat991_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat991_2_3_4 = from Dot d in get_non_blocked
@@ -5754,7 +5754,7 @@ namespace Points
             {
                 result_dot = new Dot(pat991_2_3_4.First().x + 1, pat991_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 329;
@@ -5774,7 +5774,7 @@ namespace Points
             {
                 result_dot = new Dot(pat329.First().x + 1, pat329.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat329_2 = from Dot d in get_non_blocked
@@ -5793,7 +5793,7 @@ namespace Points
             {
                 result_dot = new Dot(pat329_2.First().x - 1, pat329_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat329_2_3 = from Dot d in get_non_blocked
@@ -5812,7 +5812,7 @@ namespace Points
             {
                 result_dot = new Dot(pat329_2_3.First().x + 1, pat329_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat329_2_3_4 = from Dot d in get_non_blocked
@@ -5831,7 +5831,7 @@ namespace Points
             {
                 result_dot = new Dot(pat329_2_3_4.First().x - 1, pat329_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -5848,7 +5848,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1472.First().x - 1, pat1472.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat1472_2 = from Dot d in get_non_blocked
@@ -5863,7 +5863,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1472_2.First().x + 1, pat1472_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat1472_2_3 = from Dot d in get_non_blocked
@@ -5878,7 +5878,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1472_2_3.First().x - 1, pat1472_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat1472_2_3_4 = from Dot d in get_non_blocked
@@ -5893,7 +5893,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1472_2_3_4.First().x + 1, pat1472_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             ////============================================================================================================== 
@@ -5914,7 +5914,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1970.First().x + 1, pat1970.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat1970_2 = from Dot d in get_non_blocked
@@ -5933,7 +5933,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1970_2.First().x - 1, pat1970_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat1970_2_3 = from Dot d in get_non_blocked
@@ -5952,7 +5952,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1970_2_3.First().x + 1, pat1970_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat1970_2_3_4 = from Dot d in get_non_blocked
@@ -5971,7 +5971,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1970_2_3_4.First().x - 1, pat1970_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 577;
@@ -5993,7 +5993,7 @@ namespace Points
             {
                 result_dot = new Dot(pat577.First().x - 1, pat577.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat577_2 = from Dot d in get_non_blocked
@@ -6014,7 +6014,7 @@ namespace Points
             {
                 result_dot = new Dot(pat577_2.First().x + 1, pat577_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat577_2_3 = from Dot d in get_non_blocked
@@ -6035,7 +6035,7 @@ namespace Points
             {
                 result_dot = new Dot(pat577_2_3.First().x + 1, pat577_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat577_2_3_4 = from Dot d in get_non_blocked
@@ -6056,7 +6056,7 @@ namespace Points
             {
                 result_dot = new Dot(pat577_2_3_4.First().x - 1, pat577_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 27;
@@ -6073,7 +6073,7 @@ namespace Points
             {
                 result_dot = new Dot(pat27.First().x - 2, pat27.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat27_2 = from Dot d in get_non_blocked
@@ -6089,7 +6089,7 @@ namespace Points
             {
                 result_dot = new Dot(pat27_2.First().x + 2, pat27_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat27_2_3 = from Dot d in get_non_blocked
@@ -6105,7 +6105,7 @@ namespace Points
             {
                 result_dot = new Dot(pat27_2_3.First().x, pat27_2_3.First().y + 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat27_2_3_4 = from Dot d in get_non_blocked
@@ -6121,7 +6121,7 @@ namespace Points
             {
                 result_dot = new Dot(pat27_2_3_4.First().x, pat27_2_3_4.First().y - 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 775;
@@ -6144,7 +6144,7 @@ namespace Points
             {
                 result_dot = new Dot(pat775.First().x - 1, pat775.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat775_2 = from Dot d in get_non_blocked
@@ -6166,7 +6166,7 @@ namespace Points
             {
                 result_dot = new Dot(pat775_2.First().x + 1, pat775_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat775_2_3 = from Dot d in get_non_blocked
@@ -6188,7 +6188,7 @@ namespace Points
             {
                 result_dot = new Dot(pat775_2_3.First().x, pat775_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat775_2_3_4 = from Dot d in get_non_blocked
@@ -6210,7 +6210,7 @@ namespace Points
             {
                 result_dot = new Dot(pat775_2_3_4.First().x, pat775_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 848;
@@ -6228,7 +6228,7 @@ namespace Points
             {
                 result_dot = new Dot(pat848.First().x + 1, pat848.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat848_2 = from Dot d in get_non_blocked
@@ -6245,7 +6245,7 @@ namespace Points
             {
                 result_dot = new Dot(pat848_2.First().x - 1, pat848_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat848_2_3 = from Dot d in get_non_blocked
@@ -6262,7 +6262,7 @@ namespace Points
             {
                 result_dot = new Dot(pat848_2_3.First().x - 1, pat848_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat848_2_3_4 = from Dot d in get_non_blocked
@@ -6279,7 +6279,7 @@ namespace Points
             {
                 result_dot = new Dot(pat848_2_3_4.First().x + 1, pat848_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 444;
@@ -6298,7 +6298,7 @@ namespace Points
             {
                 result_dot = new Dot(pat444.First().x - 1, pat444.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat444_2 = from Dot d in get_non_blocked
@@ -6316,7 +6316,7 @@ namespace Points
             {
                 result_dot = new Dot(pat444_2.First().x + 1, pat444_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat444_2_3 = from Dot d in get_non_blocked
@@ -6334,7 +6334,7 @@ namespace Points
             {
                 result_dot = new Dot(pat444_2_3.First().x - 1, pat444_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat444_2_3_4 = from Dot d in get_non_blocked
@@ -6352,7 +6352,7 @@ namespace Points
             {
                 result_dot = new Dot(pat444_2_3_4.First().x + 1, pat444_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 1242;
@@ -6373,7 +6373,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1242.First().x + 1, pat1242.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat1242_2 = from Dot d in get_non_blocked
@@ -6393,7 +6393,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1242_2.First().x - 1, pat1242_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat1242_2_3 = from Dot d in get_non_blocked
@@ -6413,7 +6413,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1242_2_3.First().x - 1, pat1242_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat1242_2_3_4 = from Dot d in get_non_blocked
@@ -6433,7 +6433,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1242_2_3_4.First().x + 1, pat1242_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 179;
@@ -6450,7 +6450,7 @@ namespace Points
             {
                 result_dot = new Dot(pat179.First().x + 1, pat179.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat179_2 = from Dot d in this
@@ -6466,7 +6466,7 @@ namespace Points
             {
                 result_dot = new Dot(pat179_2.First().x - 1, pat179_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat179_2_3 = from Dot d in this
@@ -6482,7 +6482,7 @@ namespace Points
             {
                 result_dot = new Dot(pat179_2_3.First().x, pat179_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat179_2_3_4 = from Dot d in this
@@ -6498,7 +6498,7 @@ namespace Points
             {
                 result_dot = new Dot(pat179_2_3_4.First().x, pat179_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 82;
@@ -6515,7 +6515,7 @@ namespace Points
             {
                 result_dot = new Dot(pat82.First().x + 1, pat82.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat82_2 = from Dot d in this
@@ -6531,7 +6531,7 @@ namespace Points
             {
                 result_dot = new Dot(pat82_2.First().x - 1, pat82_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat82_2_3 = from Dot d in this
@@ -6547,7 +6547,7 @@ namespace Points
             {
                 result_dot = new Dot(pat82_2_3.First().x, pat82_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat82_2_3_4 = from Dot d in this
@@ -6563,7 +6563,7 @@ namespace Points
             {
                 result_dot = new Dot(pat82_2_3_4.First().x, pat82_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             //паттерн на конструкцию    + d+         
@@ -6582,7 +6582,7 @@ namespace Points
 
                 result_dot = new Dot(pat4_1.First().x, pat4_1.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -6601,7 +6601,7 @@ namespace Points
 
                 result_dot = new Dot(pat4_2.First().x, pat4_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -6621,7 +6621,7 @@ namespace Points
 
                 result_dot = new Dot(pat4_3.First().x, pat4_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //паттерн на конструкцию            
             //                          *     *   
@@ -6639,7 +6639,7 @@ namespace Points
 
                 result_dot = new Dot(pat4_4.First().x, pat4_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             //паттерн на конструкцию    *        
@@ -6658,7 +6658,7 @@ namespace Points
 
                 result_dot = new Dot(pat4_5.First().x - 1, pat4_5.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //паттерн на конструкцию    *  +       
             //                            d+  
@@ -6676,7 +6676,7 @@ namespace Points
 
                 result_dot = new Dot(pat4_6.First().x - 1, pat4_6.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             //паттерн на конструкцию      +  *     
@@ -6695,7 +6695,7 @@ namespace Points
 
                 result_dot = new Dot(pat4_7.First().x + 1, pat4_7.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             //паттерн на конструкцию         *     
@@ -6714,7 +6714,7 @@ namespace Points
 
                 result_dot = new Dot(pat4_8.First().x + 1, pat4_8.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
 
             iNumberPattern = 825;
@@ -6732,7 +6732,7 @@ namespace Points
             {
                 result_dot = new Dot(pat825.First().x + 1, pat825.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat825_2 = from Dot d in this
@@ -6749,7 +6749,7 @@ namespace Points
             {
                 result_dot = new Dot(pat825_2.First().x - 1, pat825_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat825_2_3 = from Dot d in this
@@ -6766,7 +6766,7 @@ namespace Points
             {
                 result_dot = new Dot(pat825_2_3.First().x + 1, pat825_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat825_2_3_4 = from Dot d in this
@@ -6783,7 +6783,7 @@ namespace Points
             {
                 result_dot = new Dot(pat825_2_3_4.First().x - 1, pat825_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 62;
@@ -6803,7 +6803,7 @@ namespace Points
             {
                 result_dot = new Dot(pat62.First().x - 1, pat62.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat62_2 = from Dot d in this
@@ -6822,7 +6822,7 @@ namespace Points
             {
                 result_dot = new Dot(pat62_2.First().x + 1, pat62_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat62_2_3 = from Dot d in this
@@ -6841,7 +6841,7 @@ namespace Points
             {
                 result_dot = new Dot(pat62_2_3.First().x + 1, pat62_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat62_2_3_4 = from Dot d in this
@@ -6860,7 +6860,7 @@ namespace Points
             {
                 result_dot = new Dot(pat62_2_3_4.First().x - 1, pat62_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 12;
@@ -6883,7 +6883,7 @@ namespace Points
             {
                 result_dot = new Dot(pat12.First().x, pat12.First().y - 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat12_2 = from Dot d in this
@@ -6905,7 +6905,7 @@ namespace Points
             {
                 result_dot = new Dot(pat12_2.First().x, pat12_2.First().y + 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat12_2_3 = from Dot d in this
@@ -6927,7 +6927,7 @@ namespace Points
             {
                 result_dot = new Dot(pat12_2_3.First().x + 2, pat12_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat12_2_3_4 = from Dot d in this
@@ -6949,7 +6949,7 @@ namespace Points
             {
                 result_dot = new Dot(pat12_2_3_4.First().x - 2, pat12_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 13;
@@ -6965,7 +6965,7 @@ namespace Points
             {
                 result_dot = new Dot(pat13.First().x, pat13.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat13_2 = from Dot d in this
@@ -6980,7 +6980,7 @@ namespace Points
             {
                 result_dot = new Dot(pat13_2.First().x, pat13_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat13_2_3 = from Dot d in this
@@ -6995,7 +6995,7 @@ namespace Points
             {
                 result_dot = new Dot(pat13_2_3.First().x - 1, pat13_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat13_2_3_4 = from Dot d in this
@@ -7010,7 +7010,7 @@ namespace Points
             {
                 result_dot = new Dot(pat13_2_3_4.First().x + 1, pat13_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 14;
@@ -7026,7 +7026,7 @@ namespace Points
             {
                 result_dot = new Dot(pat14.First().x - 1, pat14.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat14_2 = from Dot d in this
@@ -7041,7 +7041,7 @@ namespace Points
             {
                 result_dot = new Dot(pat14_2.First().x + 1, pat14_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat14_2_3 = from Dot d in this
@@ -7056,7 +7056,7 @@ namespace Points
             {
                 result_dot = new Dot(pat14_2_3.First().x, pat14_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat14_2_3_4 = from Dot d in this
@@ -7071,7 +7071,7 @@ namespace Points
             {
                 result_dot = new Dot(pat14_2_3_4.First().x, pat14_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 688;
@@ -7094,7 +7094,7 @@ namespace Points
             {
                 result_dot = new Dot(pat688.First().x + 1, pat688.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat688_2 = from Dot d in this
@@ -7116,7 +7116,7 @@ namespace Points
             {
                 result_dot = new Dot(pat688_2.First().x - 1, pat688_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat688_2_3 = from Dot d in this
@@ -7138,7 +7138,7 @@ namespace Points
             {
                 result_dot = new Dot(pat688_2_3.First().x - 1, pat688_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat688_2_3_4 = from Dot d in this
@@ -7160,7 +7160,7 @@ namespace Points
             {
                 result_dot = new Dot(pat688_2_3_4.First().x + 1, pat688_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 80;
@@ -7180,7 +7180,7 @@ namespace Points
             {
                 result_dot = new Dot(pat80.First().x + 1, pat80.First().y - 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat80_2 = from Dot d in this
@@ -7198,7 +7198,7 @@ namespace Points
             {
                 result_dot = new Dot(pat80_2.First().x - 1, pat80_2.First().y + 2);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat80_2_3 = from Dot d in this
@@ -7216,7 +7216,7 @@ namespace Points
             {
                 result_dot = new Dot(pat80_2_3.First().x + 2, pat80_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat80_2_3_4 = from Dot d in this
@@ -7234,7 +7234,7 @@ namespace Points
             {
                 result_dot = new Dot(pat80_2_3_4.First().x - 2, pat80_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             //============================================================================================================== 
@@ -7252,7 +7252,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1224.First().x + 1, pat1224.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat1224_2 = from Dot d in this
@@ -7268,7 +7268,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1224_2.First().x - 1, pat1224_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat1224_2_3 = from Dot d in this
@@ -7284,7 +7284,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1224_2_3.First().x - 1, pat1224_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat1224_2_3_4 = from Dot d in this
@@ -7300,7 +7300,7 @@ namespace Points
             {
                 result_dot = new Dot(pat1224_2_3_4.First().x + 1, pat1224_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 330;
@@ -7327,7 +7327,7 @@ namespace Points
             {
                 result_dot = new Dot(pat330.First().x, pat330.First().y - 4);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat330_2 = from Dot d in this
@@ -7353,7 +7353,7 @@ namespace Points
             {
                 result_dot = new Dot(pat330_2.First().x, pat330_2.First().y + 4);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat330_2_3 = from Dot d in this
@@ -7379,7 +7379,7 @@ namespace Points
             {
                 result_dot = new Dot(pat330_2_3.First().x + 4, pat330_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat330_2_3_4 = from Dot d in this
@@ -7405,7 +7405,7 @@ namespace Points
             {
                 result_dot = new Dot(pat330_2_3_4.First().x - 4, pat330_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 331;
@@ -7425,7 +7425,7 @@ namespace Points
             {
                 result_dot = new Dot(pat331.First().x + 1, pat331.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat331_2 = from Dot d in this
@@ -7444,7 +7444,7 @@ namespace Points
             {
                 result_dot = new Dot(pat331_2.First().x - 1, pat331_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat331_2_3 = from Dot d in this
@@ -7463,7 +7463,7 @@ namespace Points
             {
                 result_dot = new Dot(pat331_2_3.First().x + 1, pat331_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat331_2_3_4 = from Dot d in this
@@ -7482,7 +7482,7 @@ namespace Points
             {
                 result_dot = new Dot(pat331_2_3_4.First().x - 1, pat331_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 312;
@@ -7504,7 +7504,7 @@ namespace Points
             {
                 result_dot = new Dot(pat312.First().x + 1, pat312.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat312_2 = from Dot d in this
@@ -7525,7 +7525,7 @@ namespace Points
             {
                 result_dot = new Dot(pat312_2.First().x - 1, pat312_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat312_2_3 = from Dot d in this
@@ -7546,7 +7546,7 @@ namespace Points
             {
                 result_dot = new Dot(pat312_2_3.First().x + 1, pat312_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat312_2_3_4 = from Dot d in this
@@ -7567,7 +7567,7 @@ namespace Points
             {
                 result_dot = new Dot(pat312_2_3_4.First().x - 1, pat312_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 169;
@@ -7586,7 +7586,7 @@ namespace Points
             {
                 result_dot = new Dot(pat169.First().x + 1, pat169.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat169_2 = from Dot d in this
@@ -7604,7 +7604,7 @@ namespace Points
             {
                 result_dot = new Dot(pat169_2.First().x - 1, pat169_2.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat169_2_3 = from Dot d in this
@@ -7622,7 +7622,7 @@ namespace Points
             {
                 result_dot = new Dot(pat169_2_3.First().x, pat169_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat169_2_3_4 = from Dot d in this
@@ -7640,7 +7640,7 @@ namespace Points
             {
                 result_dot = new Dot(pat169_2_3_4.First().x, pat169_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 30;
@@ -7657,7 +7657,7 @@ namespace Points
             {
                 result_dot = new Dot(pat30.First().x - 1, pat30.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat30_2 = from Dot d in this
@@ -7673,7 +7673,7 @@ namespace Points
             {
                 result_dot = new Dot(pat30_2.First().x + 1, pat30_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat30_2_3 = from Dot d in this
@@ -7689,7 +7689,7 @@ namespace Points
             {
                 result_dot = new Dot(pat30_2_3.First().x + 1, pat30_2_3.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat30_2_3_4 = from Dot d in this
@@ -7705,7 +7705,7 @@ namespace Points
             {
                 result_dot = new Dot(pat30_2_3_4.First().x - 1, pat30_2_3_4.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
             iNumberPattern = 740;
@@ -7725,7 +7725,7 @@ namespace Points
             {
                 result_dot = new Dot(pat740.First().x, pat740.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat740_2 = from Dot d in this
@@ -7744,7 +7744,7 @@ namespace Points
             {
                 result_dot = new Dot(pat740_2.First().x, pat740_2.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat740_2_3 = from Dot d in this
@@ -7763,7 +7763,7 @@ namespace Points
             {
                 result_dot = new Dot(pat740_2_3.First().x - 1, pat740_2_3.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat740_2_3_4 = from Dot d in this
@@ -7782,7 +7782,7 @@ namespace Points
             {
                 result_dot = new Dot(pat740_2_3_4.First().x + 1, pat740_2_3_4.First().y);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -7812,7 +7812,7 @@ namespace Points
             {
                 result_dot = new Dot(pat919.First().x + 1, pat919.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //180 Rotate=========================================================================================================== 
             var pat919_2 = from Dot d in this
@@ -7840,7 +7840,7 @@ namespace Points
             {
                 result_dot = new Dot(pat919_2.First().x - 1, pat919_2.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90----------------------------------- 
             var pat919_2_3 = from Dot d in this
@@ -7868,7 +7868,7 @@ namespace Points
             {
                 result_dot = new Dot(pat919_2_3.First().x + 1, pat919_2_3.First().y - 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //--------------Rotate on 90 - 2----------------------------------- 
             var pat919_2_3_4 = from Dot d in this
@@ -7896,7 +7896,7 @@ namespace Points
             {
                 result_dot = new Dot(pat919_2_3_4.First().x - 1, pat919_2_3_4.First().y + 1);
                 result_dot.iNumberPattern = iNumberPattern;
-                return result_dot;
+                ld.Add(result_dot);
             }
             //============================================================================================================== 
 
@@ -7938,7 +7938,7 @@ select d;
  {
     result_dot = new Dot(pat831_2.First().x-3,pat831_2.First().y); 
     result_dot.iNumberPattern = iNumberPattern; 
-    return result_dot;
+    ld.Add(result_dot);
     }
 //--------------Rotate on 90----------------------------------- 
 var pat831_2_3 = from Dot d in this where d.Own == Owner 
@@ -7959,7 +7959,7 @@ select d;
  if (pat831_2_3.Count() > 0) 
  {result_dot = new Dot(pat831_2_3.First().x,pat831_2_3.First().y-3); 
 result_dot.iNumberPattern = iNumberPattern; 
-return result_dot;}
+ld.Add(result_dot);}
 //--------------Rotate on 90 - 2----------------------------------- 
 var pat831_2_3_4 = from Dot d in this where d.Own == Owner 
  && this[d.x-2, d.y+4].Own == Owner && this[d.x-2, d.y+4].Blocked == false 
@@ -7979,7 +7979,7 @@ select d;
  if (pat831_2_3_4.Count() > 0) 
  {result_dot = new Dot(pat831_2_3_4.First().x,pat831_2_3_4.First().y+3); 
 result_dot.iNumberPattern = iNumberPattern; 
-return result_dot;}
+ld.Add(result_dot);}
 //============================================================================================================== 
  iNumberPattern = 271;
  var pat271 = from Dot d in this
@@ -8001,7 +8001,7 @@ return result_dot;}
  {
      result_dot = new Dot(pat271.First().x - 1, pat271.First().y + 1); ;
     result_dot.iNumberPattern = iNumberPattern;
-    return result_dot;
+    ld.Add(result_dot);
 
  }
  //180 Rotate=========================================================================================================== 
@@ -8024,7 +8024,7 @@ return result_dot;}
  {
      result_dot = new Dot(pat271_2.First().x + 1, pat271_2.First().y - 1);
      result_dot.iNumberPattern = iNumberPattern;
-     return result_dot;
+     ld.Add(result_dot);
  }
  //--------------Rotate on 90----------------------------------- 
  var pat271_2_3 = from Dot d in this
@@ -8046,7 +8046,7 @@ return result_dot;}
  {
      result_dot = new Dot(pat271_2_3.First().x - 1, pat271_2_3.First().y + 1);
      result_dot.iNumberPattern = iNumberPattern;
-     return result_dot;
+     ld.Add(result_dot);
  }
  //--------------Rotate on 90 - 2----------------------------------- 
  var pat271_2_3_4 = from Dot d in this
@@ -8068,15 +8068,15 @@ return result_dot;}
  {
      result_dot = new Dot(pat271_2_3_4.First().x + 1, pat271_2_3_4.First().y - 1);
      result_dot.iNumberPattern = iNumberPattern;
-     return result_dot;
+     ld.Add(result_dot);
  }
             //============================================================================================================== 
 
 
 
             //=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
-            return null;//если никаких паттернов не найдено возвращаем нуль
-            //return ld.Distinct().ToList();
+            //return null;//если никаких паттернов не найдено возвращаем нуль
+            return ld.Distinct().ToList();
 
         }
     }

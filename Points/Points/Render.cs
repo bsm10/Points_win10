@@ -10,46 +10,83 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI;
 
+
 namespace Points
 {
+    public static class StatusMsg
+    {
+        public static string textMsg = string.Empty;
+        public static Color ColorMsg = Colors.DarkOrange;
+
+
+        public static void DrawMsg(CanvasDrawingSession ds, float x, float y)
+        {
+            CanvasControl cnvs = DrawSession.CanvasCtrl;
+
+            //CanvasRenderTarget cr = new CanvasRenderTarget(cnvs, (float)cnvs.ActualWidth, (float)cnvs.ActualHeight);
+
+            CanvasTextFormat format = new CanvasTextFormat()
+            {
+                FontFamily = "Arial",
+                FontSize = 0.3f
+            };
+
+            ds.DrawText(textMsg, x, y, ColorMsg, format);
+
+            cnvs.Invalidate();
+        }
+    }
+    public static class DrawSession
+    {
+        public static CanvasControl CanvasCtrl;
+        public static CanvasDrawingSession CanvasDrawingSession;
+    }
+
+
     public partial class GameEngine
     {
-        private string msg = string.Empty;
-        public string StatusMsg
-        {
-          get
-            {
-                return msg;
-            }
-          set
-            {
-                msg = value;
-            }
-        }
-
         #region RENDER
+        //=========== цвета, шрифты ===================================================
+        public Color colorGamer1 = Colors.Tomato; //Properties.Settings.Default.Color_Gamer1,
+        public Color colorGamer2 = Colors.MediumSlateBlue;//Properties.Settings.Default.Color_Gamer2,
+        public Color colorCursor = Color.FromArgb(50, 50, 200, 50);// Properties.Settings.Default.Color_Cursor;
+        private float PointWidth = 0.20f;
+        public Color colorBoard = Color.FromArgb(255, 150, 200, 200);//(Color.DarkSlateBlue, 0.08f);
+        public Color colorDrawBrush = Colors.MediumPurple;
+        //public Color drB = Colors.MediumSeaGreen;
 
-        private void DrawStatusMsg(string msg, CanvasDrawingSession drSession)
+
+        //public ICanvasBrush SolidBrush;
+        ////private SolidBrush drawBrush = new SolidBrush(Colors.MediumPurple);
+        //public Font drawFont = new Font("Arial", 0.22f);
+        public bool Redraw { get; set; }
+        public int iScaleCoef = 1;//-коэффициент масштаба
+        //public float startX = -0.5f, startY = -0.5f;
+        //private CanvasControl pbxBoard;
+
+        public Point MousePos;
+
+        private void DrawStatusMsg(Color clr, CanvasDrawingSession drSession)
         {
             CanvasTextFormat format = new CanvasTextFormat()
             {
                 FontFamily = "Arial",
                 FontSize = 0.3f
             };
-            if (pbxBoard != null )
+            if (DrawSession.CanvasCtrl != null)
             {
-                drSession.DrawText(msg, 0, gameDots.BoardHeight + startY, Colors.DarkGreen, format);
-                pbxBoard.Invalidate();
+                drSession.DrawText(StatusMsg.textMsg, 0, gameDots.BoardHeight + startY, StatusMsg.ColorMsg, format);
+                DrawSession.CanvasCtrl.Invalidate();
             }
         }
-        
+
 
         public void DrawGame(CanvasControl canvasCtrl, CanvasDrawingSession drawingSession)//отрисовка хода игры
         {
             drawingSession.Antialiasing = CanvasAntialiasing.Antialiased;
             //Устанавливаем масштаб
             SetScale(drawingSession, (int)canvasCtrl.ActualWidth, (int)canvasCtrl.ActualHeight,
-                startX, startX + gameDots.BoardWidth, startY, gameDots.BoardHeight + startY +1 );
+                startX, startX + gameDots.BoardWidth, startY, gameDots.BoardHeight + startY + 1);
             //Рисуем доску
             DrawBoard(drawingSession);
             //Рисуем точки
@@ -58,7 +95,7 @@ namespace Points
             DrawLinks(drawingSession);
             //drawingSession.DrawLine(0, 100, 100, 0, colorBoard, 5.0f);
             //drawingSession.DrawText(StatusMsg, 0, iBoardHeight + startY , Colors.DarkGreen, format);
-            DrawStatusMsg(StatusMsg, drawingSession);
+            DrawStatusMsg(Colors.DarkGreen, drawingSession);
         }
 
         public void DrawBoard(CanvasDrawingSession drawingSession)//рисуем доску из клеток
@@ -123,6 +160,7 @@ namespace Points
         {
             Dot last_move = gameDots.LastMove;
             Color c;
+
             if (p.Blocked)
             {
                 drawingSession.FillEllipse(p.x, p.y, PointWidth, PointWidth, Color.FromArgb(130, colorGamer.R, colorGamer.G, colorGamer.B));
@@ -140,8 +178,10 @@ namespace Points
                 drawingSession.FillEllipse(p.x, p.y, PointWidth, PointWidth, colorGamer);
                 drawingSession.DrawEllipse(p.x, p.y, PointWidth, PointWidth, c, 0.08f);
             }
+
         }
-        Matrix3x2 _transform;
+
+        static Matrix3x2 _transform;
         /// <summary>
         /// функция масштабирования, устанавливает массштаб
         /// </summary>
@@ -152,7 +192,7 @@ namespace Points
         /// <param name="right_x"></param>
         /// <param name="top_y"></param>
         /// <param name="bottom_y"></param>
-        private void SetScale(CanvasDrawingSession gr, int gr_width, int gr_height, float left_x, float right_x, float top_y, float bottom_y)
+        public static void SetScale(CanvasDrawingSession gr, int gr_width, int gr_height, float left_x, float right_x, float top_y, float bottom_y)
         {
             Matrix3x2 matrixTemp = gr.Transform;
             matrixTemp = Matrix3x2.CreateScale(new Vector2(gr_width / (right_x - left_x), gr_height / (bottom_y - top_y)),
