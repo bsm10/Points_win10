@@ -19,21 +19,9 @@ namespace Points
         public static Color ColorMsg = Colors.DarkOrange;
 
 
-        public static void DrawMsg(CanvasDrawingSession ds, float x, float y)
+        public static void DrawMsg()
         {
-            CanvasControl cnvs = DrawSession.CanvasCtrl;
-
-            //CanvasRenderTarget cr = new CanvasRenderTarget(cnvs, (float)cnvs.ActualWidth, (float)cnvs.ActualHeight);
-
-            CanvasTextFormat format = new CanvasTextFormat()
-            {
-                FontFamily = "Arial",
-                FontSize = 0.3f
-            };
-
-            ds.DrawText(textMsg, x, y, ColorMsg, format);
-
-            cnvs.Invalidate();
+            DrawSession.CanvasCtrl.Invalidate();
         }
     }
     public static class DrawSession
@@ -66,7 +54,7 @@ namespace Points
 
         public Point MousePos;
 
-        private void DrawStatusMsg(Color clr, CanvasDrawingSession drSession)
+        private void DrawStatusMsg(CanvasDrawingSession drSession)
         {
             CanvasTextFormat format = new CanvasTextFormat()
             {
@@ -94,8 +82,18 @@ namespace Points
             //Отрисовка замкнутого региона игрока1
             DrawLinks(drawingSession);
             //drawingSession.DrawLine(0, 100, 100, 0, colorBoard, 5.0f);
-            //drawingSession.DrawText(StatusMsg, 0, iBoardHeight + startY , Colors.DarkGreen, format);
-            DrawStatusMsg(Colors.DarkGreen, drawingSession);
+            //drawingSession.DrawText(DbgInfo, 0, gameDots.BoardHeight + startY , Colors.DarkGreen, format);
+            DrawStatusMsg(drawingSession);
+
+
+#if DEBUG
+            CanvasTextFormat format = new CanvasTextFormat()
+            {
+                FontFamily = "Courier New",
+                FontSize = 0.25f
+            };
+            drawingSession.DrawText(DbgInfo, gameDots.BoardWidth/2 + startX, gameDots.BoardHeight + startY*2, Colors.Green, format);
+#endif
         }
 
         public void DrawBoard(CanvasDrawingSession drawingSession)//рисуем доску из клеток
@@ -195,7 +193,7 @@ namespace Points
         public static void SetScale(CanvasDrawingSession gr, int gr_width, int gr_height, float left_x, float right_x, float top_y, float bottom_y)
         {
             Matrix3x2 matrixTemp = gr.Transform;
-            matrixTemp = Matrix3x2.CreateScale(new Vector2(gr_width / (right_x - left_x), gr_height / (bottom_y - top_y)),
+            matrixTemp = Matrix3x2.CreateScale(new Vector2(gr_width / (right_x - left_x), (gr_height - 100)/ (bottom_y - top_y)),
                                                new Vector2(left_x, top_y));
             gr.Transform = matrixTemp;
             _transform = matrixTemp;
@@ -209,7 +207,7 @@ namespace Points
             return result;
         }
 
-        #endregion
+#endregion
 
 
 

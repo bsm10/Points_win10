@@ -49,11 +49,11 @@ namespace Points
             return _gameDots[d.x, d.y];
         }
 
-        private string status=string.Empty;
-        public string  Status
+        private static string dbgInfo=string.Empty;
+        public static string DbgInfo
         {
-            get{return status;}
-            set{status=value;}
+            get{return dbgInfo;}
+            set{dbgInfo=value;}
         }
 
         private int _pause = 10;
@@ -117,7 +117,7 @@ namespace Points
         public void Statistic(int x, int y)
         {
                 #if DEBUG
-            DebugWindow.txtDotStatus.Text = "Blocked: " + _gameDots[x, y].Blocked + "\r\n" +
+            GameEngine.DbgInfo = "Blocked: " + _gameDots[x, y].Blocked + "\r\n" +
                               "BlokingDots.Count: " + _gameDots[x, y].BlokingDots.Count + "\r\n" +
                               "NeiborDots.Count: " + _gameDots[x, y].NeiborDots.Count + "\r\n" +
                               "Rating: " + _gameDots[x, y].Rating + "\r\n" +

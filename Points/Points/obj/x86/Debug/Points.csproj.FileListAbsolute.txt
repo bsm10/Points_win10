@@ -202,9 +202,6 @@ E:\Programming\MyProject\Points_win10\Points\Points\bin\x86\Debug\NotificationsE
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\ApplicationInsights.config
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\App.xbf
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\MainPage.xbf
-C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Points.xr.xml
-C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Points.exe
-C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Points.pdb
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\resources.pri
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\AppxManifest.xml
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\AppxManifest.xml
@@ -327,8 +324,6 @@ C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\App.xbf
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\MainPage.xbf
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\XamlSaveStateFile.xml
-C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\Points.exe
-C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\Points.pdb
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ResourceHandlingTask.state
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\FxResources.Microsoft.CSharp.SR.resw
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\FxResources.Microsoft.VisualBasic.SR.resw
@@ -419,3 +414,9 @@ C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\FxResources.System.Security.Cryptography.Primitives.SR.resw
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\FxResources.System.Security.Cryptography.X509Certificates.SR.resw
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\Points.csprojResolveAssemblyReference.cache
+C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Dots.xr.xml
+C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Dots.exe
+C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Dots.pdb
+C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\Dots.exe
+C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\Dots.exe
+C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\Dots.pdb

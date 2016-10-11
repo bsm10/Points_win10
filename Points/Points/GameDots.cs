@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Windows.UI;
 
@@ -116,8 +117,10 @@ namespace Points
         Stopwatch stopWatch = new Stopwatch();//для диагностики времени выполнения
         Stopwatch sW_BM = new Stopwatch();
         Stopwatch sW2 = new Stopwatch();
+        List<string> lstDbgMoves = new List<string>();
+        List<string> lstDbg1 = new List<string>();
 #endif
-        
+
         public int win_player;//переменная получает номер игрока, котрый окружил точки
         int position = -1;
         private int nBoardWidth;//размер поля
@@ -2536,8 +2539,8 @@ namespace Points
             #region StopWatch
 #if DEBUG
             stopWatch.Start();
-            f.lstDbg2.Items.Clear();
-            f.lstDbg1.Items.Clear();
+            lstDbgMoves.Clear();
+            lstDbg1.Clear();
 #endif
 #endregion
             counter_moves = 0;
@@ -2566,7 +2569,7 @@ namespace Points
                 else best_move = q.FirstOrDefault();
 #if DEBUG
                 {
-                    f.lstDbg2.Items.Add(best_move.ToString() + " - random ");
+                    lstDbgMoves.Add(best_move.ToString() + " - random ");
                 }
 #endif
                 //return best_move;
@@ -2577,9 +2580,9 @@ namespace Points
 #if DEBUG
             stopWatch.Stop();
 
-            f.txtDebug.Text = "Количество ходов: " + counter_moves + "\r\n Глубина рекурсии: " + MAX_RECURSION +
-            "\r\n Ход на " + best_move.ToString() +
-            "\r\n время просчета " + stopWatch.ElapsedMilliseconds.ToString() + " мс";
+            //GameEngine.DbgInfo = "Количество ходов: " + counter_moves +
+            //                    "\r\nХод на " + best_move.ToString() +
+            //                    "\r\nвремя просчета " + stopWatch.ElapsedMilliseconds.ToString() + " мс";
             stopWatch.Reset();
 #endif
 #endregion
@@ -2596,8 +2599,8 @@ namespace Points
             Dot bm;
 #if DEBUG
             sW2.Start();
-            f.lblBestMove.Text = "CheckMove(pl2,pl1)...";
-            Application.DoEvents();
+            GameEngine.DbgInfo = "CheckMove(pl2,pl1)...";
+            DrawSession.CanvasCtrl.Invalidate();
 #endif
             bm = CheckMove(pl2);
             if (DotIndexCheck(bm))
@@ -2605,7 +2608,7 @@ namespace Points
 #region DEBUG
 #if DEBUG
                 {
-                    f.lstDbg2.Items.Add(bm.x + ":" + bm.y + " player" + pl1 + " - Win Comp! " + iNumberPattern);
+                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl1 + " - Win Comp! " + iNumberPattern);
                 }
 #endif
 #endregion
@@ -2619,7 +2622,7 @@ namespace Points
                 #region DEBUG
 #if DEBUG
                 {
-                    f.lstDbg2.Items.Add(bm.x + ":" + bm.y + " player" + pl1 + " - Win Human! " + iNumberPattern);
+                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl1 + " - Win Human! " + iNumberPattern);
                 }
 #endif
                 #endregion
@@ -2630,16 +2633,14 @@ namespace Points
 #region DEBUG
 #if DEBUG
             sW2.Stop();
-            strDebug = "CheckMove pl1,pl2 -" + sW2.Elapsed.Milliseconds.ToString();
-            f.txtBestMove.Text = strDebug;
             sW2.Reset();
             //проверяем паттерны
             sW2.Start();
-            f.lblBestMove.Text = "CheckPattern_vilochka проверяем ходы на два вперед...";
-            Application.DoEvents();
+            GameEngine.DbgInfo = "CheckPattern_vilochka проверяем ходы на два вперед...";
+            DrawSession.CanvasCtrl.Invalidate();
 #endif
-#endregion
-#region CheckPattern_vilochka
+            #endregion
+            #region CheckPattern_vilochka
             bm = CheckPattern_vilochka(pl2);
             //if (bm != null)
             if (DotIndexCheck(bm))
@@ -2647,7 +2648,7 @@ namespace Points
 #region DEBUG
 #if DEBUG
                 {
-                    f.lstDbg2.Items.Add(bm.x + ":" + bm.y + " player" + pl2 + " -CheckPattern_vilochka " + iNumberPattern);
+                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl2 + " -CheckPattern_vilochka " + iNumberPattern);
                 }
 #endif
 #endregion
@@ -2663,7 +2664,7 @@ namespace Points
 #if DEBUG
 
                 {
-                    f.lstDbg2.Items.Add(bm.x + ":" + bm.y + " player" + pl1 + " -CheckPattern_vilochka " + iNumberPattern);
+                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl1 + " -CheckPattern_vilochka " + iNumberPattern);
                 }
 #endif
 #endregion
@@ -2675,12 +2676,12 @@ namespace Points
 #if DEBUG
             sW2.Stop();
             strDebug = strDebug + "\r\nCheckPattern_vilochka -" + sW2.Elapsed.Milliseconds.ToString();
-            f.txtBestMove.Text = strDebug;
+            GameEngine.DbgInfo = strDebug;
             sW2.Reset();
             sW2.Start();
-            f.lblBestMove.Text = "CheckPattern2Move...";
+            GameEngine.DbgInfo = "CheckPattern2Move...";
+            DrawSession.CanvasCtrl.Invalidate();
 
-            Application.DoEvents();
 #endif
             #endregion
             #endregion
@@ -2701,7 +2702,7 @@ namespace Points
                         #region DEBUG
 #if DEBUG
                         {
-                            //f.lstDbg2.Items.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
+                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
                         }
 #endif
                         #endregion
@@ -2715,23 +2716,14 @@ namespace Points
 #if DEBUG
             sW2.Stop();
             strDebug = strDebug + "\r\nCheckPattern2Move(pl2) - " + sW2.Elapsed.Milliseconds.ToString();
-            //f.txtBestMove.Text = strDebug;
+            GameEngine.DbgInfo = strDebug;
+            DrawSession.CanvasCtrl.Invalidate();
             sW2.Reset();
             sW2.Start();
             //f.lblBestMove.Text = "CheckPattern_vilochka...";
             
 #endif
 
-            
-#if DEBUG
-            sW2.Stop();
-            strDebug = strDebug + "\r\nCheckPattern2Move(pl2) -" + sW2.Elapsed.Milliseconds.ToString();
-            f.txtBestMove.Text = strDebug;
-            sW2.Reset();
-            sW2.Start();
-            f.lblBestMove.Text = "CheckPatternVilkaNextMove...";
-            Application.DoEvents();
-#endif
 #endregion
             //-----------------------------------------------------------------
             #region CheckPatternVilkaNextMove
@@ -2741,7 +2733,7 @@ namespace Points
 #region DEBUG
 #if DEBUG
                 {
-                    f.lstDbg2.Items.Add(bm.x + ":" + bm.y + " player" + pl2 + "CheckPatternVilkaNextMove " + iNumberPattern);
+                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl2 + "CheckPatternVilkaNextMove " + iNumberPattern);
                 }
 #endif
 #endregion
@@ -2752,11 +2744,11 @@ namespace Points
 #if DEBUG
             sW2.Stop();
             strDebug = strDebug + "\r\nCheckPatternVilkaNextMove -" + sW2.Elapsed.Milliseconds.ToString();
-            f.txtBestMove.Text = strDebug;
+            GameEngine.DbgInfo = strDebug;
+            DrawSession.CanvasCtrl.Invalidate();
             sW2.Reset();
             sW2.Start();
-            f.lblBestMove.Text = "CheckPattern(pl2)...";
-            Application.DoEvents();
+            GameEngine.DbgInfo = "CheckPattern(pl2)...";
 #endif
             #endregion
             #endregion
@@ -2771,7 +2763,7 @@ namespace Points
                     #region DEBUG
 #if DEBUG
                             {
-                                f.lstDbg2.Items.Add(dt.x + ":" + dt.y + " player" + pl2 + " - CheckPattern " + dt.iNumberPattern);
+                                lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl2 + " - CheckPattern " + bm.iNumberPattern);
                             }
 #endif
                     #endregion
@@ -2786,7 +2778,7 @@ namespace Points
                     #region DEBUG
 #if DEBUG
                                 {
-                                    f.lstDbg2.Items.Add(dt.x + ":" + dt.y + " player" + pl1 + " - CheckPattern " + dt.iNumberPattern);
+                                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl1 + " - CheckPattern " + bm.iNumberPattern);
                                 }
 #endif
                     #endregion
@@ -2804,7 +2796,7 @@ namespace Points
 #region DEBUG
 #if DEBUG
                 {
-                    f.lstDbg2.Items.Add(bm.x + ":" + bm.y + " player" + pl2 + " -CheckPatternMove " + iNumberPattern);
+                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl2 + " -CheckPatternMove " + iNumberPattern);
                 }
 #endif
 #endregion
@@ -2817,7 +2809,7 @@ namespace Points
 #region DEBUG
 #if DEBUG
                 {
-                    f.lstDbg2.Items.Add(bm.x + ":" + bm.y + " player" + pl2 + " -CheckPatternMove " + iNumberPattern);
+                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl2 + " -CheckPatternMove " + iNumberPattern);
                 }
 #endif
 #endregion
@@ -2826,8 +2818,8 @@ namespace Points
 #if DEBUG
             sW2.Stop();
             strDebug = strDebug + "\r\nCheckPatternMove(pl2) -" + sW2.Elapsed.Milliseconds.ToString();
-            f.txtBestMove.Text = strDebug;
-            Application.DoEvents();
+            GameEngine.DbgInfo = strDebug;
+            DrawSession.CanvasCtrl.Invalidate();
             sW2.Reset();
 #endif
 
@@ -2852,9 +2844,9 @@ namespace Points
             List<Dot> lst_best_move = new List<Dot>();//сюда заносим лучшие ходы
             if (recursion_depth==1)counter_moves = 1;
             //StatusMsg.ColorMsg = Colors.Green;
-            //StatusMsg.textMsg = ;
-            //StatusMsg.DrawMsg("check move - " + counter_moves.ToString(),0, BoardHeight + startY, Colors.Green);
-            
+            //StatusMsg.textMsg = "check move - " + counter_moves.ToString();
+            //DrawSession.CanvasCtrl.Invalidate();
+            GameEngine.DbgInfo= "check move - " + counter_moves.ToString();
 
             recursion_depth++;
             if (recursion_depth > MAX_RECURSION) return PLAYER_NONE;
@@ -2909,9 +2901,9 @@ namespace Points
 #endregion
 #region Debug statistic
 #if DEBUG
-                    if (f.chkMove.Checked) Pause(); //делает паузу если значение поля pause>0
-                    f.lstDbg1.Items.Add(move);//(move.Own + " -" + move.x + ":" + move.y);
-                    f.txtDebug.Text = "Ходов проверено: " + counter_moves +
+                    //if (f.chkMove.Checked) Pause(); //делает паузу если значение поля pause>0
+                    lstDbg1.Add(move.ToString());//(move.Own + " -" + move.x + ":" + move.y);
+                    GameEngine.DbgInfo = " Ходов проверено: " + counter_moves +
                                        "\r\n проверка вокруг точки " + LastMove +
                                        "\r\n время поиска " + stopWatch.ElapsedMilliseconds;
 #endif
@@ -2926,7 +2918,7 @@ namespace Points
                     {
                         lst_moves.Remove(move);
 #if DEBUG
-                        f.lstDbg1.Items.Remove(move);
+                        lstDbg1.Remove(move.ToString());
 #endif
                         UndoMove(move);
                         continue;
@@ -2941,7 +2933,7 @@ namespace Points
                         
                         lst_moves.Remove(move);
 #if DEBUG
-                        f.lstDbg1.Items.Remove(move);
+                        lstDbg1.Remove(move.ToString());
 #endif
                         UndoMove(move);
                         return result;
@@ -2955,7 +2947,7 @@ namespace Points
                         }
                         lst_moves.Remove(move);
 #if DEBUG
-                        f.lstDbg1.Items.Remove(move);
+                        lstDbg1.Remove(move.ToString());
 #endif
 
                         UndoMove(move);
@@ -2966,7 +2958,7 @@ namespace Points
 #region Debug
 #if DEBUG
 //remove from list
-                    if (f.lstDbg1.Items.Count > 0) f.lstDbg1.Items.RemoveAt(f.lstDbg1.Items.Count - 1);
+                    if (lstDbg1.Count > 0) lstDbg1.RemoveAt(lstDbg1.Count - 1);
 #endif
 #endregion
                 }
@@ -2979,150 +2971,10 @@ namespace Points
             return PLAYER_NONE;
         }//----------------------------Play-----------------------------------------------------
 
-        private int FindMove(ref Dot move, Dot last_mv)//возвращает Owner кто побеждает в результате хода
-        {
-            int depth = 0, counter = 0, counter_root = 1000, own;
-            own = PLAYER_HUMAN;//последним ходил игрок
-            List<Dot> mvs = new List<Dot>();
-            Dot[] ad = null;
-            int minX = MinX();
-            int minY = MinY();
-            int maxX = MaxX();
-            int maxY = MaxY();
-
-            int i = 0;
-            do
-            {
-                if (i == 0)
-                {
-                    var qry = from Dot d in Dots
-                              where d.Own == PLAYER_NONE & d.Blocked == false
-                                                        & d.x <= maxX + 1 & d.x >= minX - 1
-                                                        & d.y <= maxY + 1 & d.y >= minY - 1
-                              orderby d.x
-                              select d;
-                    ad = qry.ToArray();
-                    if (qry.Count() == 0)
-                    {
-                        foreach (Dot d in mvs)
-                        {
-                            UndoMove(d);
-                        }
-                        mvs.Clear();
-                        qry = null;
-                        i++;
-                    }
-                }
-                else if (i == 1)
-                {
-                    var qry1 = from Dot d in Dots
-                               where d.Own == PLAYER_NONE & d.Blocked == false
-                                                         & d.x <= maxX + 1 & d.x >= minX - 1
-                                                         & d.y <= maxY + 1 & d.y >= minY - 1
-                               orderby d.y descending
-                               select d;
-                    ad = qry1.ToArray();
-                    if (qry1.Count() == 0)
-                    {
-                        foreach (Dot d in mvs)
-                        {
-                            UndoMove(d);
-                        }
-                        mvs.Clear();
-                        return 0;
-                    }
-
-                }
-                depth++;
-
-                if (ad.Length != 0)
-                {
-                    foreach (Dot d in ad)
-                    {
-                        counter++;
-                        switch (own)
-                        {
-                            case PLAYER_HUMAN:
-                                own = PLAYER_COMPUTER;
-                                break;
-                            case PLAYER_COMPUTER:
-                                own = PLAYER_HUMAN;
-                                break;
-                        }
-                        //ход делает комп, если последним ходил игрок
-                        d.Own = own;
-                        int res_last_move = MakeMove(d);
-                        mvs.Add(d);
-                        //-----показывает проверяемые ходы-----------------------------------------------
-#if DEBUG
-                        if (f.chkMove.Checked) Pause();
-
-                        f.lstDbg1.Items.Add(d.Own + " -" + d.x + ":" + d.y);
-                        f.txtDebug.Text = "Общее число ходов: " + depth.ToString() +
-                                "\r\n Глубина просчета: " + counter.ToString() +
-                                "\r\n проверка вокруг точки " + LastMove.ToString();
-#endif
-                        //------------------------------------------------------------------------------
-                        if (res_last_move != 0 & this[d.x, d.y].Blocked)//если ход в окруженный регион
-                        {
-                            move = null;
-                            break;
-                        }
-                        if (d.Own == 1 & res_last_move != 0)
-                        {
-                            if (counter < counter_root)
-                            {
-                                counter_root = counter;
-                                move = new Dot(d.x, d.y);
-#if DEBUG
-                                f.lstDbg2.Items.Add("Ход на " + move.x + ":" + move.y + "; ход " + counter);
-#endif
-                            }
-                            //UndoMove(d);
-                            break;//return PLAYER_HUMAN;//побеждает игрок
-                        }
-                        else if (d.Own == 2 & res_last_move != 0 | d.Own == 1 & this[d.x, d.y].Blocked)
-                        {
-                            if (counter < counter_root)
-                            {
-                                counter_root = counter;
-                                move = new Dot(d.x, d.y);
-#if DEBUG
-                                f.lstDbg2.Items.Add("Ход на " + move.x + ":" + move.y + "; ход " + counter);
-#endif
-                            }
-                            //UndoMove(d);
-                            //return PLAYER_COMPUTER;//побеждает компьютер
-                            break;
-                        }
-                        if (depth > SkillLevel * 100)//количество просчитываемых комбинаций
-                        {
-                            //return PLAYER_NONE;
-                            break;
-                        }
-
-                    }
-                }
-            } while (true);
-
-            //return PLAYER_NONE;
-        }
-
         private float SquarePolygon(int nBlockedDots, int nRegionDots)
         {
             return nBlockedDots + nRegionDots / 2.0f - 1;//Формула Пика
         }
-
-
-        //private static void AddToList(List<Dot> ld, IEnumerable<Dot> pattern, int dx, int dy)
-        //{
-        //    foreach (Dot dot in pattern)
-        //    {
-        //        Dot d = new Dot(dot.x + dx, dot.y + dy);
-        //        if (ld.Contains(d) == false) ld.Add(d);
-        //    }
-        //} 
-
         //IEnumerator and IEnumerable require these methods.
         public IEnumerator GetEnumerator()
         {

@@ -28,8 +28,8 @@ namespace Points
     public sealed partial class MainPage : Page
     {
         GameEngine game;
-        int boardWidth = 12;
-        int boardHeight = 15;
+        int boardWidth;// = 12;
+        int boardHeight; //= 15;
         private int player_move;//переменная хранит значение игрока который делает ход
         //int game_result;
         DispatcherTimer timer = new DispatcherTimer();
@@ -42,20 +42,29 @@ namespace Points
         public MainPage()
         {
             InitializeComponent();
-            //double Xres = canvas.ActualWidth;
-            //double Yres = canvas.ActualHeight;
-            //double scl_coef = canvas.Dpi;//Xres / Yres;
-            //pixels = dips * dpi / 96
-            //Height = 4 * Yres / 5;
-            //Width = Height - 50;
+            Loaded += OnLoaded;
+
+
+
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            double Xres = canvas.ActualWidth;
+            double Yres = canvas.ActualHeight;
+            double scl_coef = (Yres-100) / Xres;
+
+            boardWidth = 10;
+            boardHeight =(int) Math.Round(boardWidth * scl_coef);;
+
             DrawSession.CanvasCtrl = canvas;
             game = new GameEngine(boardWidth, boardHeight);
             //StatusMsg.DrawMsg("New game started!" + game.Statistic(), 0, boardHeight + game.startY, Colors.DarkOliveGreen);
             player_move = 2;
 
             DispatcherTimerSetup();
-
         }
+
         public void DispatcherTimerSetup()
         {
             timer = new DispatcherTimer();
@@ -85,10 +94,11 @@ namespace Points
             args.DrawingSession.Clear(Colors.White);
             //session.Clear(Colors.White);
             DrawSession.CanvasCtrl = sender;
-            DrawSession.CanvasDrawingSession = args.DrawingSession;
+            //DrawSession.CanvasDrawingSession = args.DrawingSession;
             game.DrawGame(sender, args.DrawingSession);
 
 
+            
         }
 
         private async void canvas_Tapped(object sender, TappedRoutedEventArgs e)
