@@ -553,7 +553,7 @@ namespace Points
                 if (Owner != 0) dot.Own = Owner;
                 Add(dot); //если точка не занята
             }
-            else return -1;
+            else return -1;//в случае невозможного хода
             //--------------------------------
             int res = CheckBlocked(dot.Own);
             //--------------------------------
@@ -1953,561 +1953,12 @@ namespace Points
             return null;//если никаких паттернов не найдено возвращаем нуль
 
         }
-        //public Dot CheckPatternMove(int Owner)//паттерны без вражеской точки
-        //{
-        //    iNumberPattern = 1;
-        //    var pat1 = from Dot d in this
-        //               where d.Own == 0
-        //                   && this[d.x - 1, d.y + 1].Own == Owner && this[d.x - 1, d.y + 1].Blocked == false
-        //                   && this[d.x + 1, d.y - 1].Own == Owner && this[d.x + 1, d.y - 1].Blocked == false
-        //                   && this[d.x - 1, d.y].Own == 0 && this[d.x - 1, d.y].Blocked == false
-        //                   && this[d.x - 1, d.y - 1].Own == 0 && this[d.x - 1, d.y - 1].Blocked == false
-        //                   && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                   && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                   && this[d.x + 1, d.y + 1].Own == 0 && this[d.x + 1, d.y + 1].Blocked == false
-        //                   && this[d.x, d.y + 1].Own == 0 && this[d.x, d.y + 1].Blocked == false
-        //                   && this[d.x, d.y - 2].Own == 0 && this[d.x, d.y - 2].Blocked == false
-        //                   && this[d.x + 2, d.y].Own == 0 && this[d.x + 2, d.y].Blocked == false
-        //                   && this[d.x, d.y + 2].Own == 0 && this[d.x, d.y + 2].Blocked == false
-        //                   && this[d.x - 2, d.y].Own == 0 && this[d.x - 2, d.y].Blocked == false
-        //               select d;
-        //    if (pat1.Count() > 0) return new Dot(pat1.First().x, pat1.First().y);
-        //    //--------------Rotate on 90-----------------------------------
-        //    var pat1_2_3_4 = from Dot d in this
-        //                     where d.Own == 0
-        //                         && this[d.x + 1, d.y + 1].Own == Owner && this[d.x + 1, d.y - 1].Blocked == false
-        //                         && this[d.x - 1, d.y - 1].Own == Owner && this[d.x - 1, d.y + 1].Blocked == false
-        //                         && this[d.x, d.y + 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                         && this[d.x - 1, d.y + 1].Own == 0 && this[d.x - 1, d.y - 1].Blocked == false
-        //                         && this[d.x - 1, d.y].Own == 0 && this[d.x - 1, d.y].Blocked == false
-        //                         && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y + 1].Blocked == false
-        //                         && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y + 1].Blocked == false
-        //                         && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                         && this[d.x - 2, d.y].Own == 0 && this[d.x - 2, d.y].Blocked == false
-        //                         && this[d.x, d.y - 2].Own == 0 && this[d.x, d.y + 2].Blocked == false
-        //                         && this[d.x + 2, d.y].Own == 0 && this[d.x + 2, d.y].Blocked == false
-        //                         && this[d.x, d.y + 2].Own == 0 && this[d.x, d.y - 2].Blocked == false
-        //                     select d;
-        //    if (pat1_2_3_4.Count() > 0) return new Dot(pat1_2_3_4.First().x, pat1_2_3_4.First().y);
-        //    //============================================================================================================== 
-        //    iNumberPattern = 883;
-        //    var pat883 = from Dot d in this
-        //                 where d.Own == Owner
-        //                     && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                     && this[d.x + 2, d.y].Own == 0 && this[d.x + 2, d.y].Blocked == false
-        //                     && this[d.x + 3, d.y].Own == 0 && this[d.x + 3, d.y].Blocked == false
-        //                     && this[d.x + 3, d.y - 1].Own == Owner && this[d.x + 3, d.y - 1].Blocked == false
-        //                     && this[d.x + 2, d.y - 1].Own == 0 && this[d.x + 2, d.y - 1].Blocked == false
-        //                     && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y - 1].Blocked == false
-        //                     && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                     && this[d.x + 2, d.y - 2].Own == 0 && this[d.x + 2, d.y - 2].Blocked == false
-        //                     && this[d.x + 1, d.y - 2].Own == 0 && this[d.x + 1, d.y - 2].Blocked == false
-        //                     && this[d.x + 3, d.y - 2].Own == 0 && this[d.x + 3, d.y - 2].Blocked == false
-        //                     && this[d.x, d.y - 2].Own == 0 && this[d.x, d.y - 2].Blocked == false
-        //                 select d;
-        //    if (pat883.Count() > 0) return new Dot(pat883.First().x + 1, pat883.First().y - 1);
-        //    //--------------Rotate on 90-----------------------------------
-        //    var pat883_2_3 = from Dot d in this
-        //                     where d.Own == Owner
-        //                         && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                         && this[d.x, d.y - 2].Own == 0 && this[d.x, d.y - 2].Blocked == false
-        //                         && this[d.x, d.y - 3].Own == 0 && this[d.x, d.y - 3].Blocked == false
-        //                         && this[d.x + 1, d.y - 3].Own == Owner && this[d.x + 1, d.y - 3].Blocked == false
-        //                         && this[d.x + 1, d.y - 2].Own == 0 && this[d.x + 1, d.y - 2].Blocked == false
-        //                         && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y - 1].Blocked == false
-        //                         && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                         && this[d.x + 2, d.y - 2].Own == 0 && this[d.x + 2, d.y - 2].Blocked == false
-        //                         && this[d.x + 2, d.y - 1].Own == 0 && this[d.x + 2, d.y - 1].Blocked == false
-        //                         && this[d.x + 2, d.y - 3].Own == 0 && this[d.x + 2, d.y - 3].Blocked == false
-        //                         && this[d.x + 2, d.y].Own == 0 && this[d.x + 2, d.y].Blocked == false
-        //                     select d;
-        //    if (pat883_2_3.Count() > 0) return new Dot(pat883_2_3.First().x + 1, pat883_2_3.First().y - 1);
-        //    //=================================================================================
-        //    // 0d край доски
-        //    // m   *
-        //    iNumberPattern = 2;
-        //    var pat2 = from Dot d in this
-        //               where d.Own == Owner && d.y == 0 && d.x > 0 && d.x < BoardWidth
-        //                   && this[d.x + 1, d.y + 1].Own == Owner && this[d.x + 1, d.y + 1].Blocked == false
-        //                   && this[d.x, d.y + 1].Own == 0 && this[d.x, d.y + 1].Blocked == false
-        //               select d;
-        //    if (pat2.Count() > 0) return new Dot(pat2.First().x, pat2.First().y + 1);
-        //    var pat2_2 = from Dot d in this
-        //                 where d.Own == Owner && d.y > 1 && d.y < BoardHeight && d.x == 0
-        //                       && this[d.x + 1, d.y + 1].Own == Owner && this[d.x + 1, d.y + 1].Blocked == false
-        //                       && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                 select d;
-        //    if (pat2_2.Count() > 0) return new Dot(pat2_2.First().x + 1, pat2_2.First().y);
-        //    var pat2_2_3 = from Dot d in this
-        //                   where d.Own == Owner && d.x == BoardWidth - 1 && d.y > 0 && d.y < BoardHeight
-        //                         && this[d.x - 1, d.y - 1].Own == Owner && this[d.x - 1, d.y - 1].Blocked == false
-        //                         && this[d.x - 1, d.y].Own == 0 && this[d.x - 1, d.y].Blocked == false
-        //                   select d;
-        //    if (pat2_2_3.Count() > 0) return new Dot(pat2_2_3.First().x - 1, pat2_2_3.First().y);
-        //    var pat2_2_3_4 = from Dot d in this
-        //                     where d.Own == Owner && d.y == BoardHeight - 1 && d.x > 0 && d.x < BoardWidth
-        //                           && this[d.x - 1, d.y - 1].Own == Owner && this[d.x - 1, d.y - 1].Blocked == false
-        //                           && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                     select d;
-        //    if (pat2_2_3_4.Count() > 0) return new Dot(pat2_2_3_4.First().x, pat2_2_3_4.First().y - 1);
-        //    iNumberPattern = 4;
-        //    var pat4 = from Dot d in this
-        //               where d.Own == Owner
-        //                   && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                   && this[d.x + 1, d.y - 2].Own == 0 && this[d.x + 1, d.y - 2].Blocked == false
-        //                   && this[d.x + 2, d.y - 2].Own == Owner && this[d.x + 2, d.y - 2].Blocked == false
-        //                   && this[d.x + 2, d.y - 1].Own == 0 && this[d.x + 2, d.y - 1].Blocked == false
-        //                   && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                   && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y - 1].Blocked == false
-        //               select d;
-        //    if (pat4.Count() > 0) return new Dot(pat4.First().x + 1, pat4.First().y - 1);
-        //    //180 Rotate=========================================================================================================== 
-        //    //  *
-        //    //     m
-        //    //        d* 
-        //    var pat4_2 = from Dot d in this
-        //                 where d.Own == Owner
-        //                     && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                     && this[d.x - 1, d.y - 2].Own == 0 && this[d.x - 1, d.y - 2].Blocked == false
-        //                     && this[d.x - 2, d.y - 2].Own == Owner && this[d.x - 2, d.y - 2].Blocked == false
-        //                     && this[d.x - 2, d.y - 1].Own == 0 && this[d.x - 2, d.y - 1].Blocked == false
-        //                     && this[d.x - 1, d.y].Own == 0 && this[d.x - 1, d.y].Blocked == false
-        //                     && this[d.x - 1, d.y - 1].Own == 0 && this[d.x - 1, d.y - 1].Blocked == false
-        //                 select d;
-        //    if (pat4_2.Count() > 0) return new Dot(pat4_2.First().x - 1, pat4_2.First().y - 1);
-        //    //============================================================================================================== 
-        //    //d*  m  *
-        //    iNumberPattern = 7;
-        //    var pat7 = from Dot d in this
-        //               where d.Own == Owner
-        //                   && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                   && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y - 1].Blocked == false
-        //                   && this[d.x + 1, d.y + 1].Own == 0 && this[d.x + 1, d.y + 1].Blocked == false
-        //                   && this[d.x + 2, d.y].Own == Owner && this[d.x + 2, d.y].Blocked == false
-        //               select d;
-        //    if (pat7.Count() > 0) return new Dot(pat7.First().x + 1, pat7.First().y);
-        //    //--------------Rotate on 90-----------------------------------
-        //    //   *
-        //    //   m
-        //    //   d*
-        //    var pat7_2 = from Dot d in this
-        //                 where d.Own == Owner
-        //                     && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                     && this[d.x - 1, d.y - 1].Own == 0 && this[d.x - 1, d.y - 1].Blocked == false
-        //                     && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y - 1].Blocked == false
-        //                     && this[d.x, d.y - 2].Own == Owner && this[d.x, d.y - 2].Blocked == false
-        //                 select d;
-        //    if (pat7_2.Count() > 0) return new Dot(pat7_2.First().x, pat7_2.First().y - 1);
-        //    //============================================================================================================== 
-        //    //    *
-        //    // m 
-        //    //
-        //    // d*
-        //    iNumberPattern = 8;
-        //    var pat8 = from Dot d in this
-        //               where d.Own == Owner
-        //                   && this[d.x + 1, d.y - 3].Own == Owner && this[d.x + 1, d.y - 3].Blocked == false
-        //                   && this[d.x, d.y - 2].Own == 0 && this[d.x, d.y - 2].Blocked == false
-        //                   && this[d.x + 1, d.y - 2].Own == 0 && this[d.x + 1, d.y - 2].Blocked == false
-        //                   && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y - 1].Blocked == false
-        //                   && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                   && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                   && this[d.x, d.y - 3].Own == 0 && this[d.x, d.y - 3].Blocked == false
-        //               select d;
-        //    if (pat8.Count() > 0) return new Dot(pat8.First().x, pat8.First().y - 2);
-        //    //180 Rotate=========================================================================================================== 
-        //    var pat8_2 = from Dot d in this
-        //                 where d.Own == Owner
-        //                     && this[d.x - 1, d.y + 3].Own == Owner && this[d.x - 1, d.y + 3].Blocked == false
-        //                     && this[d.x, d.y + 2].Own == 0 && this[d.x, d.y + 2].Blocked == false
-        //                     && this[d.x - 1, d.y + 2].Own == 0 && this[d.x - 1, d.y + 2].Blocked == false
-        //                     && this[d.x - 1, d.y + 1].Own == 0 && this[d.x - 1, d.y + 1].Blocked == false
-        //                     && this[d.x, d.y + 1].Own == 0 && this[d.x, d.y + 1].Blocked == false
-        //                     && this[d.x - 1, d.y].Own == 0 && this[d.x - 1, d.y].Blocked == false
-        //                     && this[d.x, d.y + 3].Own == 0 && this[d.x, d.y + 3].Blocked == false
-        //                 select d;
-        //    if (pat8_2.Count() > 0) return new Dot(pat8_2.First().x, pat8_2.First().y + 2);
-        //    //--------------Rotate on 90-----------------------------------
-        //    var pat8_2_3 = from Dot d in this
-        //                   where d.Own == Owner
-        //                       && this[d.x + 3, d.y - 1].Own == Owner && this[d.x + 3, d.y - 1].Blocked == false
-        //                       && this[d.x + 2, d.y].Own == 0 && this[d.x + 2, d.y].Blocked == false
-        //                       && this[d.x + 2, d.y - 1].Own == 0 && this[d.x + 2, d.y - 1].Blocked == false
-        //                       && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y - 1].Blocked == false
-        //                       && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                       && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                       && this[d.x + 3, d.y].Own == 0 && this[d.x + 3, d.y].Blocked == false
-        //                   select d;
-        //    if (pat8_2_3.Count() > 0) return new Dot(pat8_2_3.First().x + 2, pat8_2_3.First().y);
-        //    //--------------Rotate on 90 -2-----------------------------------
-        //    var pat8_2_3_4 = from Dot d in this
-        //                     where d.Own == Owner
-        //                         && this[d.x - 3, d.y + 1].Own == Owner && this[d.x - 3, d.y + 1].Blocked == false
-        //                         && this[d.x - 2, d.y].Own == 0 && this[d.x - 2, d.y].Blocked == false
-        //                         && this[d.x - 2, d.y + 1].Own == 0 && this[d.x - 2, d.y + 1].Blocked == false
-        //                         && this[d.x - 1, d.y + 1].Own == 0 && this[d.x - 1, d.y + 1].Blocked == false
-        //                         && this[d.x - 1, d.y].Own == 0 && this[d.x - 1, d.y].Blocked == false
-        //                         && this[d.x, d.y + 1].Own == 0 && this[d.x, d.y + 1].Blocked == false
-        //                         && this[d.x - 3, d.y].Own == 0 && this[d.x - 3, d.y].Blocked == false
-        //                     select d;
-        //    if (pat8_2_3_4.Count() > 0) return new Dot(pat8_2_3_4.First().x - 2, pat8_2_3_4.First().y);
-        //    //============================================================================================================== 
-        //    //     *
-        //    //        d*  
-        //    //     m
-        //    //============================================================================================================== 
-        //    iNumberPattern = 9;
-        //    var pat9 = from Dot d in this
-        //               where d.Own == Owner && d.x >= 2
-        //               && this[d.x - 1, d.y - 1].Own == Owner && this[d.x - 1, d.y - 1].Blocked == false
-        //               && this[d.x - 1, d.y + 1].Own == 0 && this[d.x - 1, d.y + 1].Blocked == false
-        //               && this[d.x - 1, d.y].Own == 0 && this[d.x - 1, d.y].Blocked == false
-        //               && this[d.x - 2, d.y].Own == 0 && this[d.x - 2, d.y].Blocked == false
-        //               select d;
-        //    if (pat9.Count() > 0) return new Dot(pat9.First().x - 1, pat9.First().y + 1);
-        //    //180 Rotate=========================================================================================================== 
-        //    //     m  
-        //    // d*  
-        //    //     *
-        //    var pat9_2 = from Dot d in this
-        //                 where d.Own == Owner && d.x <= BoardWidth - 2
-        //                       && this[d.x + 1, d.y + 1].Own == Owner && this[d.x + 1, d.y + 1].Blocked == false
-        //                       && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y - 1].Blocked == false
-        //                       && this[d.x + 1, d.y].Own == 0 && this[d.x + 1, d.y].Blocked == false
-        //                       && this[d.x + 2, d.y].Own == 0 && this[d.x + 2, d.y].Blocked == false
-        //                 select d;
-        //    if (pat9_2.Count() > 0) return new Dot(pat9_2.First().x + 1, pat9_2.First().y - 1);
-        //    //--------------Rotate on 90-----------------------------------
-        //    //         
-        //    //     d*
-        //    //  m       *
-        //    var pat9_2_3 = from Dot d in this
-        //                   where d.Own == Owner && d.y <= BoardHeight - 2
-        //                         && this[d.x + 1, d.y + 1].Own == Owner && this[d.x + 1, d.y + 1].Blocked == false
-        //                         && this[d.x - 1, d.y + 1].Own == 0 && this[d.x - 1, d.y + 1].Blocked == false
-        //                         && this[d.x, d.y + 1].Own == 0 && this[d.x, d.y + 1].Blocked == false
-        //                         && this[d.x, d.y + 2].Own == 0 && this[d.x, d.y + 2].Blocked == false
-        //                   select d;
-        //    if (pat9_2_3.Count() > 0) return new Dot(pat9_2_3.First().x - 1, pat9_2_3.First().y + 1);
-        //    //--------------Rotate on 90 -2-----------------------------------
-        //    // *      m
-        //    //    d*   
-        //    //
-        //    var pat9_2_3_4 = from Dot d in this
-        //                     where d.Own == Owner && d.y >= 2
-        //                           && this[d.x - 1, d.y - 1].Own == Owner && this[d.x - 1, d.y - 1].Blocked == false
-        //                           && this[d.x + 1, d.y - 1].Own == 0 && this[d.x + 1, d.y - 1].Blocked == false
-        //                           && this[d.x, d.y - 1].Own == 0 && this[d.x, d.y - 1].Blocked == false
-        //                           && this[d.x, d.y - 2].Own == 0 && this[d.x, d.y - 2].Blocked == false
-        //                     select d;
-        //    if (pat9_2_3_4.Count() > 0) return new Dot(pat9_2_3_4.First().x + 1, pat9_2_3_4.First().y - 1);
-        //    //============================================================================================================== 
-
-        //    //=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
-        //    return null;//если никаких паттернов не найдено возвращаем нуль
-        //}
-        //public List<Dot> CheckPattern2Move(int Owner) //проверка хода на гарантированное окружение(когда точки находятся через две клетки) 
-        //{
-        //    List<Dot> ld = new List<Dot>();
-        //    iNumberPattern = 1;
-        //    var pat = Board_AllNotBlockedDots.Where(d =>
-        //                    d.Own == Owner
-        //                    &&
-        //                    d.IndexRelation == this[d.x + 3, d.y - 1].IndexRelation
-        //                    & this[d.x + 1, d.y - 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    & this[d.x + 2, d.y - 1].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x + 2, d.y - 1));
-        //    }
-
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x + 3, d.y - 1].IndexRelation
-        //                    & this[d.x + 1, d.y - 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    & this[d.x + 2, d.y].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x + 2, d.y));
-        //    }
-
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x + 3, d.y].IndexRelation
-        //                    & this[d.x + 1, d.y - 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    & this[d.x + 2, d.y].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x + 2, d.y));
-        //    }
 
 
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x + 3, d.y].IndexRelation
-        //                    & this[d.x + 1, d.y + 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    & this[d.x + 2, d.y].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x + 2, d.y));
-        //    }
-
-
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x + 3, d.y].IndexRelation
-        //                    & this[d.x + 2, d.y - 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    & this[d.x + 2, d.y].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x + 1, d.y));
-        //    }
-
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x + 3, d.y].IndexRelation
-        //                    & this[d.x + 2, d.y + 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    & this[d.x + 2, d.y].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x + 1, d.y));
-        //    }
-
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x + 3, d.y + 1].IndexRelation
-        //                    & this[d.x + 1, d.y + 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    & this[d.x + 2, d.y].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x + 2, d.y));
-        //    }
-
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x + 3, d.y + 1].IndexRelation
-        //                    & this[d.x + 1, d.y + 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    & this[d.x + 2, d.y + 1].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x + 2, d.y + 1));
-        //    }
-
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x + 3, d.y + 1].IndexRelation
-        //                    & this[d.x + 1, d.y + 1].Own == 0
-        //                    & this[d.x + 2, d.y].Own == 0
-        //                    & this[d.x + 2, d.y + 1].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x + 1, d.y + 1));
-        //    }
-
-        //    //****************************************************************
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x - 1, d.y + 3].IndexRelation
-        //                    & this[d.x - 1, d.y + 1].Own == 0
-        //                    & this[d.x, d.y + 1].Own == 0
-        //                    & this[d.x - 1, d.y + 2].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x - 1, d.y + 2));
-        //    }
-
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x - 1, d.y + 3].IndexRelation
-        //                    & this[d.x, d.y + 1].Own == 0
-        //                    & this[d.x, d.y + 2].Own == 0
-        //                    & this[d.x - 1, d.y + 2].Own == 0);
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x, d.y + 1));
-        //    }
-
-        //    pat = Board_AllNotBlockedDots.Where(d =>
-        //                                d.Own == Owner
-        //                                &&
-        //                    d.IndexRelation == this[d.x, d.y + 3].IndexRelation
-        //                    & this[d.x, d.y + 1].Own == 0
-        //                    & this[d.x, d.y + 2].Own == 0
-        //                    & this[d.x - 1, d.y + 1].Own == 0);
-
-        //    if (pat.Count() > 0)
-        //    {
-        //        Dot d = pat.First();
-        //        ld.Add(new Dot(d.x, d.y + 2));
-        //    } 
-
-
-
-        //                    //|
-        //                    //d.IndexRelation == this[d.x + 3, d.y].IndexRelation
-        //                    //& this[d.x + 1, d.y - 1].Own == 0
-        //                    //& this[d.x + 1, d.y].Own == 0
-        //                    //& this[d.x + 2, d.y].Own == 0
-        //                    //                            |
-        //                    //d.IndexRelation == this[d.x + 3, d.y].IndexRelation
-        //                    //& this[d.x + 1, d.y + 1].Own == 0
-        //                    //& this[d.x + 1, d.y].Own == 0
-        //                    //& this[d.x + 2, d.y].Own == 0
-        //                    //|
-        //                    //d.IndexRelation == this[d.x + 3, d.y].IndexRelation
-        //                    //& this[d.x + 2, d.y - 1].Own == 0
-        //                    //& this[d.x + 1, d.y].Own == 0
-        //                    //& this[d.x + 2, d.y].Own == 0
-        //                    //|
-        //                    //d.IndexRelation == this[d.x + 3, d.y].IndexRelation
-        //                    //& this[d.x + 2, d.y + 1].Own == 0
-        //                    //& this[d.x + 1, d.y].Own == 0
-        //                    //& this[d.x + 2, d.y].Own == 0
-        //                    //|
-        //                    //d.IndexRelation == this[d.x + 3, d.y + 1].IndexRelation
-        //                    //& this[d.x + 1, d.y + 1].Own == 0
-        //                    //& this[d.x + 1, d.y].Own == 0
-        //                    //& this[d.x + 2, d.y].Own == 0
-        //                    //|
-        //                    //d.IndexRelation == this[d.x + 3, d.y + 1].IndexRelation
-        //                    //& this[d.x + 1, d.y + 1].Own == 0
-        //                    //& this[d.x + 1, d.y].Own == 0
-        //                    //& this[d.x + 2, d.y + 1].Own == 0
-        //                    //|
-        //                    //d.IndexRelation == this[d.x + 3, d.y + 1].IndexRelation
-        //                    //& this[d.x + 1, d.y + 1].Own == 0
-        //                    //& this[d.x + 2, d.y].Own == 0
-        //                    //& this[d.x + 2, d.y + 1].Own == 0
-
-        //                    //);
-        //    //AddToList(ld, pat1, 1, 0);
-        //    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        //    foreach (Dot d in ld)
-        //    {
-        //        d.iNumberPattern = 777;
-        //        //d.Rating=1;
-        //    }
-
-        //    return ld;
-        //}
-
-        //public List<Dot> CheckPattern2Move2(int Owner) //проверка хода на гарантированное окружение(когда точки находятся через две клетки) 
-        //{
-        //    List<Dot> ld = new List<Dot>();
-        //    iNumberPattern = 1;
-        //    var pat1 = Board_AllNotBlockedDots.Where(d=>
-        //                    d.Own == Owner
-        //                    &&
-        //                    d.IndexRelation == this[d.x + 2, d.y - 1].IndexRelation
-        //                    & this[d.x + 1, d.y - 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    |
-        //                    d.IndexRelation == this[d.x + 2, d.y].IndexRelation
-        //                    & this[d.x + 1, d.y - 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    |
-        //                    d.IndexRelation == this[d.x + 2, d.y].IndexRelation
-        //                    & this[d.x + 1, d.y + 1].Own == 0
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    |
-        //                    d.IndexRelation == this[d.x + 2, d.y + 1].IndexRelation
-        //                    & this[d.x + 1, d.y].Own == 0
-        //                    & this[d.x + 1, d.y + 1].Own == 0
-        //                   |
-        //                   d.IndexRelation == this[d.x + 1, d.y + 2].IndexRelation
-        //                   & this[d.x, d.y + 1].Own == 0
-        //                   & this[d.x + 1, d.y + 1].Own == 0
-        //                   |
-        //                   d.IndexRelation == this[d.x, d.y + 2].IndexRelation
-        //                   & this[d.x, d.y + 1].Own == 0
-        //                   & this[d.x + 1, d.y + 1].Own == 0
-        //                   |
-        //                   d.IndexRelation == this[d.x, d.y + 2].IndexRelation
-        //                   & this[d.x, d.y + 1].Own == 0
-        //                   & this[d.x - 1, d.y + 1].Own == 0
-        //                   |
-        //                   d.IndexRelation == this[d.x - 1, d.y + 2].IndexRelation
-        //                   & this[d.x, d.y + 1].Own == 0
-        //                   & this[d.x - 1, d.y + 1].Own == 0
-        //                   |
-        //                   d.IndexRelation == this[d.x - 2, d.y + 1].IndexRelation
-        //                   & this[d.x - 1, d.y].Own == 0
-        //                   & this[d.x - 1, d.y + 1].Own == 0
-        //                   |
-        //                    d.IndexRelation == this[d.x - 2, d.y].IndexRelation
-        //                   & this[d.x - 1, d.y].Own == 0
-        //                   & this[d.x - 1, d.y + 1].Own == 0
-        //                   |
-        //                    d.IndexRelation == this[d.x - 2, d.y].IndexRelation
-        //                   & this[d.x - 1, d.y].Own == 0
-        //                   & this[d.x - 1, d.y - 1].Own == 0
-        //                   |
-        //                    d.IndexRelation == this[d.x - 2, d.y - 1].IndexRelation
-        //                    & this[d.x - 1, d.y].Own == 0
-        //                    & this[d.x - 1, d.y - 1].Own == 0
-        //                    |
-        //                    d.IndexRelation == this[d.x, d.y - 2].IndexRelation
-        //                    & this[d.x, d.y - 1].Own == 0
-        //                    & this[d.x - 1, d.y - 1].Own == 0
-        //                    |
-        //                    d.IndexRelation == this[d.x - 1, d.y - 2].IndexRelation
-        //                    & this[d.x, d.y - 1].Own == 0
-        //                    & this[d.x - 1, d.y - 1].Own == 0
-        //                    |
-        //                    d.IndexRelation == this[d.x, d.y - 2].IndexRelation
-        //                    & this[d.x, d.y - 1].Own == 0
-        //                    & this[d.x + 1, d.y - 1].Own == 0
-        //                    |
-        //                    d.IndexRelation == this[d.x + 1, d.y - 2].IndexRelation
-        //                    & this[d.x, d.y - 1].Own == 0
-        //                    & this[d.x + 1, d.y - 1].Own == 0
-        //                    |
-        //                    d.IndexRelation == this[d.x + 2, d.y - 1].IndexRelation
-        //                   & this[d.x + 1, d.y].Own == 0
-        //                   & this[d.x + 1, d.y - 1].Own == 0
-
-        //                    );
-        //    AddToList(ld, pat1, 1, 0);
-        //    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        //    foreach(Dot d in ld) 
-        //    {
-        //        d.iNumberPattern=777;
-        //        //d.Rating=1;
-        //    }
-        //    return ld;
-        //}
         public Dot PickComputerMove(Dot enemy_move)
         {
-#region если первый ход выбираем произвольную соседнюю точку
+
+            #region если первый ход выбираем произвольную соседнюю точку
             if (ListMoves.Count < 2)
             {
                 var random = new Random(DateTime.Now.Millisecond);
@@ -2564,25 +2015,33 @@ namespace Points
                         orderby random.Next()
                         select d;
 
-                if (q.Count() > 0) best_move = q.Where(dt => Distance(dt, LastMove) < 3).FirstOrDefault();
-
-                else best_move = q.FirstOrDefault();
-#if DEBUG
+                if (q.Count() > 0)
                 {
-                    lstDbgMoves.Add(best_move.ToString() + " - random ");
-                }
+                    best_move = q.Where(dt => Distance(dt, LastMove) < 3).FirstOrDefault();
+                    if (best_move == null) best_move = q.FirstOrDefault();
+#if DEBUG
+                    {
+
+                        lstDbgMoves.Add(best_move.ToString() + " - random ");
+
+                    }
 #endif
-                //return best_move;
+                }
+                else
+                {
+                    lst_branch.Clear();
+                    return null;
+                }
             }
             #endregion
 
 #region Statistic
 #if DEBUG
             stopWatch.Stop();
-
-            //GameEngine.DbgInfo = "Количество ходов: " + counter_moves +
-            //                    "\r\nХод на " + best_move.ToString() +
-            //                    "\r\nвремя просчета " + stopWatch.ElapsedMilliseconds.ToString() + " мс";
+            foreach (string d in lstDbgMoves) Debug.WriteLine(d);
+            GameEngine.DbgInfo = "Количество ходов: " + counter_moves +
+                                "\r\nХод на " + best_move.ToString() +
+                                "\r\nвремя просчета " + stopWatch.ElapsedMilliseconds.ToString() + " мс";
             stopWatch.Reset();
 #endif
 #endregion
@@ -2600,7 +2059,6 @@ namespace Points
 #if DEBUG
             sW2.Start();
             GameEngine.DbgInfo = "CheckMove(pl2,pl1)...";
-            DrawSession.CanvasCtrl.Invalidate();
 #endif
             bm = CheckMove(pl2);
             if (DotIndexCheck(bm))
@@ -2614,7 +2072,7 @@ namespace Points
 #endregion
                 bm.iNumberPattern = 777; //777-ход в результате которого получается окружение -компьютер побеждает
                 moves.Add(bm);
-                //return bm;
+                return moves;
             }
             bm = CheckMove(pl1);
             if (DotIndexCheck(bm))
@@ -2627,8 +2085,8 @@ namespace Points
 #endif
                 #endregion
                 bm.iNumberPattern = 666; //666-ход в результате которого получается окружение -компьютер проигрывает
-                //return bm;
                 moves.Add(bm);
+                return moves;
             }
 #region DEBUG
 #if DEBUG
@@ -2637,7 +2095,7 @@ namespace Points
             //проверяем паттерны
             sW2.Start();
             GameEngine.DbgInfo = "CheckPattern_vilochka проверяем ходы на два вперед...";
-            DrawSession.CanvasCtrl.Invalidate();
+            //DrawSession.CanvasCtrl.Invalidate();
 #endif
             #endregion
             #region CheckPattern_vilochka
@@ -2679,50 +2137,49 @@ namespace Points
             GameEngine.DbgInfo = strDebug;
             sW2.Reset();
             sW2.Start();
-            GameEngine.DbgInfo = "CheckPattern2Move...";
-            DrawSession.CanvasCtrl.Invalidate();
+            //DrawSession.CanvasCtrl.Invalidate();
 
 #endif
             #endregion
             #endregion
             #region CheckPattern2Move проверяем ходы на два вперед
-            List<Dot> empty_dots = EmptyNeibourDots(pl2);
-            List<Dot> lst_dots2;
+//            List<Dot> empty_dots = EmptyNeibourDots(pl2);
+//            List<Dot> lst_dots2;
 
-            foreach (Dot dot in empty_dots)
-            {
-                if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
-                lst_dots2 = CheckPattern2Move(pl2);
-                foreach (Dot nd in lst_dots2)
-                {
-                    if (MakeMove(nd, pl2) != 0)
-                    {
-                        UndoMove(nd);
-                        UndoMove(dot);
-                        #region DEBUG
-#if DEBUG
-                        {
-                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
-                        }
-#endif
-                        #endregion
-                        dot.iNumberPattern = 777;
-                        moves.Add(dot); 
-                    }
-                    UndoMove(nd);
-                }
-                UndoMove(dot);
-            }
-#if DEBUG
-            sW2.Stop();
-            strDebug = strDebug + "\r\nCheckPattern2Move(pl2) - " + sW2.Elapsed.Milliseconds.ToString();
-            GameEngine.DbgInfo = strDebug;
-            DrawSession.CanvasCtrl.Invalidate();
-            sW2.Reset();
-            sW2.Start();
-            //f.lblBestMove.Text = "CheckPattern_vilochka...";
+//            foreach (Dot dot in empty_dots)
+//            {
+//                if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
+//                lst_dots2 = CheckPattern2Move(pl2);
+//                foreach (Dot nd in lst_dots2)
+//                {
+//                    if (MakeMove(nd, pl2) != 0)
+//                    {
+//                        UndoMove(nd);
+//                        UndoMove(dot);
+//                        #region DEBUG
+//#if DEBUG
+//                        {
+//                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
+//                        }
+//#endif
+//                        #endregion
+//                        dot.iNumberPattern = 777;
+//                        moves.Add(dot); 
+//                    }
+//                    UndoMove(nd);
+//                }
+//                UndoMove(dot);
+//            }
+//#if DEBUG
+//            sW2.Stop();
+//            strDebug = strDebug + "\r\nCheckPattern2Move(pl2) - " + sW2.Elapsed.Milliseconds.ToString();
+//            GameEngine.DbgInfo = strDebug;
+//            DrawSession.CanvasCtrl.Invalidate();
+//            sW2.Reset();
+//            sW2.Start();
+//            //f.lblBestMove.Text = "CheckPattern_vilochka...";
             
-#endif
+//#endif
 
 #endregion
             //-----------------------------------------------------------------
@@ -2745,10 +2202,9 @@ namespace Points
             sW2.Stop();
             strDebug = strDebug + "\r\nCheckPatternVilkaNextMove -" + sW2.Elapsed.Milliseconds.ToString();
             GameEngine.DbgInfo = strDebug;
-            DrawSession.CanvasCtrl.Invalidate();
+           // DrawSession.CanvasCtrl.Invalidate();
             sW2.Reset();
             sW2.Start();
-            GameEngine.DbgInfo = "CheckPattern(pl2)...";
 #endif
             #endregion
             #endregion
@@ -2819,18 +2275,18 @@ namespace Points
             sW2.Stop();
             strDebug = strDebug + "\r\nCheckPatternMove(pl2) -" + sW2.Elapsed.Milliseconds.ToString();
             GameEngine.DbgInfo = strDebug;
-            DrawSession.CanvasCtrl.Invalidate();
             sW2.Reset();
 #endif
 
 #endregion
             var result = moves.Distinct(new DotEq());
-            return result.ToList<Dot>();
+            return result.ToList();
         }
         //==================================================================================================================
         
         List<Dot> lst_moves = new List<Dot>();//сюда заносим проверяемые ходы
-        List<Dot> lst_branch = new List<Dot>();//сюда заносим начало перспективной ветки
+        List<Dot> lst_branch = new List<Dot>();//сюда заносим начало перспективной ветки для одного игрока
+        List<Dot> lst_branch_enemy = new List<Dot>();//сюда заносим начало перспективной ветки для другого игрока
         //
         int counter_moves = 0;
         int res_last_move; //хранит результат хода
@@ -2843,9 +2299,6 @@ namespace Points
         {
             List<Dot> lst_best_move = new List<Dot>();//сюда заносим лучшие ходы
             if (recursion_depth==1)counter_moves = 1;
-            //StatusMsg.ColorMsg = Colors.Green;
-            //StatusMsg.textMsg = "check move - " + counter_moves.ToString();
-            //DrawSession.CanvasCtrl.Invalidate();
             GameEngine.DbgInfo= "check move - " + counter_moves.ToString();
 
             recursion_depth++;
@@ -2857,17 +2310,34 @@ namespace Points
             tempmove = lst_best_move.Where(dt => dt.iNumberPattern == 777).FirstOrDefault();
             if (tempmove != null) 
             {
-                lst_branch.Add(tempmove);
-                lst_branch.Last().Rating = counter_moves;
-                return PLAYER_COMPUTER;
+                if (player2 == PLAYER_COMPUTER)
+                {
+                    lst_branch.Add(tempmove);
+                    lst_branch.Last().Rating = counter_moves;
+                }
+                else
+                {
+                    lst_branch_enemy.Add(tempmove);
+                    lst_branch_enemy.Last().Rating = counter_moves;
+                }
+                return player2;
+
             }
             //если есть паттерн на окружение компа устанавливается бест мув
             tempmove = lst_best_move.Where(dt => dt.iNumberPattern == 666).FirstOrDefault();
             if (tempmove != null) 
             {
-                lst_branch.Add(tempmove);
-                lst_branch.Last().Rating = counter_moves;
-                return PLAYER_HUMAN;
+                if (player2 == PLAYER_COMPUTER)
+                {
+                    lst_branch.Add(tempmove);
+                    lst_branch.Last().Rating = counter_moves;
+                }
+                else
+                {
+                    lst_branch_enemy.Add(tempmove);
+                    lst_branch_enemy.Last().Rating = counter_moves;
+                }
+                return player1;
             }
 
             if(lst_best_move.Count>0)
@@ -2903,11 +2373,13 @@ namespace Points
 #if DEBUG
                     //if (f.chkMove.Checked) Pause(); //делает паузу если значение поля pause>0
                     lstDbg1.Add(move.ToString());//(move.Own + " -" + move.x + ":" + move.y);
+                    
                     GameEngine.DbgInfo = " Ходов проверено: " + counter_moves +
                                        "\r\n проверка вокруг точки " + LastMove +
                                        "\r\n время поиска " + stopWatch.ElapsedMilliseconds;
+                    Debug.WriteLine(GameEngine.DbgInfo);
 #endif
-#endregion
+                    #endregion
                     //теперь ходит другой игрок ===========================================================================
 
                     int result = Play(player2, player1);
@@ -2940,7 +2412,7 @@ namespace Points
                     }
                     else if (result == PLAYER_HUMAN)
                     {
-                        if (recursion_depth == 2)
+                        if (recursion_depth == 1)
                         {
                             lst_moves[0].Rating = counter_moves;//такой рейтинг устанавливается если выигрывает человек
                             lst_branch.Add(lst_moves[0]);
@@ -2959,14 +2431,20 @@ namespace Points
 #if DEBUG
 //remove from list
                     if (lstDbg1.Count > 0) lstDbg1.RemoveAt(lstDbg1.Count - 1);
+
+
+                    //foreach(string d in lstDbg1) Debug.WriteLine(d);
+
 #endif
-#endregion
+                    #endregion
                 }
-          #endregion     
+                #endregion
             }
-#endregion
+            #endregion
             //lst_moves.Remove(lst_moves.Last());
             //recursion_depth--;
+
+
             best_move = lst_best_move.Where(dt => dt.Rating == lst_best_move.Min(d => d.Rating)).ElementAtOrDefault(0);
             return PLAYER_NONE;
         }//----------------------------Play-----------------------------------------------------

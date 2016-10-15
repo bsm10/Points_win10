@@ -6,10 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
+using Windows.Phone.UI.Input;
 using Windows.UI;
 using Windows.UI.Input;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -43,9 +47,30 @@ namespace Points
         {
             InitializeComponent();
             Loaded += OnLoaded;
+            // получаем ссылку на внешний вид приложения
+            ApplicationView appView = ApplicationView.GetForCurrentView();
+            // минимальный размер 
+            appView.SetPreferredMinSize(new Size(480, 800));
+            // минимальные границы
+            appView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseVisible);
 
+            // установка заголовка
+            appView.Title = "Points!";
+            // получаем ссылку на TitleBar
+            ApplicationViewTitleBar titleBar = appView.TitleBar;
+            // установка красного цвета панели
+            titleBar.BackgroundColor = Colors.LightSteelBlue;
 
+            if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+                HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+        }
 
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+            else
+            Application.Current.Exit(); // выход из приложения       
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -82,7 +107,6 @@ namespace Points
             //============Ход компьютера=================
             if (player_move == 2)
             {
-
                 if (await MoveGamer(2) > 0) return;
             }
 
@@ -109,27 +133,14 @@ namespace Points
             Dot dot = new Dot((int)game.MousePos.X, (int)game.MousePos.Y);
             if (game.MousePos.X > GameEngine.startX - 0.5f & game.MousePos.Y > GameEngine.startY - 0.5f)
             {
-                switch (e.PointerDeviceType)
-                {
-                    case Windows.Devices.Input.PointerDeviceType.Mouse:
-                        break;
-                    case Windows.Devices.Input.PointerDeviceType.Pen:
-                        break;
-                    case Windows.Devices.Input.PointerDeviceType.Touch:
-                        break;
-                    default:
-                        break;
-                }
-
-                #region Ходы игроков
-                //if (game.gameDots.Dots[(int)game.MousePos.X, (int)game.MousePos.Y].Own > 0) return;//предовращение хода если клик был по занятой точке
-
-                if (player_move == 1 | player_move == 0)
-                {
-                    player_move = 1;
-                    if (await MoveGamer(1, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) > 0) return;
-                }
-                #endregion
+                if (e.PointerDeviceType == PointerDeviceType.Touch | e.PointerDeviceType == PointerDeviceType.Pen)
+                    #region Ходы игроков
+                    if (player_move == 1 | player_move == 0)
+                    {
+                        player_move = 1;
+                        if (await MoveGamer(1, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) > 0) return;
+                    }
+                     #endregion
 
 
             }
@@ -146,11 +157,12 @@ namespace Points
             }
             pl_move.Own = Player;
 
-            game.MakeMove(pl_move);
-            //game.ListMoves.Add(pl_move);
-
-            canvas.Invalidate();
-            player_move = Player == 1 ? 2 : 1;
+            if (game.MakeMove(pl_move) != -1)
+            {
+                canvas.Invalidate();
+                player_move = Player == 1 ? 2 : 1;
+            }
+            else return -1;
 
 
             if (game.GameOver())
@@ -202,5 +214,38 @@ namespace Points
 
         }
 
+        private async void canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            UIElement q = sender as CanvasControl;
+            var mpos = e.GetCurrentPoint(q);
+            game.MousePos = game.TranslateCoordinates(mpos.Position);
+            Dot dot = new Dot((int)game.MousePos.X, (int)game.MousePos.Y);
+
+            if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse)
+            {
+                var properties = e.GetCurrentPoint(this).Properties;
+                if (properties.IsLeftButtonPressed)
+                {
+                    // Left button pressed
+                    if (player_move == 1 | player_move == 0)
+                    {
+                        player_move = 1;
+                        if (await MoveGamer(1, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) > 0) return;
+                    }
+
+                }
+                else if (properties.IsRightButtonPressed)
+                {
+                    // Right button pressed
+                }
+                else if (properties.IsMiddleButtonPressed)
+                {
+#if DEBUG
+                    game.UndoDot(dot);
+#endif
+                }
+
+            }
+        }
     }
 }

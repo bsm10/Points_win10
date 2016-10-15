@@ -205,7 +205,6 @@ C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\resources.pri
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\AppxManifest.xml
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\AppxManifest.xml
-C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\Points.exe
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Points.build.appxrecipe
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Microsoft.ApplicationInsights.dll
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Microsoft.ApplicationInsights.PersistenceChannel.dll

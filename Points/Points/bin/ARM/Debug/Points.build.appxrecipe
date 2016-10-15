@@ -22,8 +22,8 @@
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Points.exe">
-      <PackagePath>entrypoint\Points.exe</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Dots.exe">
+      <PackagePath>entrypoint\Dots.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\.nuget\packages\Microsoft.ApplicationInsights\2.1.0\lib\uap10.0\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -436,17 +436,18 @@
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Points.xr.xml">
-      <PackagePath>Points.xr.xml</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Dots.xr.xml">
+      <PackagePath>Dots.xr.xml</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Core\Points.exe">
-      <PackagePath>Points.exe</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Core\Dots.exe">
+      <PackagePath>Dots.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

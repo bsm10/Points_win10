@@ -98,12 +98,19 @@ namespace Points
 
         public void DrawBoard(CanvasDrawingSession drawingSession)//рисуем доску из клеток
         {
+            CanvasTextFormat format = new CanvasTextFormat()
+            {
+                FontFamily = "Courier New",
+                FontSize = 0.35f
+            };
             for (float i = 0; i < gameDots.BoardWidth; i++)
             {
+                drawingSession.DrawText((i + startX + 0.5f).ToString(), i + startX + 0.5f, startY , Colors.Green, format);
                 drawingSession.DrawLine(i + startX + 0.5f, startY + 0.5f, i + startX + 0.5f, gameDots.BoardHeight + startY - 0.5f, colorBoard, 0.08f);
             }
             for (float i = 0; i < gameDots.BoardHeight; i++)
             {
+                drawingSession.DrawText((i + startY + 0.5f).ToString(), startY + 0.1f, i + startX + 0.5f, Colors.Green, format);
                 drawingSession.DrawLine(startX + 0.5f, i + startY + 0.5f, gameDots.BoardWidth + startX - 0.5f, i + startY + 0.5f, colorBoard, 0.08f);
             }
             //drawingSession.DrawText("Points!", 1, iBoardHeight-2, Colors.DarkGreen); 
