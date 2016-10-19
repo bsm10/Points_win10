@@ -70,6 +70,18 @@ namespace Points
                 _Dots = value;
             }
         }
+
+
+        private List<Dot> _DotsForDrawing = new List<Dot>(); 
+
+        public List<Dot> DotsForDrawing
+        {// главная коллекция для отрисовки партии
+            get
+            {
+                return _DotsForDrawing;
+            }
+        }
+
         /// <summary>
         /// Возвращает список не занятых точек
         /// </summary>
@@ -545,13 +557,14 @@ namespace Points
         /// <param name="dot">точка куда делается ход</param>
         /// <param name="Owner">владелец точки -целое 1-Игрок или 2 -Компьютер</param>
         /// <returns>количество окруженных точек или -1 если недопустимый ход</returns>
-        public int MakeMove(Dot dot, int Owner = 0)//
+        public int MakeMove(Dot dot, int Owner = 0, bool addForDraw = false)//
         {
             
             if (this[dot.x, dot.y].ValidMove)
             {
                 if (Owner != 0) dot.Own = Owner;
                 Add(dot); //если точка не занята
+                if (addForDraw) DotsForDrawing.Add(dot);
             }
             else return -1;//в случае невозможного хода
             //--------------------------------
@@ -701,6 +714,19 @@ namespace Points
 
             lnks = temp.ToList(); //обновляем основной массив связей - lnks              
         }
+        public List<Links> LinkDots(List<Dot> lstDots)//устанавливает связь между двумя точками и возвращает массив связей 
+        {
+            var qry = from Dot d1 in lstDots
+                      where d1.BlokingDots.Count > 0
+                      from Dot d2 in lstDots
+                      where d2.Own == d1.Own && d1.Blocked == d2.Blocked && d2.BlokingDots.Count > 0
+                      & Distance(d1, d2) < 2 & Distance(d1, d2) > 0
+                      select new Links(d1, d2);
+
+            var temp = qry.Distinct(new LinksComparer());
+            return temp.ToList();
+        }
+
         /// <summary>
         /// функция проверяет не делается ли ход в точку, которая на следующем ходу будет окружена
         /// </summary>
@@ -1957,8 +1983,10 @@ namespace Points
 
         public Dot PickComputerMove(Dot enemy_move)
         {
-
             #region если первый ход выбираем произвольную соседнюю точку
+
+            //_DotsForDrawing = Dots.Where(d=>d.Own!=0).ToList();
+
             if (ListMoves.Count < 2)
             {
                 var random = new Random(DateTime.Now.Millisecond);
@@ -1997,15 +2025,13 @@ namespace Points
             counter_moves = 0;
             //lst_best_move.Clear();
             lst_branch.Clear();
-            
+            lst_moves.Clear();
             //Проигрываем разные комбинации
             recursion_depth = 0;
             Play(PLAYER_HUMAN, PLAYER_COMPUTER);
             
             Dot move = lst_branch.Where(dt => dt.Rating == lst_branch.Min(d => d.Rating)).ElementAtOrDefault(0);
             if (move!=null) best_move = move;
-
-           
             #region Если не найдено лучшего хода, берем любую точку
             if (best_move == null)
             {
@@ -2027,11 +2053,7 @@ namespace Points
                     }
 #endif
                 }
-                else
-                {
-                    lst_branch.Clear();
-                    return null;
-                }
+                else return null;
             }
             #endregion
 
@@ -2044,7 +2066,10 @@ namespace Points
                                 "\r\nвремя просчета " + stopWatch.ElapsedMilliseconds.ToString() + " мс";
             stopWatch.Reset();
 #endif
-#endregion
+            #endregion
+
+            //_DotsForDrawing = Dots.Where(d => d.Own != 0).ToList();
+            //_DotsForDrawing = Dots.ToList();
 
             return new Dot(best_move.x, best_move.y); //так надо чтобы best_move не ссылался на точку в Dots
         }
@@ -2143,45 +2168,45 @@ namespace Points
             #endregion
             #endregion
             #region CheckPattern2Move проверяем ходы на два вперед
-//            List<Dot> empty_dots = EmptyNeibourDots(pl2);
-//            List<Dot> lst_dots2;
+            List<Dot> empty_dots = EmptyNeibourDots(pl2);
+            List<Dot> lst_dots2;
 
-//            foreach (Dot dot in empty_dots)
-//            {
-//                if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
-//                lst_dots2 = CheckPattern2Move(pl2);
-//                foreach (Dot nd in lst_dots2)
-//                {
-//                    if (MakeMove(nd, pl2) != 0)
-//                    {
-//                        UndoMove(nd);
-//                        UndoMove(dot);
-//                        #region DEBUG
-//#if DEBUG
-//                        {
-//                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
-//                        }
-//#endif
-//                        #endregion
-//                        dot.iNumberPattern = 777;
-//                        moves.Add(dot); 
-//                    }
-//                    UndoMove(nd);
-//                }
-//                UndoMove(dot);
-//            }
-//#if DEBUG
-//            sW2.Stop();
-//            strDebug = strDebug + "\r\nCheckPattern2Move(pl2) - " + sW2.Elapsed.Milliseconds.ToString();
-//            GameEngine.DbgInfo = strDebug;
-//            DrawSession.CanvasCtrl.Invalidate();
-//            sW2.Reset();
-//            sW2.Start();
-//            //f.lblBestMove.Text = "CheckPattern_vilochka...";
-            
-//#endif
+            foreach (Dot dot in empty_dots)
+            {
+                if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
+                lst_dots2 = CheckPattern2Move(pl2);
+                foreach (Dot nd in lst_dots2)
+                {
+                    if (MakeMove(nd, pl2) != 0)
+                    {
+                        UndoMove(nd);
+                        UndoMove(dot);
+                        #region DEBUG
+#if DEBUG
+                        {
+                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
+                        }
+#endif
+                        #endregion
+                        dot.iNumberPattern = 777;
+                        moves.Add(dot);
+                    }
+                    UndoMove(nd);
+                }
+                UndoMove(dot);
+            }
+#if DEBUG
+            sW2.Stop();
+            strDebug = strDebug + "\r\nCheckPattern2Move(pl2) - " + sW2.Elapsed.Milliseconds.ToString();
+            GameEngine.DbgInfo = strDebug;
+            //DrawSession.CanvasCtrl.Invalidate();
+            sW2.Reset();
+            sW2.Start();
+            //f.lblBestMove.Text = "CheckPattern_vilochka...";
 
-#endregion
+#endif
+
+            #endregion
             //-----------------------------------------------------------------
             #region CheckPatternVilkaNextMove
             bm = CheckPatternVilkaNextMove(pl2);

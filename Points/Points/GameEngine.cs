@@ -89,17 +89,18 @@ namespace Points
         }
         public async Task Pause(double sec)
         {
-            DrawSession.CanvasCtrl.Invalidate();
+            //DrawSession.CanvasCtrl.Invalidate();
             await Task.Delay(TimeSpan.FromSeconds(sec));
         }
 
         public Dot PickComputerMove(Dot LastMove)
         {
-            return gameDots.PickComputerMove(LastMove);
+            Dot result = gameDots.PickComputerMove(LastMove);
+            return result;
         }
         public int MakeMove(Dot MoveDot)
         {
-            return gameDots.MakeMove(MoveDot);
+            return gameDots.MakeMove(MoveDot, addForDraw: true);
         }
         public bool GameOver()
         {
@@ -116,8 +117,8 @@ namespace Points
         }
         public void Statistic(int x, int y)
         {
-                #if DEBUG
-            GameEngine.DbgInfo = "Blocked: " + _gameDots[x, y].Blocked + "\r\n" +
+#if DEBUG
+            DbgInfo = "Blocked: " + _gameDots[x, y].Blocked + "\r\n" +
                               "BlokingDots.Count: " + _gameDots[x, y].BlokingDots.Count + "\r\n" +
                               "NeiborDots.Count: " + _gameDots[x, y].NeiborDots.Count + "\r\n" +
                               "Rating: " + _gameDots[x, y].Rating + "\r\n" +
@@ -134,7 +135,7 @@ namespace Points
             _gameDots = new GameDots(boardWidth,boardHeigth); 
             //startX = -0.5f;
             //startY = -0.5f;
-            Redraw=true;
+            Redraw=false;
             DrawSession.CanvasCtrl.Invalidate();
         }
         //------------------------------------------------------------------------------------
@@ -231,10 +232,12 @@ namespace Points
                 // пока не достигнут конец файла считываем каждое значение из файла
                 while (reader.PeekChar() > -1)
                 {
-                    d = new Dot((int)reader.ReadByte(), (int)reader.ReadByte(), (int)reader.ReadByte());
+                    d = new Dot(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
                     _gameDots.MakeMove(d);
+                    _gameDots.DotsForDrawing.Add(_gameDots[d.x,d.y]);
                 }
                 reader.Dispose();
+                //_gameDots._DotsForDrawing = _gameDots.Dots.ToList();
             }
             catch (Exception ex)
             {

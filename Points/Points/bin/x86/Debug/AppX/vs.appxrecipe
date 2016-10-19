@@ -28,13 +28,13 @@
     <AppXManifest Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-15T06:53:06.870</Modified>
+      <Modified>2016-10-19T19:37:57.681</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Dots.exe">
       <PackagePath>entrypoint\Dots.exe</PackagePath>
-      <Modified>2016-10-15T06:53:06.642</Modified>
+      <Modified>2016-10-19T19:37:57.458</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\.nuget\packages\Microsoft.ApplicationInsights\2.1.0\lib\uap10.0\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -595,11 +595,11 @@
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-14T19:52:32.017</Modified>
+      <Modified>2016-10-19T17:49:32.495</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\Dots.exe">
       <PackagePath>Dots.exe</PackagePath>
-      <Modified>2016-10-15T06:53:06.862</Modified>
+      <Modified>2016-10-19T19:37:57.673</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
