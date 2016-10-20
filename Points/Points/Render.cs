@@ -115,7 +115,8 @@ namespace Points
         }
         public void DrawLinks(CanvasDrawingSession drawingSession)//отрисовка связей
         {
-            List<Links> lnks = gameDots.LinkDots(gameDots.ListMoves);
+            //List<Links> lnks = gameDots.LinkDots(gameDots.ListMoves);
+            List<Links> lnks = gameDots.ListLinks;
             if (lnks != null)
             {
                 Color colorGamer;
@@ -142,6 +143,7 @@ namespace Points
 
             if (gameDots.ListMoves.Count > 0)
             {
+                
                 foreach (Dot p in gameDots.ListMoves)
                 {
                     switch (p.Own)

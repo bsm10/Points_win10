@@ -539,7 +539,7 @@ namespace Points
             _Dots.RescanBlockedDots();
             Dots = _Dots.Dots;
             ListMoves = _Dots.ListMoves;
-            LinkDots();
+            //LinkDots();
             //DrawSession.DotsForDrawing = ListMoves.ToList();
         }
         public void UndoMove(Dot dot)//поле отмена хода
@@ -569,14 +569,10 @@ namespace Points
             int res = CheckBlocked(dot.Own);
             //--------------------------------
             count_blocked_dots = (from Dot d in Dots where d.Blocked select d).Count();
-            if (res != 0) LinkDots();//перестроить связи точек
             if (addForDraw)
             {
                 ListMoves.Add(_Dots[IndexDot(dot.x, dot.y)]);
-
-                //DrawSession.DotsForDrawing.Add(this[dot.x, dot.y]);
-                //LinkDots();
-                //LinkDots(DrawSession.DotsForDrawing);
+                LinkDots();//перестроить связи точек
             }
             return res;
         }
@@ -730,7 +726,8 @@ namespace Points
                       select new Links(d1, d2);
 
             var temp = qry.Distinct(new LinksComparer());
-            return temp.ToList();
+            List < Links > ll = temp.ToList();
+            return ll;
         }
 
         /// <summary>

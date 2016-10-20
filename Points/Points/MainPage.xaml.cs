@@ -162,24 +162,33 @@ namespace Points
         {
             return Task.Run(async () =>
             {
-                await Task.Delay(1);
-                MoveGamer(player);
+                await MoveGamer(player);
             }).AsAsyncAction();
         }
 
-        private void Timer2_Tick(object sender, object e)
+        private async void Timer2_Tick(object sender, object e)
         {
             if (autoPlay)
             {
                 //============Ход компьютера вместо игрока=================
                 if (player_move == 1)
                 {
-                    if (MoveGamer(1) > 0) return;
+                    player_move = 3;
+                    await MoveAsync(1);
+                    player_move = 2;
                 }
+                //============Ход компьютера=================
+                if (player_move == 2)
+                {
+                    player_move = 3;
+                    await MoveAsync(2);
+                    player_move = 1;
+                }
+
             }
         }
 
-        private  void Timer_Tick(object sender, object e)
+        private void Timer_Tick(object sender, object e)
         {
             ////============Ход компьютера=================
             //if (player_move == 2)
@@ -214,7 +223,7 @@ namespace Points
                 if (player_move == 1 | player_move == 0)
                 {
                     player_move = 1;
-                    if (MoveGamer(1, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) == 0)
+                    if (await MoveGamer(1, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) == 0)
                     {
                         player_move = 2;
                     }
@@ -238,7 +247,7 @@ namespace Points
         /// <param name="Player">кто ходит 1-человек, 2-компьютер</param>
         /// <param name="pl_move">Устанавливается, исходя из координат тапа, если ходит человек, если ходит компьютер - null</param>
         /// <returns>-1 ошибка, недопустимый ход</returns>
-        private int MoveGamer(int Player, Dot pl_move = null)
+        private async Task<int> MoveGamer(int Player, Dot pl_move = null)
         {
             if (pl_move == null) pl_move = game.PickComputerMove(game.LastMove);
             if (pl_move == null)
@@ -249,28 +258,20 @@ namespace Points
             }
             pl_move.Own = Player;
 
-            if (game.MakeMove(pl_move) != -1)
-            {
-                //DrawSession.DotsForDrawing.Add(game.DOT(pl_move));
-                //LinkDots(DrawSession.DotsForDrawing);
-                //canvas.Invalidate();
-                //player_move = Player == 1 ? 2 : 1;
-            }
-            else return -1;
-
+            if (game.MakeMove(pl_move) == -1) return -1;
 
             if (game.GameOver())
             {
-                //StatusMsg.DrawMsg("Game over! \r\n" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen);
-                //await game.Pause(5);
+                StatusMsg.textMsg = "Game over! \r\n" + game.Statistic();
+                await game.Pause(5);
                 game = new GameEngine(boardWidth, boardHeight);
-                //StatusMsg.DrawMsg("New game started!" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen); 
-                //await game.Pause(1);
+                StatusMsg.textMsg = "New game started!" + game.Statistic(); 
+                await game.Pause(1);
 
                 return 1;
             }
-            StatusMsg.ColorMsg = player_move == 1 ? game.colorGamer1 : game.colorGamer2;
-            StatusMsg.textMsg = "Move player" + player_move + "...";
+            StatusMsg.ColorMsg = player_move == 1 ? game.colorGamer2 : game.colorGamer1;
+            StatusMsg.textMsg = player_move == 1 ? "Move computer..." : "Your move!";
 
             return 0;
         }
