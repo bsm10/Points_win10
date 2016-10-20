@@ -216,7 +216,6 @@ namespace Points
                     player_move = 1;
                     if (MoveGamer(1, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) == 0)
                     {
-                        //canvas.Invalidate();
                         player_move = 2;
                     }
                 }
@@ -226,7 +225,6 @@ namespace Points
                     //if (await MoveGamer(2) > 0) return;
                     player_move = 3;//для того чтобы лишнюю точку не поставил человек
                     await MoveAsync(2);
-                    //canvas.Invalidate();
                     player_move = 1;
                 }
                 #endregion
@@ -253,6 +251,8 @@ namespace Points
 
             if (game.MakeMove(pl_move) != -1)
             {
+                //DrawSession.DotsForDrawing.Add(game.DOT(pl_move));
+                //LinkDots(DrawSession.DotsForDrawing);
                 //canvas.Invalidate();
                 //player_move = Player == 1 ? 2 : 1;
             }

@@ -72,15 +72,15 @@ namespace Points
         }
 
 
-        private List<Dot> _DotsForDrawing = new List<Dot>(); 
+        //private List<Dot> _DotsForDrawing = new List<Dot>(); 
 
-        public List<Dot> DotsForDrawing
-        {// главная коллекция для отрисовки партии
-            get
-            {
-                return _DotsForDrawing;
-            }
-        }
+        //public List<Dot> DotsForDrawing
+        //{// главная коллекция для отрисовки партии
+        //    get
+        //    {
+        //        return _DotsForDrawing;
+        //    }
+        //}
 
         /// <summary>
         /// Возвращает список не занятых точек
@@ -179,7 +179,6 @@ namespace Points
             lnks = new List<Links>();
             list_moves = new List<Dot>();
             dots_in_region = new List<Dot>();
-
             square1 = 0; square2 = 0;
             count_blocked1 = 0; count_blocked2 = 0;
             count_blocked = 0;
@@ -230,7 +229,7 @@ namespace Points
                     dot.y == (BoardHeight - 1)) _Dots[ind].Fixed = true;
                 AddNeibor(_Dots[ind]);
 
-                ListMoves.Add(_Dots[ind]);
+                //ListMoves.Add(_Dots[ind]);
             }
         }
 
@@ -535,13 +534,13 @@ namespace Points
 
             foreach (Dot dot in ListMoves)
             {
-                _Dots.MakeMove(dot, dot.Own);
+                _Dots.MakeMove(dot, addForDraw: true);
             }
             _Dots.RescanBlockedDots();
             Dots = _Dots.Dots;
             ListMoves = _Dots.ListMoves;
-
             LinkDots();
+            //DrawSession.DotsForDrawing = ListMoves.ToList();
         }
         public void UndoMove(Dot dot)//поле отмена хода
         {
@@ -564,7 +563,6 @@ namespace Points
             {
                 if (Owner != 0) dot.Own = Owner;
                 Add(dot); //если точка не занята
-                if (addForDraw) DotsForDrawing.Add(dot);
             }
             else return -1;//в случае невозможного хода
             //--------------------------------
@@ -572,6 +570,14 @@ namespace Points
             //--------------------------------
             count_blocked_dots = (from Dot d in Dots where d.Blocked select d).Count();
             if (res != 0) LinkDots();//перестроить связи точек
+            if (addForDraw)
+            {
+                ListMoves.Add(_Dots[IndexDot(dot.x, dot.y)]);
+
+                //DrawSession.DotsForDrawing.Add(this[dot.x, dot.y]);
+                //LinkDots();
+                //LinkDots(DrawSession.DotsForDrawing);
+            }
             return res;
         }
         /// <summary>

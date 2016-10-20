@@ -28,6 +28,7 @@ namespace Points
     {
         public static CanvasControl CanvasCtrl;
         public static CanvasDrawingSession CanvasDrawingSession;
+        public static List<Dot> DotsForDrawing = new List<Dot>();// главная коллекция для отрисовки партии
     }
 
 
@@ -81,8 +82,7 @@ namespace Points
             DrawPoints(drawingSession);
             //Отрисовка замкнутого региона игрока1
             DrawLinks(drawingSession);
-            //drawingSession.DrawLine(0, 100, 100, 0, colorBoard, 5.0f);
-            //drawingSession.DrawText(DbgInfo, 0, gameDots.BoardHeight + startY , Colors.DarkGreen, format);
+
             DrawStatusMsg(drawingSession);
 #if DEBUG
             CanvasTextFormat format = new CanvasTextFormat()
@@ -115,7 +115,7 @@ namespace Points
         }
         public void DrawLinks(CanvasDrawingSession drawingSession)//отрисовка связей
         {
-            List<Links> lnks = gameDots.LinkDots(gameDots.DotsForDrawing);
+            List<Links> lnks = gameDots.LinkDots(gameDots.ListMoves);
             if (lnks != null)
             {
                 Color colorGamer;
@@ -139,14 +139,10 @@ namespace Points
         public void DrawPoints(CanvasDrawingSession drawingSession)//рисуем поставленные точки
         {
             //отрисовываем поставленные точки
-            List<Dot> lstDotForDrawing = new List<Dot>();
-            if (!Redraw) lstDotForDrawing = gameDots.DotsForDrawing;
-            else lstDotForDrawing = gameDots.Dots.ToList();
 
-
-            if (lstDotForDrawing.Count > 0)
+            if (gameDots.ListMoves.Count > 0)
             {
-                foreach (Dot p in lstDotForDrawing)
+                foreach (Dot p in gameDots.ListMoves)
                 {
                     switch (p.Own)
                     {
@@ -166,8 +162,7 @@ namespace Points
         }
         private void SetColorAndDrawDots(CanvasDrawingSession drawingSession, Color colorGamer, Dot p) //Вспомогательная функция для DrawPoints. Выбор цвета точки в зависимости от ее состояния и рисование элипса
         {
-            Dot last_move = gameDots.DotsForDrawing.Last();
-            //gameDots.LastMove;
+            Dot last_move = gameDots.LastMove;//DrawSession.DotsForDrawing.Last();
             Color c;
 
             if (p.Blocked)

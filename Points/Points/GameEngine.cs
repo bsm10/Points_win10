@@ -130,12 +130,9 @@ namespace Points
         }
         public void NewGame(int boardWidth, int boardHeigth)
         {
-            //if (gameDots!=null && DebugWindow!=0)
-
             _gameDots = new GameDots(boardWidth,boardHeigth); 
-            //startX = -0.5f;
-            //startY = -0.5f;
             Redraw=false;
+            DrawSession.DotsForDrawing.Clear();
             DrawSession.CanvasCtrl.Invalidate();
         }
         //------------------------------------------------------------------------------------
@@ -221,6 +218,7 @@ namespace Points
         public async void LoadGame()
         {
             _gameDots.Clear();
+            DrawSession.DotsForDrawing.Clear();
             Dot d = null;
             try
             {
@@ -233,8 +231,9 @@ namespace Points
                 while (reader.PeekChar() > -1)
                 {
                     d = new Dot(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
-                    _gameDots.MakeMove(d);
-                    _gameDots.DotsForDrawing.Add(_gameDots[d.x,d.y]);
+                    _gameDots.MakeMove(d, addForDraw: true);
+                    
+                    //DrawSession.DotsForDrawing.Add(_gameDots[d.x,d.y]);
                 }
                 reader.Dispose();
                 //_gameDots._DotsForDrawing = _gameDots.Dots.ToList();
