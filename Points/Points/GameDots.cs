@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using Windows.UI;
 
 namespace Points
@@ -1983,8 +1984,9 @@ namespace Points
 
         }
 
+        //CancellationToken cancellationToken;
 
-        public Dot PickComputerMove(Dot enemy_move)
+        public Dot PickComputerMove(Dot enemy_move, CancellationToken? cancellationToken)
         {
             #region если первый ход выбираем произвольную соседнюю точку
 
@@ -2031,7 +2033,7 @@ namespace Points
             lst_moves.Clear();
             //Проигрываем разные комбинации
             recursion_depth = 0;
-            Play(PLAYER_HUMAN, PLAYER_COMPUTER);
+            Play(PLAYER_HUMAN, PLAYER_COMPUTER, cancellationToken);
             
             Dot move = lst_branch.Where(dt => dt.Rating == lst_branch.Min(d => d.Rating)).ElementAtOrDefault(0);
             if (move!=null) best_move = move;
@@ -2323,8 +2325,13 @@ namespace Points
         int recursion_depth;
         Dot tempmove;
         //===================================================================================================================
-        private int Play(int player1, int player2)//возвращает Owner кто побеждает в результате хода
+        private int Play(int player1, int player2, CancellationToken? cancellationToken)//возвращает Owner кто побеждает в результате хода
         {
+            try
+            { 
+            if (cancellationToken.HasValue)
+                cancellationToken.Value.ThrowIfCancellationRequested();
+
             List<Dot> lst_best_move = new List<Dot>();//сюда заносим лучшие ходы
             if (recursion_depth==1)counter_moves = 1;
             GameEngine.DbgInfo= "check move - " + counter_moves.ToString();
@@ -2373,6 +2380,9 @@ namespace Points
 #region Cycle
                 foreach (Dot move in lst_best_move)
                 {
+                    if (cancellationToken.HasValue)
+                        cancellationToken.Value.ThrowIfCancellationRequested();
+
                     #region ходит комп в проверяемые точки
                     player2 = player1 == PLAYER_HUMAN ? PLAYER_COMPUTER : PLAYER_HUMAN;
                     //**************делаем ход***********************************
@@ -2410,7 +2420,7 @@ namespace Points
                     #endregion
                     //теперь ходит другой игрок ===========================================================================
 
-                    int result = Play(player2, player1);
+                    int result = Play(player2, player1, cancellationToken);
 
                     recursion_depth--;
 
@@ -2475,6 +2485,13 @@ namespace Points
 
             best_move = lst_best_move.Where(dt => dt.Rating == lst_best_move.Min(d => d.Rating)).ElementAtOrDefault(0);
             return PLAYER_NONE;
+            }
+            finally
+            {
+                //return PLAYER_NONE; ;
+            }
+
+
         }//----------------------------Play-----------------------------------------------------
 
         private float SquarePolygon(int nBlockedDots, int nRegionDots)

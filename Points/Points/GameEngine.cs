@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Media;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
-
+using System.Threading;
 
 namespace Points
 {
@@ -93,9 +93,9 @@ namespace Points
             await Task.Delay(TimeSpan.FromSeconds(sec));
         }
 
-        public Dot PickComputerMove(Dot LastMove)
+        public Dot PickComputerMove(Dot LastMove, CancellationToken? cancellationToken)
         {
-            Dot result = gameDots.PickComputerMove(LastMove);
+            Dot result = gameDots.PickComputerMove(LastMove, cancellationToken);
             return result;
         }
         public int MakeMove(Dot MoveDot)

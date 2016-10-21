@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Input;
 using Windows.Foundation;
@@ -158,13 +159,38 @@ namespace Points
         //        }, cancellationToken));
         //    //}
         //}
+
+        CancellationTokenSource tokenSource = new CancellationTokenSource();
+        CancellationToken ct; 
         public IAsyncAction MoveAsync(int player)
         {
-            return Task.Run(async () =>
-            {
-                await MoveGamer(player);
-            }).AsAsyncAction();
-        }
+                ct = tokenSource.Token;
+                return Task.Run(async () =>
+                {
+                    try
+                    {
+                        if (ct.IsCancellationRequested) ct.ThrowIfCancellationRequested();
+                        int result = await MoveGamer(player, ct);
+                        return result;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        StatusMsg.textMsg = "Move canceled!";
+                        tokenSource.Dispose();
+                        tokenSource = new CancellationTokenSource();
+                        return 0;
+                    }
+                }, ct).AsAsyncAction();
+
+
+
+    //return AsyncInfo.Run(cancellationToken => Task.Run(async () =>
+    //{
+    //    if (cancellationToken.IsCancellationRequested) return;
+    //    await MoveGamer(player);
+    //}, cancellationToken));
+
+}
 
         private async void Timer2_Tick(object sender, object e)
         {
@@ -223,7 +249,7 @@ namespace Points
                 if (player_move == 1 | player_move == 0)
                 {
                     player_move = 1;
-                    if (await MoveGamer(1, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) == 0)
+                    if (await MoveGamer(1, ct, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) == 0)
                     {
                         player_move = 2;
                     }
@@ -247,9 +273,9 @@ namespace Points
         /// <param name="Player">кто ходит 1-человек, 2-компьютер</param>
         /// <param name="pl_move">Устанавливается, исходя из координат тапа, если ходит человек, если ходит компьютер - null</param>
         /// <returns>-1 ошибка, недопустимый ход</returns>
-        private async Task<int> MoveGamer(int Player, Dot pl_move = null)
+        private async Task<int> MoveGamer(int Player, CancellationToken? cancellationToken, Dot pl_move = null)
         {
-            if (pl_move == null) pl_move = game.PickComputerMove(game.LastMove);
+            if (pl_move == null) pl_move = game.PickComputerMove(game.LastMove, cancellationToken);
             if (pl_move == null)
             {
                 //MessageBox.Show("You win!!! \r\n" + game.Statistic());
@@ -284,6 +310,7 @@ namespace Points
 
         private void NewGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            tokenSource.Cancel();
             game = new GameEngine(boardWidth, boardHeight);
         }
 
