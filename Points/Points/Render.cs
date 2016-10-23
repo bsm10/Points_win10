@@ -3,10 +3,7 @@ using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI;
 
@@ -36,26 +33,26 @@ namespace Points
     {
         #region RENDER
         //=========== цвета, шрифты ===================================================
-        public Color colorGamer1 = Colors.Tomato; //Properties.Settings.Default.Color_Gamer1,
-        public Color colorGamer2 = Colors.MediumSlateBlue;//Properties.Settings.Default.Color_Gamer2,
-        public Color colorCursor = Color.FromArgb(50, 50, 200, 50);// Properties.Settings.Default.Color_Cursor;
-        private float PointWidth = 0.15f;
-        public Color colorBoard = Color.FromArgb(255, 150, 200, 200);//(Color.DarkSlateBlue, 0.08f);
-        public Color colorDrawBrush = Colors.MediumPurple;
+        public static Color colorGamer1 = Colors.Tomato; //Properties.Settings.Default.Color_Gamer1,
+        public static Color colorGamer2 = Colors.MediumSlateBlue;//Properties.Settings.Default.Color_Gamer2,
+        public static Color colorCursor = Color.FromArgb(50, 50, 200, 50);// Properties.Settings.Default.Color_Cursor;
+        public static float PointWidth = 0.15f;
+        public static Color colorBoard = Color.FromArgb(255, 150, 200, 200);//(Color.DarkSlateBlue, 0.08f);
+        public static Color colorDrawBrush = Colors.MediumPurple;
         //public Color drB = Colors.MediumSeaGreen;
 
 
         //public ICanvasBrush SolidBrush;
         ////private SolidBrush drawBrush = new SolidBrush(Colors.MediumPurple);
         //public Font drawFont = new Font("Arial", 0.22f);
-        public bool Redraw { get; set; }
-        public int iScaleCoef = 1;//-коэффициент масштаба
+        public static bool Redraw { get; set; }
+        public static int iScaleCoef = 1;//-коэффициент масштаба
         //public float startX = -0.5f, startY = -0.5f;
         //private CanvasControl pbxBoard;
 
-        public Point MousePos;
+        public static Point MousePos;
 
-        private void DrawStatusMsg(CanvasDrawingSession drSession)
+        private static void DrawStatusMsg(CanvasDrawingSession drSession)
         {
             CanvasTextFormat format = new CanvasTextFormat()
             {
@@ -70,7 +67,7 @@ namespace Points
         }
 
 
-        public void DrawGame(CanvasControl canvasCtrl, CanvasDrawingSession drawingSession)//отрисовка хода игры
+        public static void DrawGame(CanvasControl canvasCtrl, CanvasDrawingSession drawingSession)//отрисовка хода игры
         {
             drawingSession.Antialiasing = CanvasAntialiasing.Antialiased;
             //Устанавливаем масштаб
@@ -94,7 +91,7 @@ namespace Points
 #endif
         }
 
-        public void DrawBoard(CanvasDrawingSession drawingSession)//рисуем доску из клеток
+        public static void DrawBoard(CanvasDrawingSession drawingSession)//рисуем доску из клеток
         {
             CanvasTextFormat format = new CanvasTextFormat()
             {
@@ -113,7 +110,7 @@ namespace Points
             }
             //drawingSession.DrawText("Points!", 1, iBoardHeight-2, Colors.DarkGreen); 
         }
-        public void DrawLinks(CanvasDrawingSession drawingSession)//отрисовка связей
+        public static void DrawLinks(CanvasDrawingSession drawingSession)//отрисовка связей
         {
             //List<Links> lnks = gameDots.LinkDots(gameDots.ListMoves);
             List<Links> lnks = gameDots.ListLinks;
@@ -137,14 +134,14 @@ namespace Points
             }
 
         }
-        public void DrawPoints(CanvasDrawingSession drawingSession)//рисуем поставленные точки
+        public static void DrawPoints(CanvasDrawingSession drawingSession)//рисуем поставленные точки
         {
             //отрисовываем поставленные точки
 
             if (gameDots.ListMoves.Count > 0)
             {
                 
-                foreach (Dot p in gameDots.ListMoves)
+                foreach (Dot p in gameDots.ListDotsForDrawing)
                 {
                     switch (p.Own)
                     {
@@ -162,7 +159,7 @@ namespace Points
                 }
             }
         }
-        private void SetColorAndDrawDots(CanvasDrawingSession drawingSession, Color colorGamer, Dot p) //Вспомогательная функция для DrawPoints. Выбор цвета точки в зависимости от ее состояния и рисование элипса
+        private static void SetColorAndDrawDots(CanvasDrawingSession drawingSession, Color colorGamer, Dot p) //Вспомогательная функция для DrawPoints. Выбор цвета точки в зависимости от ее состояния и рисование элипса
         {
             Dot last_move = gameDots.LastMove;//DrawSession.DotsForDrawing.Last();
             Color c;
@@ -206,7 +203,7 @@ namespace Points
             gr.Transform = matrixTemp;
             _transform = matrixTemp;
         }
-        public Point TranslateCoordinates(Point MousePos)
+        public static Point TranslateCoordinates(Point MousePos)
         {
             Matrix3x2 transform;
             Matrix3x2.Invert(_transform, out transform);

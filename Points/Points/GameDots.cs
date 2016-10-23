@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using Windows.UI;
 
 namespace Points
 {
@@ -73,15 +72,15 @@ namespace Points
         }
 
 
-        //private List<Dot> _DotsForDrawing = new List<Dot>(); 
+        //private List<Dot> _DotsForDrawing = new List<Dot>();
 
-        //public List<Dot> DotsForDrawing
-        //{// главная коллекция для отрисовки партии
-        //    get
-        //    {
-        //        return _DotsForDrawing;
-        //    }
-        //}
+        public List<Dot> ListDotsForDrawing
+        {// главная коллекция для отрисовки партии
+            get
+            {
+                return ListMoves.ToList();
+            }
+        }
 
         /// <summary>
         /// Возвращает список не занятых точек
@@ -2028,12 +2027,19 @@ namespace Points
 #endif
 #endregion
             counter_moves = 0;
+            counter_moves_all = 0;
             //lst_best_move.Clear();
             lst_branch.Clear();
             lst_moves.Clear();
             //Проигрываем разные комбинации
             recursion_depth = 0;
-            Play(PLAYER_HUMAN, PLAYER_COMPUTER, cancellationToken);
+            object lockObj = new object();
+
+            lock (lockObj)
+            {
+                 Play(PLAYER_HUMAN, PLAYER_COMPUTER, cancellationToken);
+            }
+            
             
             Dot move = lst_branch.Where(dt => dt.Rating == lst_branch.Min(d => d.Rating)).ElementAtOrDefault(0);
             if (move!=null) best_move = move;
@@ -2068,7 +2074,8 @@ namespace Points
             foreach (string d in lstDbgMoves) Debug.WriteLine(d);
             GameEngine.DbgInfo = "Количество ходов: " + counter_moves +
                                 "\r\nХод на " + best_move.ToString() +
-                                "\r\nвремя просчета " + stopWatch.ElapsedMilliseconds.ToString() + " мс";
+                                "\r\nвремя просчета " + stopWatch.ElapsedMilliseconds.ToString() + " мс" +
+                                "\r\nСделано ходов: " + counter_moves_all;
             stopWatch.Reset();
 #endif
             #endregion
@@ -2176,30 +2183,30 @@ namespace Points
             List<Dot> empty_dots = EmptyNeibourDots(pl2);
             List<Dot> lst_dots2;
 
-            foreach (Dot dot in empty_dots)
-            {
-                if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
-                lst_dots2 = CheckPattern2Move(pl2);
-                foreach (Dot nd in lst_dots2)
-                {
-                    if (MakeMove(nd, pl2) != 0)
-                    {
-                        UndoMove(nd);
-                        UndoMove(dot);
-                        #region DEBUG
-#if DEBUG
-                        {
-                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
-                        }
-#endif
-                        #endregion
-                        dot.iNumberPattern = 777;
-                        moves.Add(dot);
-                    }
-                    UndoMove(nd);
-                }
-                UndoMove(dot);
-            }
+//            foreach (Dot dot in empty_dots)
+//            {
+//                if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
+//                lst_dots2 = CheckPattern2Move(pl2);
+//                foreach (Dot nd in lst_dots2)
+//                {
+//                    if (MakeMove(nd, pl2) != 0)
+//                    {
+//                        UndoMove(nd);
+//                        UndoMove(dot);
+//                        #region DEBUG
+//#if DEBUG
+//                        {
+//                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
+//                        }
+//#endif
+//                        #endregion
+//                        dot.iNumberPattern = 777;
+//                        moves.Add(dot);
+//                    }
+//                    UndoMove(nd);
+//                }
+//                UndoMove(dot);
+//            }
 #if DEBUG
             sW2.Stop();
             strDebug = strDebug + "\r\nCheckPattern2Move(pl2) - " + sW2.Elapsed.Milliseconds.ToString();
@@ -2319,24 +2326,28 @@ namespace Points
         List<Dot> lst_branch_enemy = new List<Dot>();//сюда заносим начало перспективной ветки для другого игрока
         //
         int counter_moves = 0;
+        int counter_moves_all = 0;
         int res_last_move; //хранит результат хода
         //int recursion_depth;
-        const int MAX_RECURSION = 3;
+        const int MAX_RECURSION = 5;
         int recursion_depth;
         Dot tempmove;
         //===================================================================================================================
         private int Play(int player1, int player2, CancellationToken? cancellationToken)//возвращает Owner кто побеждает в результате хода
         {
-            try
-            { 
             if (cancellationToken.HasValue)
                 cancellationToken.Value.ThrowIfCancellationRequested();
 
             List<Dot> lst_best_move = new List<Dot>();//сюда заносим лучшие ходы
             if (recursion_depth==1)counter_moves = 1;
             GameEngine.DbgInfo= "check move - " + counter_moves.ToString();
-
             recursion_depth++;
+            StatusMsg.ColorMsg = player1 == 1 ? GameEngine.colorGamer1 : GameEngine.colorGamer2;
+            StatusMsg.textMsg = "Play - Player" + player1 + "..." + "\r\n" +
+                                "recursion_depth: " + recursion_depth + "\r\n" +
+                                "counter_moves: " + counter_moves + "\r\n" +
+                                "counter_moves_all: " + counter_moves_all;
+
             if (recursion_depth > MAX_RECURSION) return PLAYER_NONE;
 
             lst_best_move = BestMove(player1, player2);
@@ -2388,6 +2399,7 @@ namespace Points
                     //**************делаем ход***********************************
                     res_last_move = MakeMove(move,player2);
                     lst_moves.Add(move);
+                    counter_moves_all++;
                     counter_moves++;
 #region проверка на окружение
 
@@ -2485,12 +2497,6 @@ namespace Points
 
             best_move = lst_best_move.Where(dt => dt.Rating == lst_best_move.Min(d => d.Rating)).ElementAtOrDefault(0);
             return PLAYER_NONE;
-            }
-            finally
-            {
-                //return PLAYER_NONE; ;
-            }
-
 
         }//----------------------------Play-----------------------------------------------------
 

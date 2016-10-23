@@ -1,27 +1,15 @@
-﻿using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Input;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Foundation.Metadata;
-using Windows.Phone.UI.Input;
 using Windows.UI;
 using Windows.UI.Input;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -32,9 +20,8 @@ namespace Points
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        GameEngine game;
-        int boardWidth;// = 12;
-        int boardHeight; //= 15;
+        //int boardWidth;// = 12;
+        //int boardHeight; //= 15;
         private int player_move;//переменная хранит значение игрока который делает ход
         bool autoPlay;
         //int game_result;
@@ -63,21 +50,21 @@ namespace Points
             // установка цвета панели
             titleBar.BackgroundColor = Colors.LightSteelBlue;
 
-            if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
-                HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+            //if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+            //    HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
-        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-                Frame.GoBack();
-            else
-            {
-                game.SaveGame();
-                Application.Current.Exit(); // выход из приложения       
-            }
+        //private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        //{
+        //    if (Frame.CanGoBack)
+        //        Frame.GoBack();
+        //    else
+        //    {
+        //        game.SaveGame();
+        //        Application.Current.Exit(); // выход из приложения       
+        //    }
             
-        }
+        //}
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -85,16 +72,15 @@ namespace Points
             double Yres = canvas.ActualHeight;
             double scl_coef = (Yres-100) / Xres;
 
-            boardWidth = 10;
-            boardHeight =(int) Math.Round(boardWidth * scl_coef);;
-
             DrawSession.CanvasCtrl = canvas;
-            
-            game = new GameEngine(boardWidth, boardHeight);
-            game.LoadGame();
+
+            GameEngine.BoardWidth = 10;
+            GameEngine.BoardHeight=(int) Math.Round(GameEngine.BoardWidth * scl_coef);
+            GameEngine.NewGame();
+            GameEngine.LoadGame();
 
             //player_move = 2;
-            player_move = game.LastMove.Own == 1 ? 2 : 1 ;
+            player_move = GameEngine.LastMove.Own == 1 ? 2 : 1 ;
 
             DispatcherTimerSetup();
         }
@@ -165,7 +151,7 @@ namespace Points
         public IAsyncAction MoveAsync(int player)
         {
                 ct = tokenSource.Token;
-                return Task.Run(async () =>
+                var x = Task.Run(async () =>
                 {
                     try
                     {
@@ -181,6 +167,8 @@ namespace Points
                         return 0;
                     }
                 }, ct).AsAsyncAction();
+
+            return x;
 
 
 
@@ -233,23 +221,23 @@ namespace Points
             //session.Clear(Colors.White);
             DrawSession.CanvasCtrl = sender;
             //DrawSession.CanvasDrawingSession = args.DrawingSession;
-            game.DrawGame(sender, args.DrawingSession);
+            GameEngine.DrawGame(sender, args.DrawingSession);
         }
 
         private async void canvas_Tapped(object sender, TappedRoutedEventArgs e)
         {
             UIElement q = sender as CanvasControl;
             var mpos = e.GetPosition(q);
-            game.MousePos = game.TranslateCoordinates(mpos);
-            Dot dot = new Dot((int)game.MousePos.X, (int)game.MousePos.Y);
-            if (game.MousePos.X > GameEngine.startX - 0.5f & game.MousePos.Y > GameEngine.startY - 0.5f)
+            GameEngine.MousePos = GameEngine.TranslateCoordinates(mpos);
+            Dot dot = new Dot((int)GameEngine.MousePos.X, (int)GameEngine.MousePos.Y);
+            if (GameEngine.MousePos.X > GameEngine.startX - 0.5f & GameEngine.MousePos.Y > GameEngine.startY - 0.5f)
             {
                 //if (e.PointerDeviceType == PointerDeviceType.Touch | e.PointerDeviceType == PointerDeviceType.Pen)
                 #region Ходы игроков
                 if (player_move == 1 | player_move == 0)
                 {
                     player_move = 1;
-                    if (await MoveGamer(1, ct, new Dot((int)game.MousePos.X, (int)game.MousePos.Y, 1)) == 0)
+                    if (await MoveGamer(1, ct, new Dot((int)GameEngine.MousePos.X, (int)GameEngine.MousePos.Y, 1)) == 0)
                     {
                         player_move = 2;
                     }
@@ -257,7 +245,6 @@ namespace Points
                 //============Ход компьютера=================
                 if (player_move == 2)
                 {
-                    //if (await MoveGamer(2) > 0) return;
                     player_move = 3;//для того чтобы лишнюю точку не поставил человек
                     await MoveAsync(2);
                     player_move = 1;
@@ -275,28 +262,28 @@ namespace Points
         /// <returns>-1 ошибка, недопустимый ход</returns>
         private async Task<int> MoveGamer(int Player, CancellationToken? cancellationToken, Dot pl_move = null)
         {
-            if (pl_move == null) pl_move = game.PickComputerMove(game.LastMove, cancellationToken);
+            if (pl_move == null) pl_move = GameEngine.PickComputerMove(GameEngine.LastMove, cancellationToken);
             if (pl_move == null)
             {
                 //MessageBox.Show("You win!!! \r\n" + game.Statistic());
-                game.NewGame(boardWidth, boardHeight);
+                GameEngine.NewGame();
                 return 1;
             }
             pl_move.Own = Player;
 
-            if (game.MakeMove(pl_move) == -1) return -1;
+            if (GameEngine.MakeMove(pl_move) == -1) return -1;
 
-            if (game.GameOver())
+            if (GameEngine.GameOver())
             {
-                StatusMsg.textMsg = "Game over! \r\n" + game.Statistic();
-                await game.Pause(5);
-                game = new GameEngine(boardWidth, boardHeight);
-                StatusMsg.textMsg = "New game started!" + game.Statistic(); 
-                await game.Pause(1);
+                StatusMsg.textMsg = "Game over! \r\n" + GameEngine.Statistic();
+                await GameEngine.Pause(5);
+                GameEngine.NewGame();
+                StatusMsg.textMsg = "New game started!" + GameEngine.Statistic(); 
+                await GameEngine.Pause(1);
 
                 return 1;
             }
-            StatusMsg.ColorMsg = player_move == 1 ? game.colorGamer2 : game.colorGamer1;
+            StatusMsg.ColorMsg = player_move == 1 ? GameEngine.colorGamer2 : GameEngine.colorGamer1;
             StatusMsg.textMsg = player_move == 1 ? "Move computer..." : "Your move!";
 
             return 0;
@@ -310,13 +297,13 @@ namespace Points
 
         private void NewGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            tokenSource.Cancel();
-            game = new GameEngine(boardWidth, boardHeight);
+            if(tokenSource.IsCancellationRequested)tokenSource.Cancel();
+            GameEngine.NewGame();
         }
 
         private void SaveGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            game.SaveGame();
+            GameEngine.SaveGame();
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -327,16 +314,16 @@ namespace Points
 
         private void LoadGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            game.LoadGame();
-            canvas.Invalidate();
+            if(tokenSource.IsCancellationRequested)tokenSource.Cancel();
+            GameEngine.LoadGame();
         }
 
         private void canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             UIElement q = sender as CanvasControl;
             var mpos = e.GetCurrentPoint(q);
-            game.MousePos = game.TranslateCoordinates(mpos.Position);
-            Dot dot = new Dot((int)game.MousePos.X, (int)game.MousePos.Y);
+            GameEngine.MousePos = GameEngine.TranslateCoordinates(mpos.Position);
+            Dot dot = new Dot((int)GameEngine.MousePos.X, (int)GameEngine.MousePos.Y);
 
             if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse)
             {
@@ -358,7 +345,7 @@ namespace Points
                 else if (properties.IsMiddleButtonPressed)
                 {
 #if DEBUG
-                    game.UndoDot(dot);
+                    GameEngine.UndoDot(dot);
 #endif
                 }
 

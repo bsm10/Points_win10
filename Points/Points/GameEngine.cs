@@ -1,18 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.Effects;
-using System.Numerics;
 using System.IO;
 using System.Linq;
-using Windows.Foundation;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Microsoft.Graphics.Canvas.UI.Xaml;
-using Microsoft.Graphics.Canvas.Brushes;
-using Windows.UI.Xaml.Media;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -20,7 +9,7 @@ using System.Threading;
 
 namespace Points
 {
-    public partial class GameEngine
+    public static partial class GameEngine
     {
 
         //-------------------------------------------------
@@ -40,11 +29,11 @@ namespace Points
         //public static float BoardWidth;
         //public static float BoardHeight;
 
-        public Dot DOT(int x, int y)
+        public static Dot DOT(int x, int y)
         {
             return _gameDots[x,y];
         }
-        public Dot DOT(Dot d)
+        public static Dot DOT(Dot d)
         {
             return _gameDots[d.x, d.y];
         }
@@ -56,10 +45,10 @@ namespace Points
             set{dbgInfo=value;}
         }
 
-        private int _pause = 10;
+        private static int _pause = 10;
 
 
-        public Dot LastMove
+        public static Dot LastMove
         {
             get
             {
@@ -67,15 +56,20 @@ namespace Points
             }
         }
 
+        public static int BoardWidth { get; set; }
+        public static int BoardHeight { get; set; }
 
-        public GameEngine(int boardWidth, int boardHeight)
+        public static void NewGame()
         {
-            NewGame(boardWidth, boardHeight);
+            _gameDots = new GameDots(BoardWidth, BoardHeight);
+            Redraw = false;
+            DrawSession.DotsForDrawing.Clear();
+
         }
 
         //  ************************************************
 
-        public int pause
+        public static int pause
         {
             get
             {
@@ -87,27 +81,27 @@ namespace Points
                 _pause = value;
             }
         }
-        public async Task Pause(double sec)
+        public static  async Task Pause(double sec)
         {
             //DrawSession.CanvasCtrl.Invalidate();
             await Task.Delay(TimeSpan.FromSeconds(sec));
         }
 
-        public Dot PickComputerMove(Dot LastMove, CancellationToken? cancellationToken)
+        public static Dot PickComputerMove(Dot LastMove, CancellationToken? cancellationToken)
         {
             Dot result = gameDots.PickComputerMove(LastMove, cancellationToken);
             return result;
         }
-        public int MakeMove(Dot MoveDot)
+        public static int MakeMove(Dot MoveDot)
         {
             return gameDots.MakeMove(MoveDot, addForDraw: true);
         }
-        public bool GameOver()
+        public static bool GameOver()
         {
             return gameDots.Board_ValidMoves.Count == 0;
         }
 
-        public string Statistic()
+        public static string Statistic()
         {
             var q5 = from Dot d in _gameDots where d.Own == 1 select d;
             var q6 = from Dot d in _gameDots where d.Own == 2 select d;
@@ -115,7 +109,7 @@ namespace Points
             var q8 = from Dot d in _gameDots where d.Own == 2 & d.Blocked select d;
             return q8.Count().ToString() + ":" + q7.Count().ToString();
         }
-        public void Statistic(int x, int y)
+        public static void Statistic(int x, int y)
         {
 #if DEBUG
             DbgInfo = "Blocked: " + _gameDots[x, y].Blocked + "\r\n" +
@@ -128,16 +122,13 @@ namespace Points
                               "X: " + _gameDots[x, y].x + "; Y: " + _gameDots[x, y].y;
                #endif
         }
-        public void NewGame(int boardWidth, int boardHeigth)
-        {
-            _gameDots = new GameDots(boardWidth,boardHeigth); 
-            Redraw=false;
-            DrawSession.DotsForDrawing.Clear();
-            DrawSession.CanvasCtrl.Invalidate();
-        }
+        //public void NewGame(int boardWidth, int boardHeigth)
+        //{
+        //    DrawSession.CanvasCtrl.Invalidate();
+        //}
         //------------------------------------------------------------------------------------
 
-        public void ResizeBoard(int newSizeWidth, int newSizeHeight)//изменение размера доски
+        public static void ResizeBoard(int newSizeWidth, int newSizeHeight)//изменение размера доски
         {
             if (newSizeWidth < 5) newSizeWidth = 5;
             else if (newSizeWidth > 40) newSizeWidth = 40;
@@ -146,12 +137,12 @@ namespace Points
 
             gameDots.BoardHeight = newSizeHeight;
             gameDots.BoardWidth = newSizeWidth;
-            NewGame(newSizeWidth,newSizeHeight);
-            DrawSession.CanvasCtrl.Invalidate();
+            //NewGame(newSizeWidth,newSizeHeight);
+            //DrawSession.CanvasCtrl.Invalidate();
         }
 
 
-        private List<List<Dot>> ListRotatePatterns(List<Dot> listPat)
+        private static List<List<Dot>> ListRotatePatterns(List<Dot> listPat)
         {
             List<List<Dot>> lstlstPat = new List<List<Dot>>();
             
@@ -174,22 +165,22 @@ namespace Points
             return lstlstPat;
         }
       
-        public Dot this[int i, int j]//Индексатор возвращает элемент из массива по его индексу
-        {
-            get
-            {
-                return gameDots[i, j];
-            }
-        }
-        public Dot this[Dot dot]//Индексатор возвращает элемент из массива по его индексу
-        {
-            get
-            {
-                return gameDots[dot.x, dot.y];
-            }
-        }
+        //public  static Dot this[int i, int j]//Индексатор возвращает элемент из массива по его индексу
+        //{
+        //    get
+        //    {
+        //        return gameDots[i, j];
+        //    }
+        //}
+        //public Dot this[Dot dot]//Индексатор возвращает элемент из массива по его индексу
+        //{
+        //    get
+        //    {
+        //        return gameDots[dot.x, dot.y];
+        //    }
+        //}
         #region SAVE_LOAD Game
-        public async void SaveGame()
+        public static async void SaveGame()
         {
             try
             {
@@ -215,7 +206,7 @@ namespace Points
             }
         }
 
-        public async void LoadGame()
+        public static async void LoadGame()
         {
             _gameDots.Clear();
             DrawSession.DotsForDrawing.Clear();
@@ -274,7 +265,7 @@ namespace Points
         //}
         #endregion
 
-        public void UndoDot (Dot dot_move)
+        public static void UndoDot (Dot dot_move)
         {
             gameDots.UndoMove(dot_move);
         }
