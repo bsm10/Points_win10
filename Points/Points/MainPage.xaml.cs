@@ -1,11 +1,13 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Input;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -99,56 +101,56 @@ namespace Points
             timer2.Start();
 
         }
-        //public IAsyncOperation<int> MoveAsync(int Player)
-        //{
-        //    // Use a lock to prevent the ResetAsync method from modifying the game 
-        //    // state at the same time that a different thread is in this method.
-        //    //lock (_lockObject)
-        //    //{
-        //        return AsyncInfo.Run(cancellationToken => Task<int>.Run(() =>
-        //        {
-        //            if (cancellationToken.IsCancellationRequested) return null;
+        public IAsyncOperation<int> MoveAsync(int Player)
+        {
+            // Use a lock to prevent the ResetAsync method from modifying the game 
+            // state at the same time that a different thread is in this method.
+            //lock (_lockObject)
+            //{
+            return AsyncInfo.Run(cancellationToken => Task.Run(() =>
+            {
+                if (cancellationToken.IsCancellationRequested) return -1;
 
-        //            Dot pl_move = game.PickComputerMove(game.LastMove);
+                Dot pl_move = GameEngine.PickComputerMove(GameEngine.LastMove, ct);
 
-        //            if (pl_move == null)
-        //            {
-        //                //MessageBox.Show("You win!!! \r\n" + game.Statistic());
-        //                game.NewGame(boardWidth, boardHeight);
-        //                return 1;
-        //            }
-        //            pl_move.Own = Player;
+                if (pl_move == null)
+                {
+                    //MessageBox.Show("You win!!! \r\n" + game.Statistic());
+                    GameEngine.NewGame();
+                    return 1;
+                }
+                pl_move.Own = Player;
 
-        //            if (game.MakeMove(pl_move) != -1)
-        //            {
-        //                canvas.Invalidate();
-        //                player_move = Player == 1 ? 2 : 1;
-        //            }
-        //            else return -1;
+                if (GameEngine.MakeMove(pl_move) != -1)
+                {
+                    //canvas.Invalidate();
+                    player_move = Player == 1 ? 2 : 1;
+                }
+                else return -1;
 
 
-        //            if (game.GameOver())
-        //            {
-        //                //StatusMsg.DrawMsg("Game over! \r\n" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen);
-        //                //await game.Pause(5);
-        //                game = new GameEngine(boardWidth, boardHeight);
-        //                //StatusMsg.DrawMsg("New game started!" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen); 
-        //               // await game.Pause(1);
+                if (GameEngine.GameOver())
+                {
+                        //StatusMsg.DrawMsg("Game over! \r\n" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen);
+                        //await game.Pause(5);
+                        GameEngine.NewGame();
+                        //StatusMsg.DrawMsg("New game started!" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen); 
+                        // await game.Pause(1);
 
-        //                return 1;
-        //            }
-        //            StatusMsg.ColorMsg = player_move == 1 ? game.colorGamer1 : game.colorGamer2;
-        //            StatusMsg.textMsg = "Move player" + player_move + "...";
+                        return 1;
+                }
+                StatusMsg.ColorMsg = player_move == 1 ? GameEngine.colorGamer1 : GameEngine.colorGamer2;
+                StatusMsg.textMsg = "Move player" + player_move + "...";
 
-        //            return 0;
+                return 0;
 
-        //        }, cancellationToken));
-        //    //}
-        //}
+            }, cancellationToken));
+            //}
+        }
 
         CancellationTokenSource tokenSource = new CancellationTokenSource();
         CancellationToken ct; 
-        public IAsyncAction MoveAsync(int player)
+        public IAsyncAction MoveAsync2(int player)
         {
                 ct = tokenSource.Token;
                 var x = Task.Run(async () =>
@@ -190,6 +192,7 @@ namespace Points
                     player_move = 3;
                     await MoveAsync(1);
                     player_move = 2;
+                    DrawSession.CanvasCtrl.Invalidate();
                 }
                 //============Ход компьютера=================
                 if (player_move == 2)
@@ -197,6 +200,7 @@ namespace Points
                     player_move = 3;
                     await MoveAsync(2);
                     player_move = 1;
+                    DrawSession.CanvasCtrl.Invalidate();
                 }
 
             }
@@ -214,14 +218,22 @@ namespace Points
 
         }
 
-        private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
+        private async void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
             //var session = args.DrawingSession;
             args.DrawingSession.Clear(Colors.White);
             //session.Clear(Colors.White);
             DrawSession.CanvasCtrl = sender;
-            //DrawSession.CanvasDrawingSession = args.DrawingSession;
-            GameEngine.DrawGame(sender, args.DrawingSession);
+            DrawSession.CanvasDrawingSession = args.DrawingSession;
+            try
+            {
+                GameEngine.DrawGame(sender, args.DrawingSession);
+            }
+            catch (Exception ex)
+            {
+                MessageDialog dlg = new MessageDialog(ex.Message + "r/n/canvas_Draw");
+                await dlg.ShowAsync();
+            }
         }
 
         private async void canvas_Tapped(object sender, TappedRoutedEventArgs e)
@@ -240,6 +252,7 @@ namespace Points
                     if (await MoveGamer(1, ct, new Dot((int)GameEngine.MousePos.X, (int)GameEngine.MousePos.Y, 1)) == 0)
                     {
                         player_move = 2;
+                        DrawSession.CanvasCtrl.Invalidate();
                     }
                 }
                 //============Ход компьютера=================
@@ -248,6 +261,7 @@ namespace Points
                     player_move = 3;//для того чтобы лишнюю точку не поставил человек
                     await MoveAsync(2);
                     player_move = 1;
+                    DrawSession.CanvasCtrl.Invalidate();
                 }
                 #endregion
 
