@@ -72,7 +72,7 @@ namespace Points
                 {
                     this.Autoplay = (global::Windows.UI.Xaml.Controls.AppBarButton)(target);
                     #line 28 "..\..\..\MainPage.xaml"
-                    ((global::Windows.UI.Xaml.Controls.AppBarButton)this.Autoplay).Tapped += this.Settings_Tapped;
+                    ((global::Windows.UI.Xaml.Controls.AppBarButton)this.Autoplay).Tapped += this.Autoplay_Tapped;
                     #line default
                 }
                 break;
