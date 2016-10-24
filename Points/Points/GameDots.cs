@@ -2329,7 +2329,7 @@ namespace Points
         int counter_moves_all = 0;
         int res_last_move; //хранит результат хода
         //int recursion_depth;
-        const int MAX_RECURSION = 5;
+        const int MAX_RECURSION = 3;
         int recursion_depth;
         Dot tempmove;
         //===================================================================================================================

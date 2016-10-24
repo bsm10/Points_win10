@@ -101,7 +101,7 @@ namespace Points
             timer2.Start();
 
         }
-        public IAsyncOperation<int> MoveAsync(int Player)
+        public IAsyncOperation<int> MoveAsync2(int Player)
         {
             // Use a lock to prevent the ResetAsync method from modifying the game 
             // state at the same time that a different thread is in this method.
@@ -150,7 +150,7 @@ namespace Points
 
         CancellationTokenSource tokenSource = new CancellationTokenSource();
         CancellationToken ct; 
-        public IAsyncAction MoveAsync2(int player)
+        public IAsyncAction MoveAsync(int player)
         {
                 ct = tokenSource.Token;
                 var x = Task.Run(async () =>

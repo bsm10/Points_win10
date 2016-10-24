@@ -62,7 +62,7 @@ namespace Points
             if (DrawSession.CanvasCtrl != null)
             {
                 drSession.DrawText(StatusMsg.textMsg, 0, gameDots.BoardHeight + startY, StatusMsg.ColorMsg, format);
-                //DrawSession.CanvasCtrl.Invalidate();
+                DrawSession.CanvasCtrl.Invalidate();
             }
         }
 
