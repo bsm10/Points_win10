@@ -39,19 +39,11 @@ namespace Points
         public static float PointWidth = 0.15f;
         public static Color colorBoard = Color.FromArgb(255, 150, 200, 200);//(Color.DarkSlateBlue, 0.08f);
         public static Color colorDrawBrush = Colors.MediumPurple;
-        //public Color drB = Colors.MediumSeaGreen;
 
-
-        //public ICanvasBrush SolidBrush;
-        ////private SolidBrush drawBrush = new SolidBrush(Colors.MediumPurple);
-        //public Font drawFont = new Font("Arial", 0.22f);
         public static bool Redraw { get; set; }
-        public static int iScaleCoef = 1;//-коэффициент масштаба
-        //public float startX = -0.5f, startY = -0.5f;
-        //private CanvasControl pbxBoard;
+        public static int iScaleCoef = 1;//коэффициент масштаба
 
         public static Point MousePos;
-
         private static void DrawStatusMsg(CanvasDrawingSession drSession)
         {
             CanvasTextFormat format = new CanvasTextFormat()
@@ -65,27 +57,24 @@ namespace Points
                 DrawSession.CanvasCtrl.Invalidate();
             }
         }
-
-
         public static void DrawGame(CanvasControl canvasCtrl, CanvasDrawingSession drawingSession)//отрисовка хода игры
         {
             drawingSession.Antialiasing = CanvasAntialiasing.Antialiased;
             //Устанавливаем масштаб
             SetScale(drawingSession, (int)canvasCtrl.ActualWidth, (int)canvasCtrl.ActualHeight,
-                startX, startX + gameDots.BoardWidth, startY, gameDots.BoardHeight + startY + 1);
+                startX, startX + gameDots.BoardWidth, startY, gameDots.BoardHeight + startY, 50 );
             //Рисуем доску
             DrawBoard(drawingSession);
             //Рисуем точки
             DrawPoints(drawingSession);
             //Отрисовка замкнутого региона игрока1
             DrawLinks(drawingSession);
-
             DrawStatusMsg(drawingSession);
 #if DEBUG
             CanvasTextFormat format = new CanvasTextFormat()
             {
                 FontFamily = "Courier New",
-                FontSize = 0.25f
+                FontSize = 0.3f
             };
             drawingSession.DrawText(DbgInfo, gameDots.BoardWidth/2 + startX, gameDots.BoardHeight + startY*2, Colors.Green, format);
 #endif
@@ -188,17 +177,18 @@ namespace Points
         /// <summary>
         /// функция масштабирования, устанавливает массштаб
         /// </summary>
-        /// <param name="gr - CanvasDrawingSession"></param>
-        /// <param name="gr_width - ширина клиентской области"></param>
-        /// <param name="gr_height - длина клиентской области"></param>
+        /// <param name="gr">пердается CanvasDrawingSession</param>
+        /// <param name="gr_width">ширина клиентской области</param>
+        /// <param name="gr_height">длина клиентской области</param>
         /// <param name="left_x"></param>
         /// <param name="right_x"></param>
         /// <param name="top_y"></param>
         /// <param name="bottom_y"></param>
-        public static void SetScale(CanvasDrawingSession gr, int gr_width, int gr_height, float left_x, float right_x, float top_y, float bottom_y)
+        /// <param name="otstup"> отступ для отражения отладочной информации</param>
+        public static void SetScale(CanvasDrawingSession gr, int gr_width, int gr_height, float left_x, float right_x, float top_y, float bottom_y, int otstup)
         {
             Matrix3x2 matrixTemp = gr.Transform;
-            matrixTemp = Matrix3x2.CreateScale(new Vector2(gr_width / (right_x - left_x), (gr_height - 100)/ (bottom_y - top_y)),
+            matrixTemp = Matrix3x2.CreateScale(new Vector2(gr_width / (right_x - left_x), (gr_height - otstup) / (bottom_y - top_y)),
                                                new Vector2(left_x, top_y));
             gr.Transform = matrixTemp;
             _transform = matrixTemp;

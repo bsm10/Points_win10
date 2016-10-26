@@ -8,24 +8,31 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"                         >
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="640">
-        <canvas:CanvasControl x:ConnectionId='2' x:Name="canvas" Margin="10,10,10,56"                    ClearColor="#FFF5FAF9"                                                                                                 />
+    <Grid x:ConnectionId='2' x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="640">
+        <canvas:CanvasControl x:ConnectionId='3' x:Name="canvas" 
+                              ClearColor="#FFF5FAF9"
+                                                
+                                                    
+                                                                
+                                                                     
+                              Width="360"
+                              Height="640" VerticalAlignment="Top"/>
         <!--<TextBlock x:Name="txtCoordinate" HorizontalAlignment="Left" Height="25" Margin="10,355,0,0" TextWrapping="Wrap" Text="{Binding PointerMovedEvent, ElementName=canvas, Mode=OneWay}" VerticalAlignment="Top" Width="214"/>-->
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar VerticalAlignment="Stretch">
+        <CommandBar x:ConnectionId='4' x:Name="cmdBar" VerticalAlignment="Stretch">
             <CommandBar.SecondaryCommands>
                 <!--<AppBarToggleButton x:Uid="RepeatBox" x:Name="RepeatBox" Label="Повторять напоминание"/>-->
-                <AppBarButton x:Uid="Color1" Label="Color Player"  />
+                <AppBarButton x:ConnectionId='5' x:Uid="Color1" Label="Color Player"                               />
                 <AppBarButton x:Uid="Color2" Label="Color Computer"  />
                 <!--<AppBarButton x:Uid="CalendarButton" x:Name="CalendarButton" Label="Календарь"  />-->
-                
+
 
             </CommandBar.SecondaryCommands>
-            <AppBarButton x:ConnectionId='3' x:Uid="AddAppBarButton" x:Name="NewGame" Label="New game" Icon="Document"                         />
-            <AppBarButton x:ConnectionId='4' x:Uid="AddAppBarButton" x:Name="SaveGame" Label="Save game" Icon="Save"                          />
-            <AppBarButton x:ConnectionId='5' x:Uid="AddAppBarButton" x:Name="LoadGame"  Label="Load game" Icon="OpenFile"                          />
-            <AppBarButton x:ConnectionId='6' x:Uid="AddAppBarButton" x:Name="Autoplay" Label="Autoplay" Icon="Play"                          />
+            <AppBarButton x:ConnectionId='6' x:Uid="AddAppBarButton" x:Name="NewGame" Label="New game" Icon="Document"                         />
+            <AppBarButton x:ConnectionId='7' x:Uid="AddAppBarButton" x:Name="SaveGame" Label="Save game" Icon="Save"                          />
+            <AppBarButton x:ConnectionId='8' x:Uid="AddAppBarButton" x:Name="LoadGame"  Label="Load game" Icon="OpenFile"                          />
+            <AppBarButton x:ConnectionId='9' x:Uid="AddAppBarButton" x:Name="Autoplay" Label="Autoplay" Icon="Play"                          />
         </CommandBar>
 
     </Page.BottomAppBar>

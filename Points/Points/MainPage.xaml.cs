@@ -3,9 +3,11 @@ using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Input;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
@@ -70,14 +72,14 @@ namespace Points
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            double Xres = canvas.ActualWidth;
-            double Yres = canvas.ActualHeight;
-            double scl_coef = (Yres-100) / Xres;
-
+            canvas.Height = ActualHeight - cmdBar.ActualHeight;
+            canvas.Width = ActualWidth;
+            double Xres = canvas.Width;
+            double Yres = canvas.Height;
             DrawSession.CanvasCtrl = canvas;
-
             GameEngine.BoardWidth = 10;
-            GameEngine.BoardHeight=(int) Math.Round(GameEngine.BoardWidth * scl_coef);
+            double scl_coef = Yres / Xres;
+            GameEngine.BoardHeight = (int) Math.Round(GameEngine.BoardWidth * scl_coef);
             GameEngine.NewGame();
             GameEngine.LoadGame();
 
@@ -85,6 +87,7 @@ namespace Points
             player_move = GameEngine.LastMove.Own == 1 ? 2 : 1 ;
 
             DispatcherTimerSetup();
+
         }
 
         public void DispatcherTimerSetup()
@@ -369,6 +372,10 @@ namespace Points
         private void Autoplay_Tapped(object sender, TappedRoutedEventArgs e)
         {
             autoPlay = autoPlay == true ? false : true;
+        }
+
+        private void AppBarButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
         }
     }
 }

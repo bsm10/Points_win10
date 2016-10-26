@@ -8,18 +8,25 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d" Unloaded="Page_Unloaded">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="640">
-        <canvas:CanvasControl x:Name="canvas" Margin="10,10,10,56" Draw="canvas_Draw" ClearColor="#FFF5FAF9" Tapped="canvas_Tapped" PointerMoved="canvas_PointerMoved" PointerPressed="canvas_PointerPressed"/>
+    <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="640">
+        <canvas:CanvasControl x:Name="canvas" 
+                              ClearColor="#FFF5FAF9"
+                              Draw="canvas_Draw"
+                              Tapped="canvas_Tapped"
+                              PointerMoved="canvas_PointerMoved"
+                              PointerPressed="canvas_PointerPressed" 
+                              Width="360"
+                              Height="640" VerticalAlignment="Top"/>
         <!--<TextBlock x:Name="txtCoordinate" HorizontalAlignment="Left" Height="25" Margin="10,355,0,0" TextWrapping="Wrap" Text="{Binding PointerMovedEvent, ElementName=canvas, Mode=OneWay}" VerticalAlignment="Top" Width="214"/>-->
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar VerticalAlignment="Stretch">
+        <CommandBar x:Name="cmdBar" VerticalAlignment="Stretch">
             <CommandBar.SecondaryCommands>
                 <!--<AppBarToggleButton x:Uid="RepeatBox" x:Name="RepeatBox" Label="Повторять напоминание"/>-->
-                <AppBarButton x:Uid="Color1" Label="Color Player"  />
+                <AppBarButton x:Uid="Color1" Label="Color Player" Tapped="AppBarButton_Tapped"  />
                 <AppBarButton x:Uid="Color2" Label="Color Computer"  />
                 <!--<AppBarButton x:Uid="CalendarButton" x:Name="CalendarButton" Label="Календарь"  />-->
-                
+
 
             </CommandBar.SecondaryCommands>
             <AppBarButton x:Uid="AddAppBarButton" x:Name="NewGame" Label="New game" Icon="Document" Tapped="NewGame_Tapped" />

@@ -21,6 +21,7 @@
       <RootEvent Name="Draw" />
       <RootEvent Name="Tapped" />
       <RootEvent Name="PointerMoved" />
+      <RootEvent Name="PointerPressed" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CommandBar">
       <RootProperty Name="VerticalAlignment" />
