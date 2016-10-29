@@ -14,7 +14,6 @@ C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\resources.pri
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\AppxManifest.xml
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Core\AppxManifest.xml
-C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Core\Points.exe
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Points.build.appxrecipe
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Microsoft.ApplicationInsights.dll
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Microsoft.ApplicationInsights.PersistenceChannel.dll
@@ -188,7 +187,6 @@ C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\ARM\Debug\resources.en-us.resfiles
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\ARM\Debug\resources.en-us.resfiles.intermediate
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\ARM\Debug\ProjectArchitectures.txt
-C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\ARM\Debug\Points.csprojResolveAssemblyReference.cache
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\System.Buffers.dll
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\System.Net.NameResolution.dll

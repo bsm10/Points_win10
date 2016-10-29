@@ -302,6 +302,7 @@ namespace Points
                                     };
             return dts.ToList();
         }
+        
         public void UnmarkAllDots()
         {
             foreach (Dot d in _Dots) d.UnmarkDot();
@@ -423,23 +424,35 @@ namespace Points
             RebuildDots();
             return newList;
         }
-        public List<Dot> EmptyNeibourDots(int Owner)//список не занятых точек возле определенной точки
+        /// <summary>
+        /// список не занятых точек возле точек, определенного игрока
+        /// </summary>
+        /// <param name="Owner">игрок, точки которого проверяются</param>
+        /// <returns>список пустых точек</returns>
+        public List<Dot> EmptyNeibourDots(int Owner)//
         {
-            List<Dot> ld = new List<Dot>();
-            foreach (Dot d in _Dots)
-            {
-                if (d.Own == Owner)
-                {
-                    var q = from Dot dot in _Dots
-                            where dot.Blocked == false & dot.Own == 0 & Distance(dot, d) < 2
-                            select dot;
-                    foreach (Dot empty_d in q)
-                    {
-                        if (ld.Contains(empty_d) == false) ld.Add(empty_d);
-                    }
-                }
-            }
-            return ld;
+            //List<Dot> ld = new List<Dot>();
+            //foreach (Dot d in _Dots)
+            //{
+            //    if (d.Own == Owner)
+            //    {
+            //        var q = from Dot dot in _Dots
+            //                where dot.Blocked == false & dot.Own == 0 & Distance(dot, d) < 2
+            //                select dot;
+            //        foreach (Dot empty_d in q)
+            //        {
+            //            if (ld.Contains(empty_d) == false) ld.Add(empty_d);
+            //        }
+            //    }
+            //}
+            //return ld;
+
+            var qry = from Dot d1 in this
+                      where d1.Blocked == false & d1.Own == Owner
+                      from Dot d2 in this
+                      where d2.Blocked == false & d2.Own == 0 & Distance(d1, d2) < 2
+                      select d2;
+            return qry.ToList();
         }
         public int MakeIndexRelation(Dot dot)
         {
@@ -2179,34 +2192,35 @@ namespace Points
 #endif
             #endregion
             #endregion
+
             #region CheckPattern2Move проверяем ходы на два вперед
             List<Dot> empty_dots = EmptyNeibourDots(pl2);
             List<Dot> lst_dots2;
 
-//            foreach (Dot dot in empty_dots)
-//            {
-//                if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
-//                lst_dots2 = CheckPattern2Move(pl2);
-//                foreach (Dot nd in lst_dots2)
-//                {
-//                    if (MakeMove(nd, pl2) != 0)
-//                    {
-//                        UndoMove(nd);
-//                        UndoMove(dot);
-//                        #region DEBUG
-//#if DEBUG
-//                        {
-//                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
-//                        }
-//#endif
-//                        #endregion
-//                        dot.iNumberPattern = 777;
-//                        moves.Add(dot);
-//                    }
-//                    UndoMove(nd);
-//                }
-//                UndoMove(dot);
-//            }
+            foreach (Dot dot in empty_dots)
+            {
+                if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
+                lst_dots2 = CheckPattern2Move(pl2);
+                foreach (Dot nd in lst_dots2)
+                {
+                    if (MakeMove(nd, pl2) != 0)
+                    {
+                        UndoMove(nd);
+                        UndoMove(dot);
+                        #region DEBUG
+#if DEBUG
+                        {
+                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
+                        }
+#endif
+                        #endregion
+                        dot.iNumberPattern = 777;
+                        moves.Add(dot);
+                    }
+                    UndoMove(nd);
+                }
+                UndoMove(dot);
+            }
 #if DEBUG
             sW2.Stop();
             strDebug = strDebug + "\r\nCheckPattern2Move(pl2) - " + sW2.Elapsed.Milliseconds.ToString();

@@ -12,12 +12,13 @@
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
       <RootProperty Name="Background" />
       <RootProperty Name="Height" />
+      <RootProperty Name="Padding" />
       <RootProperty Name="Children" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl">
-      <RootProperty Name="Margin" />
       <RootProperty Name="ClearColor" />
+      <RootProperty Name="VerticalAlignment" />
       <RootEvent Name="Draw" />
       <RootEvent Name="Tapped" />
       <RootEvent Name="PointerMoved" />

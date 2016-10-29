@@ -36,13 +36,14 @@ namespace Points
         private DateTimeOffset lastTime;
 
         //private bool autoplay;
-
+        ApplicationView appView;
+        ApplicationViewTitleBar titleBar;
         public MainPage()
         {
             InitializeComponent();
             Loaded += OnLoaded;
             // получаем ссылку на внешний вид приложения
-            ApplicationView appView = ApplicationView.GetForCurrentView();
+            appView = ApplicationView.GetForCurrentView();
             // минимальный размер 
             appView.SetPreferredMinSize(new Size(480, 800));
             // минимальные границы
@@ -50,7 +51,7 @@ namespace Points
             // установка заголовка
             appView.Title = "Points!";
             // получаем ссылку на TitleBar
-            ApplicationViewTitleBar titleBar = appView.TitleBar;
+            titleBar = appView.TitleBar;
             // установка цвета панели
             titleBar.BackgroundColor = Colors.LightSteelBlue;
 
@@ -302,7 +303,8 @@ namespace Points
             }
             StatusMsg.ColorMsg = player_move == 1 ? GameEngine.colorGamer2 : GameEngine.colorGamer1;
             StatusMsg.textMsg = player_move == 1 ? "Move computer..." : "Your move!";
-
+            appView.Title = StatusMsg.textMsg;
+            titleBar.BackgroundColor = StatusMsg.ColorMsg;
             return 0;
         }
         private void canvas_PointerMoved(object sender, PointerRoutedEventArgs e)

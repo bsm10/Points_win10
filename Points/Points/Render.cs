@@ -61,8 +61,12 @@ namespace Points
         {
             drawingSession.Antialiasing = CanvasAntialiasing.Antialiased;
             //Устанавливаем масштаб
+            int intDbgInfoLine = 50;//отступ для отладочной информации
+#if DEBUG
+            intDbgInfoLine = 150;
+#endif
             SetScale(drawingSession, (int)canvasCtrl.ActualWidth, (int)canvasCtrl.ActualHeight,
-                startX, startX + gameDots.BoardWidth, startY, gameDots.BoardHeight + startY, 50 );
+                startX, startX + gameDots.BoardWidth, startY, gameDots.BoardHeight + startY, intDbgInfoLine);
             //Рисуем доску
             DrawBoard(drawingSession);
             //Рисуем точки
