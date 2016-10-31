@@ -2101,7 +2101,7 @@ namespace Points
         //===============================================================================================
         //-----------------------------------Поиск лучшего хода------------------------------------------
         //===============================================================================================
-        private List<Dot> BestMove(int pl1, int pl2)
+        private List<Dot> BestMove(int pl1, int pl2, CancellationToken? cancellationToken)
         {
             string strDebug = string.Empty;
             List<Dot> moves = new List<Dot>();
@@ -2110,7 +2110,11 @@ namespace Points
             sW2.Start();
             GameEngine.DbgInfo = "CheckMove(pl2,pl1)...";
 #endif
+            if (cancellationToken.HasValue)
+                cancellationToken.Value.ThrowIfCancellationRequested();
+
             bm = CheckMove(pl2);
+
             if (DotIndexCheck(bm))
             {
 #region DEBUG
@@ -2124,6 +2128,8 @@ namespace Points
                 moves.Add(bm);
                 return moves;
             }
+            if (cancellationToken.HasValue)
+                cancellationToken.Value.ThrowIfCancellationRequested();
             bm = CheckMove(pl1);
             if (DotIndexCheck(bm))
             {
@@ -2149,6 +2155,9 @@ namespace Points
 #endif
             #endregion
             #region CheckPattern_vilochka
+            if (cancellationToken.HasValue)
+                cancellationToken.Value.ThrowIfCancellationRequested();
+
             bm = CheckPattern_vilochka(pl2);
             //if (bm != null)
             if (DotIndexCheck(bm))
@@ -2163,7 +2172,8 @@ namespace Points
                 bm.iNumberPattern = 777; //777-ход в результате которого получается окружение -компьютер побеждает
                 moves.Add(bm);//return bm;
             }
-
+            if (cancellationToken.HasValue)
+                cancellationToken.Value.ThrowIfCancellationRequested();
             bm = CheckPattern_vilochka(pl1);
             // if (bm != null)
             if (DotIndexCheck(bm))
@@ -2187,6 +2197,8 @@ namespace Points
             GameEngine.DbgInfo = strDebug;
             sW2.Reset();
             sW2.Start();
+            strDebug = strDebug + "\r\nCheckPattern2Move & Vilka on next move..." + sW2.Elapsed.Milliseconds.ToString();
+            GameEngine.DbgInfo = strDebug;
             //DrawSession.CanvasCtrl.Invalidate();
 
 #endif
@@ -2196,13 +2208,24 @@ namespace Points
             #region CheckPattern2Move проверяем ходы на два вперед
             List<Dot> empty_dots = EmptyNeibourDots(pl2);
             List<Dot> lst_dots2;
-
+            Dot dot_vilka;
             foreach (Dot dot in empty_dots)
             {
+                if (cancellationToken.HasValue)
+                    cancellationToken.Value.ThrowIfCancellationRequested();
                 if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
                 lst_dots2 = CheckPattern2Move(pl2);
+                dot_vilka = CheckPattern_vilochka(pl2);
+                if(dot_vilka!=null)
+                {
+                    dot_vilka.iNumberPattern = 777;
+                    moves.Add(dot_vilka);
+                }
                 foreach (Dot nd in lst_dots2)
                 {
+                    if (cancellationToken.HasValue)
+                        cancellationToken.Value.ThrowIfCancellationRequested();
+
                     if (MakeMove(nd, pl2) != 0)
                     {
                         UndoMove(nd);
@@ -2223,7 +2246,7 @@ namespace Points
             }
 #if DEBUG
             sW2.Stop();
-            strDebug = strDebug + "\r\nCheckPattern2Move(pl2) - " + sW2.Elapsed.Milliseconds.ToString();
+            strDebug = strDebug + "\r\nCheckPattern2Move & VilkaNextMove(pl2) - " + sW2.Elapsed.Milliseconds.ToString();
             GameEngine.DbgInfo = strDebug;
             //DrawSession.CanvasCtrl.Invalidate();
             sW2.Reset();
@@ -2235,32 +2258,34 @@ namespace Points
             #endregion
             //-----------------------------------------------------------------
             #region CheckPatternVilkaNextMove
-            bm = CheckPatternVilkaNextMove(pl2);
-            if (DotIndexCheck(bm))
-            {
-#region DEBUG
-#if DEBUG
-                {
-                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl2 + "CheckPatternVilkaNextMove " + iNumberPattern);
-                }
-#endif
-#endregion
-                moves.Add(bm); //return bm;
-            }
-            #region DEBUG
+            //            bm = CheckPatternVilkaNextMove(pl2);
+            //            if (DotIndexCheck(bm))
+            //            {
+            //#region DEBUG
+            //#if DEBUG
+            //                {
+            //                    lstDbgMoves.Add(bm.x + ":" + bm.y + " player" + pl2 + "CheckPatternVilkaNextMove " + iNumberPattern);
+            //                }
+            //#endif
+            //#endregion
+            //                moves.Add(bm); //return bm;
+            //            }
+            //            #region DEBUG
 
-#if DEBUG
-            sW2.Stop();
-            strDebug = strDebug + "\r\nCheckPatternVilkaNextMove -" + sW2.Elapsed.Milliseconds.ToString();
-            GameEngine.DbgInfo = strDebug;
-           // DrawSession.CanvasCtrl.Invalidate();
-            sW2.Reset();
-            sW2.Start();
-#endif
+            //#if DEBUG
+            //            sW2.Stop();
+            //            strDebug = strDebug + "\r\nCheckPatternVilkaNextMove -" + sW2.Elapsed.Milliseconds.ToString();
+            //            GameEngine.DbgInfo = strDebug;
+            //           // DrawSession.CanvasCtrl.Invalidate();
+            //            sW2.Reset();
+            //            sW2.Start();
+            //#endif
+            //            #endregion
             #endregion
-            #endregion
-//-------------------------------------------------
+            //-------------------------------------------------
             #region CheckPattern
+            if (cancellationToken.HasValue)
+                cancellationToken.Value.ThrowIfCancellationRequested();
 
             bm = CheckPattern(pl2);
             //foreach (Dot dt in CheckPattern(pl2))
@@ -2277,6 +2302,9 @@ namespace Points
                     if (CheckDot(bm, pl2) == false) moves.Add(bm);
                 }
             //}
+            if (cancellationToken.HasValue)
+                cancellationToken.Value.ThrowIfCancellationRequested();
+
             bm = CheckPattern(pl1);
             //foreach (Dot dt in CheckPattern(pl1))
             //{
@@ -2294,8 +2322,11 @@ namespace Points
             //}
 
             #endregion
-//-------------------------------------------------
+            //-------------------------------------------------
             #region CheckPatternMove
+            if (cancellationToken.HasValue)
+                cancellationToken.Value.ThrowIfCancellationRequested();
+
             bm = CheckPatternMove(pl2);
             if(DotIndexCheck(bm))
             //if (bm != null)
@@ -2309,6 +2340,9 @@ namespace Points
 #endregion
                 if (CheckDot(bm, pl2) == false) moves.Add(bm);//return bm;
             }
+            if (cancellationToken.HasValue)
+                cancellationToken.Value.ThrowIfCancellationRequested();
+
             bm = CheckPatternMove(pl1);
             if (DotIndexCheck(bm))
                 //if (bm != null)
@@ -2364,7 +2398,7 @@ namespace Points
 
             if (recursion_depth > MAX_RECURSION) return PLAYER_NONE;
 
-            lst_best_move = BestMove(player1, player2);
+            lst_best_move = BestMove(player1, player2, cancellationToken);
             
             //если есть паттерн на окружение противника тоже устанавливается бест мув
             tempmove = lst_best_move.Where(dt => dt.iNumberPattern == 777).FirstOrDefault();

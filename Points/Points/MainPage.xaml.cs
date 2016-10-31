@@ -316,8 +316,9 @@ namespace Points
 
         private void NewGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if(tokenSource.IsCancellationRequested)tokenSource.Cancel();
+            if(!tokenSource.IsCancellationRequested)tokenSource.Cancel();
             GameEngine.NewGame();
+            tokenSource = new CancellationTokenSource();
         }
 
         private void SaveGame_Tapped(object sender, TappedRoutedEventArgs e)
@@ -331,12 +332,30 @@ namespace Points
             canvas = null;
         }
 
-        private void LoadGame_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void LoadGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if(tokenSource.IsCancellationRequested)tokenSource.Cancel();
-            GameEngine.LoadGame();
-        }
+            if (tokenSource.IsCancellationRequested) tokenSource.Cancel();
+            var results = await Task.WhenAll(
+                GameEngine.LoadGame(),
+                Task.Run(async () =>
+                {
+                    await DelayAsync(400);
+                    return null;
+                })
+            );
 
+            
+            //tokenSource = new CancellationTokenSource();
+        }
+        private async Task DelayAsync(int milliseconds, CancellationToken? cancellationToken = null)
+        {
+            // Delay only in the running app (not in unit tests). 
+            if (Window.Current != null)
+            {
+                if (!cancellationToken.HasValue) await Task.Delay(milliseconds);
+                else await Task.Delay(milliseconds, cancellationToken.Value);
+            }
+        }
         private void canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             UIElement q = sender as CanvasControl;

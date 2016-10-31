@@ -6,9 +6,29 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
 using System.Threading;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
 
 namespace Points
 {
+    public static class Toast
+    {
+        /// <summary>
+        /// Shows the specified text in a toast notification if notifications are enabled.
+        /// </summary>
+        /// <param name="text">The text to show.</param>
+        public static void Show(string text)
+        {
+            const string template =
+                "<toast duration='short'><visual><binding template='ToastText01'>" +
+                "<text id='1'>{0}</text></binding></visual></toast>";
+            var toastXml = new XmlDocument();
+            toastXml.LoadXml(String.Format(template, text));
+            var toast = new ToastNotification(toastXml);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+        }
+    }
+
     public static partial class GameEngine
     {
 
@@ -206,7 +226,7 @@ namespace Points
             }
         }
 
-        public static async void LoadGame()
+        public static async Task LoadGame()
         {
             _gameDots.Clear();
             DrawSession.DotsForDrawing.Clear();
