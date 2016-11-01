@@ -134,18 +134,18 @@ namespace Points
             }
         }
     }
-    public class Dot: IEquatable<Dot>
+    public class Dot : IEquatable<Dot>
     {
         public int x, y;
         private int _Own;
-        private bool _Blocked; 
+        private bool _Blocked;
 
-        public bool Blocked 
-        { 
-            get {return _Blocked;}
+        public bool Blocked
+        {
+            get { return _Blocked; }
             set
             {
-                _Blocked=value;
+                _Blocked = value;
                 if (_Blocked)
                 {
                     IndexRelation = 0;
@@ -160,14 +160,17 @@ namespace Points
             }
         }
         private List<Dot> _BlokingDots;
-        public List<Dot> BlokingDots 
+        public List<Dot> BlokingDots
+        {
+            get
             {
-                get
-                { 
-                    return _BlokingDots;//Список точек, которые блокируются этой точкой
-                }
+                return _BlokingDots;//Список точек, которые блокируются этой точкой
             }
+        }
         private List<Dot> _NeiborDots = new List<Dot>();
+        /// <summary>
+        /// Точки по соседству с єтой точкой
+        /// </summary>
         public List<Dot> NeiborDots
         {
             get
@@ -192,7 +195,7 @@ namespace Points
 
         }
         private int rating;
-        public int Rating 
+        public int Rating
         {
             get
             {
@@ -201,6 +204,15 @@ namespace Points
             set
             {
                 rating = value;
+                //foreach(Dot d in NeiborDots)
+                //{
+                //    //if(Math.Sqrt(Math.Pow(Math.Abs(d.x -x),2) + Math.Pow(Math.Abs(d.y -y),2))==1)
+                //    //{
+                //        if (rating < d.rating) d.Rating = rating;
+                //        else rating = d.Rating;
+                //    //}
+
+                //}
             }
         }
         public bool Marked { get; set; }
@@ -224,16 +236,21 @@ namespace Points
             get
             {
                 return (Dot)MemberwiseClone();
+                //Dot d = new Dot(x,y,Own);
+                //d.Blocked=Blocked;
+                //return d;
             }
         }
         public int iNumberPattern { get; set; }
 
-        public Dot(int x, int y, int Owner = 0)
+        public Dot(int x, int y, int Owner = 0, int NumberPattern = 0, int Rating = 0)
         {
             this.x = x;
             this.y = y;
             _BlokingDots = new List<Dot>();
             Own = Owner;
+            iNumberPattern = NumberPattern;
+            this.Rating = Rating;
             //IndexRelation = IndexDot;
         }
         public void UnmarkDot()
@@ -250,36 +267,25 @@ namespace Points
         public void PatternsRemove()
         {
             PatternsFirstDot = false;
-            PatternsMoveDot  = false;
-            PatternsAnyDot   = false;
+            PatternsMoveDot = false;
+            PatternsAnyDot = false;
             PatternsEmptyDot = false;
         }
-        public bool PatternsFirstDot {get; set;}
+        public bool PatternsFirstDot { get; set; }
         public bool PatternsMoveDot { get; set; }
         public bool PatternsAnyDot { get; set; }
         public bool PatternsEmptyDot { get; set; }
 
-        //public PE_XYminmax PE_XY = new PE_XYminmax();
-
-
-        //public class PE_XYminmax
-        //{
-        //    public int minX { get; set; }
-        //    public int maxX { get; set; }
-        //    public int minY { get; set; }
-        //    public int maxY { get; set; }
-        //}
-
         public override string ToString()
-            {
+        {
             string s;
             if (Own == 1) s = " Player";
             else if (Own == 2) s = " Computer";
             else s = " None";
-            
+
             s = Blocked ? x + ":" + y + s + " Blocked" : x + ":" + y + s;
-                return s;
-            }
+            return s;
+        }
         public bool Equals(Dot dot)//Проверяет равенство точек по координатам
         {
             return (x == dot.x) & (y == dot.y);
@@ -290,7 +296,7 @@ namespace Points
             {
                 return false;
             }
-            return Math.Abs(x -dot.x) <= 1 & Math.Abs(y -dot.y) <= 1;
+            return Math.Abs(x - dot.x) <= 1 & Math.Abs(y - dot.y) <= 1;
 
         }
         private int _IndexRel;
@@ -318,7 +324,7 @@ namespace Points
             }
 
         }
-        
+
         public bool ValidMove
         {
             get { return Blocked == false && Own == 0; }

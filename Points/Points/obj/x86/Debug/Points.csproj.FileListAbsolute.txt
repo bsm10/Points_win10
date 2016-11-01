@@ -199,28 +199,6 @@ E:\Programming\MyProject\Points_win10\Points\Points\obj\x86\Debug\resources.en-u
 E:\Programming\MyProject\Points_win10\Points\Points\obj\x86\Debug\resources.en-us.resfiles.intermediate
 E:\Programming\MyProject\Points_win10\Points\Points\obj\x86\Debug\ProjectArchitectures.txt
 E:\Programming\MyProject\Points_win10\Points\Points\bin\x86\Debug\NotificationsExtensions.winmd
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Collections.Immutable.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.ComponentModel.Annotations.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Data.Common.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Globalization.Extensions.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.IO.Compression.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.IO.Compression.ZipFile.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.IO.FileSystem.Primitives.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.IO.IsolatedStorage.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.IO.UnmanagedMemoryStream.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Net.Http.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Net.NetworkInformation.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Numerics.Vectors.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Numerics.Vectors.WindowsRuntime.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Reflection.Metadata.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Runtime.Serialization.Xml.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Security.Claims.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.ServiceModel.Http.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.ServiceModel.NetTcp.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.ServiceModel.Primitives.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Text.Encoding.CodePages.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\System.Threading.Tasks.Dataflow.dll
-c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\x86\Debug\ilc\in\WinMetadata\Windows.winmd
 c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\ApplicationInsights.config
 c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\App.xbf
 c:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\MainPage.xbf

@@ -68,10 +68,10 @@ namespace Points
         //        game.SaveGame();
         //        Application.Current.Exit(); // выход из приложения       
         //    }
-            
+
         //}
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private async void OnLoaded(object sender, RoutedEventArgs e)
         {
             canvas.Height = ActualHeight - cmdBar.ActualHeight;
             canvas.Width = ActualWidth;
@@ -80,12 +80,12 @@ namespace Points
             DrawSession.CanvasCtrl = canvas;
             GameEngine.BoardWidth = 10;
             double scl_coef = Yres / Xres;
-            GameEngine.BoardHeight = (int) Math.Round(GameEngine.BoardWidth * scl_coef);
+            GameEngine.BoardHeight = (int)Math.Round(GameEngine.BoardWidth * scl_coef);
             GameEngine.NewGame();
-            GameEngine.LoadGame();
+            await GameEngine.LoadGame();
 
             //player_move = 2;
-            player_move = GameEngine.LastMove.Own == 1 ? 2 : 1 ;
+            player_move = GameEngine.LastMove.Own == 1 ? 2 : 1;
 
             DispatcherTimerSetup();
 
@@ -335,16 +335,7 @@ namespace Points
         private async void LoadGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (tokenSource.IsCancellationRequested) tokenSource.Cancel();
-            var results = await Task.WhenAll(
-                GameEngine.LoadGame(),
-                Task.Run(async () =>
-                {
-                    await DelayAsync(400);
-                    return null;
-                })
-            );
-
-            
+            await GameEngine.LoadGame();
             //tokenSource = new CancellationTokenSource();
         }
         private async Task DelayAsync(int milliseconds, CancellationToken? cancellationToken = null)

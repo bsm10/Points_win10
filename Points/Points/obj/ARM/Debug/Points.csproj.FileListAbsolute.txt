@@ -216,3 +216,4 @@ C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\ARM\Debug\Core\Dots.exe
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\ARM\Debug\Dots.exe
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\ARM\Debug\Dots.pdb
+C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\obj\ARM\Debug\Points.csprojResolveAssemblyReference.cache

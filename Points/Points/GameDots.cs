@@ -2206,55 +2206,27 @@ namespace Points
             #endregion
 
             #region CheckPattern2Move проверяем ходы на два вперед
-            List<Dot> empty_dots = EmptyNeibourDots(pl2);
-            List<Dot> lst_dots2;
-            Dot dot_vilka;
-            foreach (Dot dot in empty_dots)
-            {
-                if (cancellationToken.HasValue)
-                    cancellationToken.Value.ThrowIfCancellationRequested();
-                if (CheckDot(dot, pl2) == false) MakeMove(dot, pl2);
-                lst_dots2 = CheckPattern2Move(pl2);
-                dot_vilka = CheckPattern_vilochka(pl2);
-                if(dot_vilka!=null)
-                {
-                    dot_vilka.iNumberPattern = 777;
-                    moves.Add(dot_vilka);
-                }
-                foreach (Dot nd in lst_dots2)
-                {
-                    if (cancellationToken.HasValue)
-                        cancellationToken.Value.ThrowIfCancellationRequested();
 
-                    if (MakeMove(nd, pl2) != 0)
-                    {
-                        UndoMove(nd);
-                        UndoMove(dot);
-                        #region DEBUG
-#if DEBUG
-                        {
-                            //lstDbgMoves.Add(dot.x + ":" + dot.y + " player" + pl2 + " - CheckPattern2Move!");
-                        }
-#endif
-                        #endregion
-                        dot.iNumberPattern = 777;
-                        moves.Add(dot);
-                    }
-                    UndoMove(nd);
-                }
-                UndoMove(dot);
+            List<Dot> ld_bm = CheckPattern2Move(pl2, true);
+            ld_bm.AddRange(CheckPatternVilka2x2(pl2, true));
+            ld_bm.AddRange(CheckPatternVilka2x2(pl2, false));
+            ld_bm.AddRange(CheckPattern2Move(pl1, true));
+            ld_bm.AddRange(CheckPatternVilka2x2(pl1, true));
+            ld_bm.AddRange(CheckPatternVilka2x2(pl1, false));
+            if (ld_bm.Count > 0)
+            {
+                moves.AddRange(ld_bm);
             }
+            #region DEBUG
 #if DEBUG
             sW2.Stop();
-            strDebug = strDebug + "\r\nCheckPattern2Move & VilkaNextMove(pl2) - " + sW2.Elapsed.Milliseconds.ToString();
-            GameEngine.DbgInfo = strDebug;
-            //DrawSession.CanvasCtrl.Invalidate();
+            strDebug = strDebug + "\r\nCheckPattern2Move(pl2) -" + sW2.Elapsed.Milliseconds.ToString();
+
             sW2.Reset();
             sW2.Start();
-            //f.lblBestMove.Text = "CheckPattern_vilochka...";
-
 #endif
 
+            #endregion
             #endregion
             //-----------------------------------------------------------------
             #region CheckPatternVilkaNextMove
@@ -2399,26 +2371,25 @@ namespace Points
             if (recursion_depth > MAX_RECURSION) return PLAYER_NONE;
 
             lst_best_move = BestMove(player1, player2, cancellationToken);
-            
-            //если есть паттерн на окружение противника тоже устанавливается бест мув
-            tempmove = lst_best_move.Where(dt => dt.iNumberPattern == 777).FirstOrDefault();
-            if (tempmove != null) 
-            {
-                if (player2 == PLAYER_COMPUTER)
-                {
-                    lst_branch.Add(tempmove);
-                    lst_branch.Last().Rating = counter_moves;
-                }
-                else
-                {
-                    lst_branch_enemy.Add(tempmove);
-                    lst_branch_enemy.Last().Rating = counter_moves;
-                }
-                return player2;
+            lst_best_move.ForEach(d => d.Rating += counter_moves);
 
+            tempmove = lst_best_move.Where(dt => dt.iNumberPattern == 777 | dt.iNumberPattern == 666 & dt.Rating == lst_best_move.Min(d => d.Rating)).ElementAtOrDefault(0);
+
+            //если есть паттерн на окружение противника тоже устанавливается бест мув
+            if (tempmove != null)
+            {
+                lst_branch.Add(tempmove);
+                return PLAYER_COMPUTER;
             }
             //если есть паттерн на окружение компа устанавливается бест мув
             tempmove = lst_best_move.Where(dt => dt.iNumberPattern == 666).FirstOrDefault();
+            if (tempmove != null)
+            {
+                lst_branch.Add(tempmove);
+                lst_branch.Last().Rating = tempmove.Rating + counter_moves;
+                return PLAYER_HUMAN;
+            }
+
             if (tempmove != null) 
             {
                 if (player2 == PLAYER_COMPUTER)
