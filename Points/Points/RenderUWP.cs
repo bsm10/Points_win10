@@ -74,6 +74,7 @@ namespace DotsGame
             DrawPoints(drawingSession);
             //Отрисовка замкнутого региона игрока1
             DrawLinks(drawingSession);
+            
             DrawStatusMsg(drawingSession);
 #if DEBUG
             CanvasTextFormat format = new CanvasTextFormat()
@@ -106,8 +107,7 @@ namespace DotsGame
         }
         public static void DrawLinks(CanvasDrawingSession drawingSession)//отрисовка связей
         {
-            //List<Links> lnks = gameDots.LinkDots(gameDots.ListMoves);
-            List<Links> lnks = gameDots.ListLinks;
+            List<Links> lnks = gameDots.ListLinksForDrawing;
             if (lnks != null)
             {
                 Color colorGamer;
@@ -130,8 +130,8 @@ namespace DotsGame
         }
         public static void DrawPoints(CanvasDrawingSession drawingSession)//рисуем поставленные точки
         {
-            //отрисовываем поставленные точки
 
+            //отрисовываем поставленные точки
             if (gameDots.ListMoves.Count > 0)
             {
                 
@@ -207,7 +207,7 @@ namespace DotsGame
             return result;
         }
 
-#endregion
+        #endregion
 
 
 

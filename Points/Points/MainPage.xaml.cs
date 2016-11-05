@@ -35,6 +35,7 @@ namespace Points
 
         private DateTimeOffset startTime;
         private DateTimeOffset lastTime;
+        bool redraw;
 
         //private bool autoplay;
         ApplicationView appView;
@@ -255,11 +256,10 @@ namespace Points
                 if (player_move == 1 | player_move == 0)
                 {
                     player_move = 1;
-                    //await GameEngineUWP.Move(1, ct, new Dot((int)GameEngineUWP.MousePos.X, (int)GameEngineUWP.MousePos.Y, 1));
                     if (await GameEngineUWP.MoveAsync(1, ct, new Dot((int)GameEngineUWP.MousePos.X, (int)GameEngineUWP.MousePos.Y, 1)) == 0)
                     {
                         player_move = 2;
-                        DrawSession.CanvasCtrl.Invalidate();
+                        canvas.Invalidate();
                     }
                 }
                 //============Ход компьютера=================
@@ -269,7 +269,7 @@ namespace Points
                     //await MoveAsync(2);
                     await GameEngineUWP.MoveAsync(2, ct);
                     player_move = 1;
-                    DrawSession.CanvasCtrl.Invalidate();
+                    canvas.Invalidate();
                 }
                 #endregion
 

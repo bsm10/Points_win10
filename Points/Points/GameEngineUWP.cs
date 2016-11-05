@@ -23,7 +23,7 @@ namespace DotsGame
                 "<toast duration='short'><visual><binding template='ToastText01'>" +
                 "<text id='1'>{0}</text></binding></visual></toast>";
             var toastXml = new XmlDocument();
-            toastXml.LoadXml(String.Format(template, text));
+            toastXml.LoadXml(string.Format(template, text));
             var toast = new ToastNotification(toastXml);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
@@ -108,7 +108,12 @@ namespace DotsGame
         }
         public static async Task<int> MoveAsync(int player, CancellationToken? cancellationToken, Dot pl_move = null)
         {
-            return await gameDots.Move(player, cancellationToken, pl_move);
+            //Redraw = false;
+            int result = await gameDots.Move(player, cancellationToken, pl_move);
+           // Redraw = true;
+            return result;
+
+
         }
 
         //public static Dot PickComputerMove(Dot LastMove, CancellationToken? cancellationToken)
