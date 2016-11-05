@@ -9,7 +9,7 @@ using System.Threading;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
-namespace Points
+namespace DotsGame
 {
     public static class Toast
     {
@@ -29,7 +29,7 @@ namespace Points
         }
     }
 
-    public static partial class GameEngine
+    public static partial class GameEngineUWP
     {
 
         //-------------------------------------------------
@@ -106,19 +106,23 @@ namespace Points
             //DrawSession.CanvasCtrl.Invalidate();
             await Task.Delay(TimeSpan.FromSeconds(sec));
         }
+        public static async Task<int> MoveAsync(int player, CancellationToken? cancellationToken, Dot pl_move = null)
+        {
+            return await gameDots.Move(player, cancellationToken, pl_move);
+        }
 
-        public static Dot PickComputerMove(Dot LastMove, CancellationToken? cancellationToken)
-        {
-            Dot result = gameDots.PickComputerMove(LastMove, cancellationToken);
-            return result;
-        }
-        public static int MakeMove(Dot MoveDot)
-        {
-            return gameDots.MakeMove(MoveDot, addForDraw: true);
-        }
+        //public static Dot PickComputerMove(Dot LastMove, CancellationToken? cancellationToken)
+        //{
+        //    Dot result = gameDots.PickComputerMove(LastMove, cancellationToken);
+        //    return result;
+        //}
+        //public static int MakeMove(Dot MoveDot)
+        //{
+        //    return gameDots.MakeMove(MoveDot, addForDraw: true);
+        //}
         public static bool GameOver()
         {
-            return gameDots.Board_ValidMoves.Count == 0;
+            return gameDots.IsGameOver;
         }
 
         public static string Statistic()
@@ -142,11 +146,6 @@ namespace Points
                               "X: " + _gameDots[x, y].x + "; Y: " + _gameDots[x, y].y;
                #endif
         }
-        //public void NewGame(int boardWidth, int boardHeigth)
-        //{
-        //    DrawSession.CanvasCtrl.Invalidate();
-        //}
-        //------------------------------------------------------------------------------------
 
         public static void ResizeBoard(int newSizeWidth, int newSizeHeight)//изменение размера доски
         {
@@ -160,45 +159,7 @@ namespace Points
             //NewGame(newSizeWidth,newSizeHeight);
             //DrawSession.CanvasCtrl.Invalidate();
         }
-
-
-        private static List<List<Dot>> ListRotatePatterns(List<Dot> listPat)
-        {
-            List<List<Dot>> lstlstPat = new List<List<Dot>>();
-            
-            lstlstPat.Add(listPat);
-            listPat = _gameDots.Rotate90(listPat);
-            lstlstPat.Add(listPat);
-            listPat = _gameDots.Rotate_Mirror_Horizontal(listPat);
-            lstlstPat.Add(listPat);
-            listPat = _gameDots.Rotate90(listPat);
-            lstlstPat.Add(listPat);
-            listPat = _gameDots.Rotate_Mirror_Horizontal(listPat);
-            lstlstPat.Add(listPat);
-            listPat = _gameDots.Rotate90(listPat);
-            lstlstPat.Add(listPat);
-            listPat = _gameDots.Rotate_Mirror_Horizontal(listPat);
-            lstlstPat.Add(listPat);
-            listPat = _gameDots.Rotate90(listPat);
-            lstlstPat.Add(listPat);
-
-            return lstlstPat;
-        }
-      
-        //public  static Dot this[int i, int j]//Индексатор возвращает элемент из массива по его индексу
-        //{
-        //    get
-        //    {
-        //        return gameDots[i, j];
-        //    }
-        //}
-        //public Dot this[Dot dot]//Индексатор возвращает элемент из массива по его индексу
-        //{
-        //    get
-        //    {
-        //        return gameDots[dot.x, dot.y];
-        //    }
-        //}
+     
         #region SAVE_LOAD Game
         public static async void SaveGame()
         {
@@ -285,10 +246,10 @@ namespace Points
         //}
         #endregion
 
-        public static void UndoDot (Dot dot_move)
-        {
-            gameDots.UndoMove(dot_move);
-        }
+        //public static void UndoDot (Dot dot_move)
+        //{
+        //    gameDots.UndoMove(dot_move);
+        //}
         //==========================================================================
 
     }

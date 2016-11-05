@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Points
+namespace DotsGame
 {
     public partial class GameDots : IEnumerator, IEnumerable
     {

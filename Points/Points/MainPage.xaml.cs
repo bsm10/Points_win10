@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿using DotsGame;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
@@ -78,14 +79,14 @@ namespace Points
             double Xres = canvas.Width;
             double Yres = canvas.Height;
             DrawSession.CanvasCtrl = canvas;
-            GameEngine.BoardWidth = 10;
+            GameEngineUWP.BoardWidth = 10;
             double scl_coef = Yres / Xres;
-            GameEngine.BoardHeight = (int)Math.Round(GameEngine.BoardWidth * scl_coef);
-            GameEngine.NewGame();
-            await GameEngine.LoadGame();
+            GameEngineUWP.BoardHeight = (int)Math.Round(GameEngineUWP.BoardWidth * scl_coef);
+            GameEngineUWP.NewGame();
+            await GameEngineUWP.LoadGame();
 
             //player_move = 2;
-            player_move = GameEngine.LastMove.Own == 1 ? 2 : 1;
+            player_move = GameEngineUWP.LastMove.Own == 1 ? 2 : 1;
 
             DispatcherTimerSetup();
 
@@ -105,86 +106,87 @@ namespace Points
             timer2.Start();
 
         }
-        public IAsyncOperation<int> MoveAsync2(int Player)
-        {
-            // Use a lock to prevent the ResetAsync method from modifying the game 
-            // state at the same time that a different thread is in this method.
-            //lock (_lockObject)
-            //{
-            return AsyncInfo.Run(cancellationToken => Task.Run(() =>
-            {
-                if (cancellationToken.IsCancellationRequested) return -1;
+        //public IAsyncOperation<int> MoveAsync2(int Player)
+        //{
+        //    // Use a lock to prevent the ResetAsync method from modifying the game 
+        //    // state at the same time that a different thread is in this method.
+        //    //lock (_lockObject)
+        //    //{
+        //    return AsyncInfo.Run(cancellationToken => Task.Run(() =>
+        //    {
+        //        if (cancellationToken.IsCancellationRequested) return -1;
 
-                Dot pl_move = GameEngine.PickComputerMove(GameEngine.LastMove, ct);
+        //        Dot pl_move = GameEngineUWP.PickComputerMove(GameEngineUWP.LastMove, ct);
 
-                if (pl_move == null)
-                {
-                    //MessageBox.Show("You win!!! \r\n" + game.Statistic());
-                    GameEngine.NewGame();
-                    return 1;
-                }
-                pl_move.Own = Player;
+        //        if (pl_move == null)
+        //        {
+        //            //MessageBox.Show("You win!!! \r\n" + game.Statistic());
+        //            GameEngineUWP.NewGame();
+        //            return 1;
+        //        }
+        //        pl_move.Own = Player;
 
-                if (GameEngine.MakeMove(pl_move) != -1)
-                {
-                    //canvas.Invalidate();
-                    player_move = Player == 1 ? 2 : 1;
-                }
-                else return -1;
+        //        if (GameEngineUWP.MakeMove(pl_move) != -1)
+        //        {
+        //            //canvas.Invalidate();
+        //            player_move = Player == 1 ? 2 : 1;
+        //        }
+        //        else return -1;
 
 
-                if (GameEngine.GameOver())
-                {
-                        //StatusMsg.DrawMsg("Game over! \r\n" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen);
-                        //await game.Pause(5);
-                        GameEngine.NewGame();
-                        //StatusMsg.DrawMsg("New game started!" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen); 
-                        // await game.Pause(1);
+        //        if (GameEngineUWP.GameOver())
+        //        {
+        //                //StatusMsg.DrawMsg("Game over! \r\n" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen);
+        //                //await game.Pause(5);
+        //                GameEngineUWP.NewGame();
+        //                //StatusMsg.DrawMsg("New game started!" + game.Statistic(), 0, boardHeight + GameEngine.startY, Colors.DarkOliveGreen); 
+        //                // await game.Pause(1);
 
-                        return 1;
-                }
-                StatusMsg.ColorMsg = player_move == 1 ? GameEngine.colorGamer1 : GameEngine.colorGamer2;
-                StatusMsg.textMsg = "Move player" + player_move + "...";
+        //                return 1;
+        //        }
+        //        StatusMsg.ColorMsg = player_move == 1 ? GameEngineUWP.colorGamer1 : GameEngineUWP.colorGamer2;
+        //        StatusMsg.textMsg = "Move player" + player_move + "...";
 
-                return 0;
+        //        return 0;
 
-            }, cancellationToken));
-            //}
-        }
+        //    }, cancellationToken));
+        //    //}
+        //}
 
         CancellationTokenSource tokenSource = new CancellationTokenSource();
         CancellationToken ct; 
-        public IAsyncAction MoveAsync(int player)
-        {
-                ct = tokenSource.Token;
-                var x = Task.Run(async () =>
-                {
-                    try
-                    {
-                        if (ct.IsCancellationRequested) ct.ThrowIfCancellationRequested();
-                        int result = await MoveGamer(player, ct);
-                        return result;
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        StatusMsg.textMsg = "Move canceled!";
-                        tokenSource.Dispose();
-                        tokenSource = new CancellationTokenSource();
-                        return 0;
-                    }
-                }, ct).AsAsyncAction();
 
-            return x;
+//        public IAsyncAction MoveAsync(int player)
+//        {
+//                ct = tokenSource.Token;
+//                var x = Task.Run(async () =>
+//                {
+//                    try
+//                    {
+//                        if (ct.IsCancellationRequested) ct.ThrowIfCancellationRequested();
+//                        int result = await MoveGamer(player, ct);
+//                        return result;
+//                    }
+//                    catch (OperationCanceledException)
+//                    {
+//                        StatusMsg.textMsg = "Move canceled!";
+//                        tokenSource.Dispose();
+//                        tokenSource = new CancellationTokenSource();
+//                        return 0;
+//                    }
+//                }, ct).AsAsyncAction();
+
+//            return x;
 
 
 
-    //return AsyncInfo.Run(cancellationToken => Task.Run(async () =>
-    //{
-    //    if (cancellationToken.IsCancellationRequested) return;
-    //    await MoveGamer(player);
-    //}, cancellationToken));
+//    //return AsyncInfo.Run(cancellationToken => Task.Run(async () =>
+//    //{
+//    //    if (cancellationToken.IsCancellationRequested) return;
+//    //    await MoveGamer(player);
+//    //}, cancellationToken));
 
-}
+//}
 
         private async void Timer2_Tick(object sender, object e)
         {
@@ -194,7 +196,7 @@ namespace Points
                 if (player_move == 1)
                 {
                     player_move = 3;
-                    await MoveAsync(1);
+                    //await MoveAsync(1);
                     player_move = 2;
                     DrawSession.CanvasCtrl.Invalidate();
                 }
@@ -202,7 +204,7 @@ namespace Points
                 if (player_move == 2)
                 {
                     player_move = 3;
-                    await MoveAsync(2);
+                    //await MoveAsync(2);
                     player_move = 1;
                     DrawSession.CanvasCtrl.Invalidate();
                 }
@@ -231,7 +233,7 @@ namespace Points
             DrawSession.CanvasDrawingSession = args.DrawingSession;
             try
             {
-                GameEngine.DrawGame(sender, args.DrawingSession);
+                GameEngineUWP.DrawGame(sender, args.DrawingSession);
             }
             catch (Exception ex)
             {
@@ -244,16 +246,17 @@ namespace Points
         {
             UIElement q = sender as CanvasControl;
             var mpos = e.GetPosition(q);
-            GameEngine.MousePos = GameEngine.TranslateCoordinates(mpos);
-            Dot dot = new Dot((int)GameEngine.MousePos.X, (int)GameEngine.MousePos.Y);
-            if (GameEngine.MousePos.X > GameEngine.startX - 0.5f & GameEngine.MousePos.Y > GameEngine.startY - 0.5f)
+            GameEngineUWP.MousePos = GameEngineUWP.TranslateCoordinates(mpos);
+            Dot dot = new Dot((int)GameEngineUWP.MousePos.X, (int)GameEngineUWP.MousePos.Y);
+            if (GameEngineUWP.MousePos.X > GameEngineUWP.startX - 0.5f & GameEngineUWP.MousePos.Y > GameEngineUWP.startY - 0.5f)
             {
                 //if (e.PointerDeviceType == PointerDeviceType.Touch | e.PointerDeviceType == PointerDeviceType.Pen)
                 #region Ходы игроков
                 if (player_move == 1 | player_move == 0)
                 {
                     player_move = 1;
-                    if (await MoveGamer(1, ct, new Dot((int)GameEngine.MousePos.X, (int)GameEngine.MousePos.Y, 1)) == 0)
+                    //await GameEngineUWP.Move(1, ct, new Dot((int)GameEngineUWP.MousePos.X, (int)GameEngineUWP.MousePos.Y, 1));
+                    if (await GameEngineUWP.MoveAsync(1, ct, new Dot((int)GameEngineUWP.MousePos.X, (int)GameEngineUWP.MousePos.Y, 1)) == 0)
                     {
                         player_move = 2;
                         DrawSession.CanvasCtrl.Invalidate();
@@ -263,7 +266,8 @@ namespace Points
                 if (player_move == 2)
                 {
                     player_move = 3;//для того чтобы лишнюю точку не поставил человек
-                    await MoveAsync(2);
+                    //await MoveAsync(2);
+                    await GameEngineUWP.MoveAsync(2, ct);
                     player_move = 1;
                     DrawSession.CanvasCtrl.Invalidate();
                 }
@@ -278,35 +282,35 @@ namespace Points
         /// <param name="Player">кто ходит 1-человек, 2-компьютер</param>
         /// <param name="pl_move">Устанавливается, исходя из координат тапа, если ходит человек, если ходит компьютер - null</param>
         /// <returns>-1 ошибка, недопустимый ход</returns>
-        private async Task<int> MoveGamer(int Player, CancellationToken? cancellationToken, Dot pl_move = null)
-        {
-            if (pl_move == null) pl_move = GameEngine.PickComputerMove(GameEngine.LastMove, cancellationToken);
-            if (pl_move == null)
-            {
-                //MessageBox.Show("You win!!! \r\n" + game.Statistic());
-                GameEngine.NewGame();
-                return 1;
-            }
-            pl_move.Own = Player;
+        //private async Task<int> MoveGamer(int Player, CancellationToken? cancellationToken, Dot pl_move = null)
+        //{
+        //    if (pl_move == null) pl_move = GameEngineUWP.PickComputerMove(GameEngineUWP.LastMove, cancellationToken);
+        //    if (pl_move == null)
+        //    {
+        //        //MessageBox.Show("You win!!! \r\n" + game.Statistic());
+        //        GameEngineUWP.NewGame();
+        //        return 1;
+        //    }
+        //    pl_move.Own = Player;
 
-            if (GameEngine.MakeMove(pl_move) == -1) return -1;
+        //    if (GameEngineUWP.MakeMove(pl_move) == -1) return -1;
 
-            if (GameEngine.GameOver())
-            {
-                StatusMsg.textMsg = "Game over! \r\n" + GameEngine.Statistic();
-                await GameEngine.Pause(5);
-                GameEngine.NewGame();
-                StatusMsg.textMsg = "New game started!" + GameEngine.Statistic(); 
-                await GameEngine.Pause(1);
+        //    if (GameEngineUWP.GameOver())
+        //    {
+        //        StatusMsg.textMsg = "Game over! \r\n" + GameEngineUWP.Statistic();
+        //        await GameEngineUWP.Pause(5);
+        //        GameEngineUWP.NewGame();
+        //        StatusMsg.textMsg = "New game started!" + GameEngineUWP.Statistic(); 
+        //        await GameEngineUWP.Pause(1);
 
-                return 1;
-            }
-            StatusMsg.ColorMsg = player_move == 1 ? GameEngine.colorGamer2 : GameEngine.colorGamer1;
-            StatusMsg.textMsg = player_move == 1 ? "Move computer..." : "Your move!";
-            appView.Title = StatusMsg.textMsg;
-            titleBar.BackgroundColor = StatusMsg.ColorMsg;
-            return 0;
-        }
+        //        return 1;
+        //    }
+        //    StatusMsg.ColorMsg = player_move == 1 ? GameEngineUWP.colorGamer2 : GameEngineUWP.colorGamer1;
+        //    StatusMsg.textMsg = player_move == 1 ? "Move computer..." : "Your move!";
+        //    appView.Title = StatusMsg.textMsg;
+        //    titleBar.BackgroundColor = StatusMsg.ColorMsg;
+        //    return 0;
+        //}
         private void canvas_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
             UIElement q = sender as CanvasControl;
@@ -317,13 +321,13 @@ namespace Points
         private void NewGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if(!tokenSource.IsCancellationRequested)tokenSource.Cancel();
-            GameEngine.NewGame();
+            GameEngineUWP.NewGame();
             tokenSource = new CancellationTokenSource();
         }
 
         private void SaveGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            GameEngine.SaveGame();
+            GameEngineUWP.SaveGame();
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -335,7 +339,7 @@ namespace Points
         private async void LoadGame_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (tokenSource.IsCancellationRequested) tokenSource.Cancel();
-            await GameEngine.LoadGame();
+            await GameEngineUWP.LoadGame();
             //tokenSource = new CancellationTokenSource();
         }
         private async Task DelayAsync(int milliseconds, CancellationToken? cancellationToken = null)
@@ -351,8 +355,8 @@ namespace Points
         {
             UIElement q = sender as CanvasControl;
             var mpos = e.GetCurrentPoint(q);
-            GameEngine.MousePos = GameEngine.TranslateCoordinates(mpos.Position);
-            Dot dot = new Dot((int)GameEngine.MousePos.X, (int)GameEngine.MousePos.Y);
+            GameEngineUWP.MousePos = GameEngineUWP.TranslateCoordinates(mpos.Position);
+            Dot dot = new Dot((int)GameEngineUWP.MousePos.X, (int)GameEngineUWP.MousePos.Y);
 
             if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse)
             {
@@ -374,7 +378,7 @@ namespace Points
                 else if (properties.IsMiddleButtonPressed)
                 {
 #if DEBUG
-                    GameEngine.UndoDot(dot);
+                    //GameEngineUWP.UndoDot(dot);
 #endif
                 }
 

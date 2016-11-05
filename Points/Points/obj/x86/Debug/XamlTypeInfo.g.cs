@@ -13,7 +13,7 @@ namespace Points
 {
     public partial class App : global::Windows.UI.Xaml.Markup.IXamlMetadataProvider
     {
-    private global::Points.Points_XamlTypeInfo.XamlTypeInfoProvider _provider;
+    private global::DotsGame.Points_XamlTypeInfo.XamlTypeInfoProvider _provider;
 
         /// <summary>
         /// GetXamlType(Type)
@@ -22,7 +22,7 @@ namespace Points
         {
             if(_provider == null)
             {
-                _provider = new global::Points.Points_XamlTypeInfo.XamlTypeInfoProvider();
+                _provider = new global::DotsGame.Points_XamlTypeInfo.XamlTypeInfoProvider();
             }
             return _provider.GetXamlTypeByType(type);
         }
@@ -34,7 +34,7 @@ namespace Points
         {
             if(_provider == null)
             {
-                _provider = new global::Points.Points_XamlTypeInfo.XamlTypeInfoProvider();
+                _provider = new global::DotsGame.Points_XamlTypeInfo.XamlTypeInfoProvider();
             }
             return _provider.GetXamlTypeByName(fullName);
         }
@@ -49,7 +49,7 @@ namespace Points
     }
 }
 
-namespace Points.Points_XamlTypeInfo
+namespace DotsGame.Points_XamlTypeInfo
 {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Windows.UI.Xaml.Build.Tasks"," 14.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -197,8 +197,8 @@ namespace Points.Points_XamlTypeInfo
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
-            global::Points.Points_XamlTypeInfo.XamlSystemBaseType xamlType = null;
-            global::Points.Points_XamlTypeInfo.XamlUserType userType;
+            global::DotsGame.Points_XamlTypeInfo.XamlSystemBaseType xamlType = null;
+            global::DotsGame.Points_XamlTypeInfo.XamlUserType userType;
             string typeName = _typeNameTable[typeIndex];
             global::System.Type type = _typeTable[typeIndex];
 
@@ -206,7 +206,7 @@ namespace Points.Points_XamlTypeInfo
             {
 
             case 0:   //  Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl
-                userType = new global::Points.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType = new global::DotsGame.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
                 userType.Activator = Activate_0_CanvasControl;
                 userType.AddMemberName("ClearColor");
                 userType.AddMemberName("Device");
@@ -221,51 +221,51 @@ namespace Points.Points_XamlTypeInfo
                 break;
 
             case 1:   //  Windows.UI.Xaml.Controls.UserControl
-                xamlType = new global::Points.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::DotsGame.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
             case 2:   //  Windows.UI.Color
-                userType = new global::Points.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
+                userType = new global::DotsGame.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
             case 3:   //  System.ValueType
-                userType = new global::Points.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType = new global::DotsGame.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 xamlType = userType;
                 break;
 
             case 4:   //  Object
-                xamlType = new global::Points.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::DotsGame.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
             case 5:   //  Microsoft.Graphics.Canvas.CanvasDevice
-                userType = new global::Points.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType = new global::DotsGame.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
             case 6:   //  Single
-                xamlType = new global::Points.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::DotsGame.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
             case 7:   //  Boolean
-                xamlType = new global::Points.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::DotsGame.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
             case 8:   //  Windows.Foundation.Size
-                xamlType = new global::Points.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::DotsGame.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
             case 9:   //  Points.MainPage
-                userType = new global::Points.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType = new global::DotsGame.Points_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
                 userType.Activator = Activate_9_MainPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
             case 10:   //  Windows.UI.Xaml.Controls.Page
-                xamlType = new global::Points.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::DotsGame.Points_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
             }
             return xamlType;
@@ -345,62 +345,62 @@ namespace Points.Points_XamlTypeInfo
 
         private global::Windows.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
         {
-            global::Points.Points_XamlTypeInfo.XamlMember xamlMember = null;
-            global::Points.Points_XamlTypeInfo.XamlUserType userType;
+            global::DotsGame.Points_XamlTypeInfo.XamlMember xamlMember = null;
+            global::DotsGame.Points_XamlTypeInfo.XamlUserType userType;
 
             switch (longMemberName)
             {
             case "Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl.ClearColor":
-                userType = (global::Points.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
-                xamlMember = new global::Points.Points_XamlTypeInfo.XamlMember(this, "ClearColor", "Windows.UI.Color");
+                userType = (global::DotsGame.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
+                xamlMember = new global::DotsGame.Points_XamlTypeInfo.XamlMember(this, "ClearColor", "Windows.UI.Color");
                 xamlMember.Getter = get_0_CanvasControl_ClearColor;
                 xamlMember.Setter = set_0_CanvasControl_ClearColor;
                 break;
             case "Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl.Device":
-                userType = (global::Points.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
-                xamlMember = new global::Points.Points_XamlTypeInfo.XamlMember(this, "Device", "Microsoft.Graphics.Canvas.CanvasDevice");
+                userType = (global::DotsGame.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
+                xamlMember = new global::DotsGame.Points_XamlTypeInfo.XamlMember(this, "Device", "Microsoft.Graphics.Canvas.CanvasDevice");
                 xamlMember.Getter = get_1_CanvasControl_Device;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl.Dpi":
-                userType = (global::Points.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
-                xamlMember = new global::Points.Points_XamlTypeInfo.XamlMember(this, "Dpi", "Single");
+                userType = (global::DotsGame.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
+                xamlMember = new global::DotsGame.Points_XamlTypeInfo.XamlMember(this, "Dpi", "Single");
                 xamlMember.Getter = get_2_CanvasControl_Dpi;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl.UseSharedDevice":
-                userType = (global::Points.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
-                xamlMember = new global::Points.Points_XamlTypeInfo.XamlMember(this, "UseSharedDevice", "Boolean");
+                userType = (global::DotsGame.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
+                xamlMember = new global::DotsGame.Points_XamlTypeInfo.XamlMember(this, "UseSharedDevice", "Boolean");
                 xamlMember.Getter = get_3_CanvasControl_UseSharedDevice;
                 xamlMember.Setter = set_3_CanvasControl_UseSharedDevice;
                 break;
             case "Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl.ForceSoftwareRenderer":
-                userType = (global::Points.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
-                xamlMember = new global::Points.Points_XamlTypeInfo.XamlMember(this, "ForceSoftwareRenderer", "Boolean");
+                userType = (global::DotsGame.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
+                xamlMember = new global::DotsGame.Points_XamlTypeInfo.XamlMember(this, "ForceSoftwareRenderer", "Boolean");
                 xamlMember.Getter = get_4_CanvasControl_ForceSoftwareRenderer;
                 xamlMember.Setter = set_4_CanvasControl_ForceSoftwareRenderer;
                 break;
             case "Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl.DpiScale":
-                userType = (global::Points.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
-                xamlMember = new global::Points.Points_XamlTypeInfo.XamlMember(this, "DpiScale", "Single");
+                userType = (global::DotsGame.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
+                xamlMember = new global::DotsGame.Points_XamlTypeInfo.XamlMember(this, "DpiScale", "Single");
                 xamlMember.Getter = get_5_CanvasControl_DpiScale;
                 xamlMember.Setter = set_5_CanvasControl_DpiScale;
                 break;
             case "Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl.CustomDevice":
-                userType = (global::Points.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
-                xamlMember = new global::Points.Points_XamlTypeInfo.XamlMember(this, "CustomDevice", "Microsoft.Graphics.Canvas.CanvasDevice");
+                userType = (global::DotsGame.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
+                xamlMember = new global::DotsGame.Points_XamlTypeInfo.XamlMember(this, "CustomDevice", "Microsoft.Graphics.Canvas.CanvasDevice");
                 xamlMember.Getter = get_6_CanvasControl_CustomDevice;
                 xamlMember.Setter = set_6_CanvasControl_CustomDevice;
                 break;
             case "Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl.ReadyToDraw":
-                userType = (global::Points.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
-                xamlMember = new global::Points.Points_XamlTypeInfo.XamlMember(this, "ReadyToDraw", "Boolean");
+                userType = (global::DotsGame.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
+                xamlMember = new global::DotsGame.Points_XamlTypeInfo.XamlMember(this, "ReadyToDraw", "Boolean");
                 xamlMember.Getter = get_7_CanvasControl_ReadyToDraw;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl.Size":
-                userType = (global::Points.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
-                xamlMember = new global::Points.Points_XamlTypeInfo.XamlMember(this, "Size", "Windows.Foundation.Size");
+                userType = (global::DotsGame.Points_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl");
+                xamlMember = new global::DotsGame.Points_XamlTypeInfo.XamlMember(this, "Size", "Windows.Foundation.Size");
                 xamlMember.Getter = get_8_CanvasControl_Size;
                 xamlMember.SetIsReadOnly();
                 break;
@@ -458,9 +458,9 @@ namespace Points.Points_XamlTypeInfo
 
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Windows.UI.Xaml.Build.Tasks"," 14.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-    internal class XamlUserType : global::Points.Points_XamlTypeInfo.XamlSystemBaseType
+    internal class XamlUserType : global::DotsGame.Points_XamlTypeInfo.XamlSystemBaseType
     {
-        global::Points.Points_XamlTypeInfo.XamlTypeInfoProvider _provider;
+        global::DotsGame.Points_XamlTypeInfo.XamlTypeInfoProvider _provider;
         global::Windows.UI.Xaml.Markup.IXamlType _baseType;
         bool _isArray;
         bool _isMarkupExtension;
@@ -474,7 +474,7 @@ namespace Points.Points_XamlTypeInfo
         global::System.Collections.Generic.Dictionary<string, string> _memberNames;
         global::System.Collections.Generic.Dictionary<string, object> _enumValues;
 
-        public XamlUserType(global::Points.Points_XamlTypeInfo.XamlTypeInfoProvider provider, string fullName, global::System.Type fullType, global::Windows.UI.Xaml.Markup.IXamlType baseType)
+        public XamlUserType(global::DotsGame.Points_XamlTypeInfo.XamlTypeInfoProvider provider, string fullName, global::System.Type fullType, global::Windows.UI.Xaml.Markup.IXamlType baseType)
             :base(fullName, fullType)
         {
             _provider = provider;
@@ -666,7 +666,7 @@ namespace Points.Points_XamlTypeInfo
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     internal class XamlMember : global::Windows.UI.Xaml.Markup.IXamlMember
     {
-        global::Points.Points_XamlTypeInfo.XamlTypeInfoProvider _provider;
+        global::DotsGame.Points_XamlTypeInfo.XamlTypeInfoProvider _provider;
         string _name;
         bool _isAttachable;
         bool _isDependencyProperty;
@@ -675,7 +675,7 @@ namespace Points.Points_XamlTypeInfo
         string _typeName;
         string _targetTypeName;
 
-        public XamlMember(global::Points.Points_XamlTypeInfo.XamlTypeInfoProvider provider, string name, string typeName)
+        public XamlMember(global::DotsGame.Points_XamlTypeInfo.XamlTypeInfoProvider provider, string name, string typeName)
         {
             _name = name;
             _typeName = typeName;

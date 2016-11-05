@@ -1,1 +1,2 @@
+C:\Users\Boris\Documents\Visual Studio 2015\Projects\DotsGame\DotsGame\DotsGame.csproj;neutral
 C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\Points.csproj;x86

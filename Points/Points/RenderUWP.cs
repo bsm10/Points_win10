@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas;
+﻿using DotsGame;
+using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
@@ -8,7 +9,7 @@ using Windows.Foundation;
 using Windows.UI;
 
 
-namespace Points
+namespace DotsGame
 {
     public static class StatusMsg
     {
@@ -29,7 +30,7 @@ namespace Points
     }
 
 
-    public partial class GameEngine
+    public partial class GameEngineUWP
     {
         #region RENDER
         //=========== цвета, шрифты ===================================================

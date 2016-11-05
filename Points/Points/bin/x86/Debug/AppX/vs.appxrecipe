@@ -28,13 +28,13 @@
     <AppXManifest Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-31T20:24:22.420</Modified>
+      <Modified>2016-11-05T12:59:22.675</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Dots.exe">
       <PackagePath>entrypoint\Dots.exe</PackagePath>
-      <Modified>2016-10-31T20:24:21.951</Modified>
+      <Modified>2016-11-05T12:59:22.257</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\.nuget\packages\Microsoft.ApplicationInsights\2.1.0\lib\uap10.0\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -508,6 +508,10 @@
       <PackagePath>Microsoft.Graphics.Canvas.dll</PackagePath>
       <Modified>2016-08-09T05:14:36.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\DotsGame\DotsGame\bin\Debug\DotsGame.dll">
+      <PackagePath>DotsGame.dll</PackagePath>
+      <Modified>2016-11-05T12:59:13.290</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\.nuget\packages\Win2D.uwp\1.19.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
       <Modified>2016-08-09T05:14:36.000</Modified>
@@ -595,11 +599,11 @@
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-28T19:20:58.563</Modified>
+      <Modified>2016-11-05T06:52:12.203</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Boris\Documents\Visual Studio 2015\Projects\Points_win10\Points\Points\bin\x86\Debug\Core\Dots.exe">
       <PackagePath>Dots.exe</PackagePath>
-      <Modified>2016-10-31T20:24:22.420</Modified>
+      <Modified>2016-11-05T12:59:22.668</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

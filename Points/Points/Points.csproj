@@ -7,7 +7,7 @@
     <ProjectGuid>{3A8B62E0-DEFB-4CFA-8169-B8BA554C6E2B}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Points</RootNamespace>
+    <RootNamespace>DotsGame</RootNamespace>
     <AssemblyName>Dots</AssemblyName>
     <DefaultLanguage>ru-RU</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
@@ -98,17 +98,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dot.cs" />
-    <Compile Include="GameDots.cs" />
-    <Compile Include="GameEngine.cs" />
+    <Compile Include="GameEngineUWP.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Patterns.cs" />
-    <Compile Include="PatternsMove.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Relaitions.cs" />
-    <Compile Include="Render.cs" />
+    <Compile Include="RenderUWP.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -146,6 +141,12 @@
     <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DotsGame\DotsGame\DotsGame.csproj">
+      <Project>{F6E2A45D-7C8B-4A7C-AAD7-636596440FCB}</Project>
+      <Name>DotsGame</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
